@@ -8,7 +8,7 @@ export default function OpenFiles() {
   const {openFiles, activeFile, selectFile, closeFile} = useFileSystem()
 
   return <div className={cn(
-    "fixed top-10 left-12 md:left-76 right-0 z-30 flex h-10 flex overflow-x-auto font-headline font-medium text-sm tracking-tight",
+    "fixed top-10 left-12 md:left-76 right-0 z-30 h-10 flex overflow-x-auto font-headline font-medium text-sm tracking-tight",
     openFiles.length > 0 ? "bg-muted" : "bg-transparent"
   )}>
     {openFiles.map((file) => (
@@ -17,7 +17,7 @@ export default function OpenFiles() {
         onClick={(e) => {
           selectFile(file.id)
         }}
-        className={`group px-4 py-2 flex items-center h-full transition-colors ${
+        className={`group px-4 py-2 flex items-center h-full transition-colors cursor-pointer ${
           file.id == activeFile?.id
             ? "bg-[#1e1f22] border-t-2 border-primary text-foreground -mb-0.5"
             : "bg-muted text-muted-foreground hover:bg-[#323232]"

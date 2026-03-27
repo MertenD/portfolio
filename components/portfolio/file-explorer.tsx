@@ -9,6 +9,7 @@ import LuzidesTraeumenPage from "@/components/pages/projects/luzides-traeumen-pa
 import MuscleGroupAPIPage from "@/components/pages/projects/muscle-group-api-page";
 import ProcessFlowPage from "@/components/pages/projects/process-flow-page";
 import ReadmePage from "@/components/pages/readme-page";
+import {cn} from "@/lib/utils";
 
 export function FileExplorer() {
   const {openAllFolders} = useFileSystem()
@@ -51,7 +52,7 @@ export function FileExplorer() {
 }
 
 export function FileItem({item, level}: { item: File | Folder, level: number }) {
-  const {isOpen, toggleFolder, openFile} = useFileSystem()
+  const {isOpen, toggleFolder, openFile, activeFile} = useFileSystem()
 
   if ('component' in item) {
     // File
@@ -59,7 +60,10 @@ export function FileItem({item, level}: { item: File | Folder, level: number }) 
       onClick={() => {
         openFile(item)
       }}
-      className="flex items-center gap-1 px-2 py-1 hover:bg-[#2b2d30] cursor-pointer text-foreground"
+      className={cn(
+        "flex items-center gap-1 px-2 py-1 hover:bg-[#2b2d30] cursor-pointer text-foreground",
+        activeFile?.id === item.id ? "bg-[#2b2d30]" : ""
+      )}
       style={{paddingLeft: `${level * 16}px`}}
     >
       <FileTextIcon className="w-3.5 h-3.5 text-secondary"/>
