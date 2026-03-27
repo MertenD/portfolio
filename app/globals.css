@@ -1,0 +1,136 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #131313;
+  --foreground: #e4e2e1;
+  --card: #1f2020;
+  --card-foreground: #e4e2e1;
+  --popover: #1e1f22;
+  --popover-foreground: #e4e2e1;
+  --primary: #ffb782;
+  --primary-foreground: #4f2500;
+  --secondary: #b0d09c;
+  --secondary-foreground: #1d3611;
+  --muted: #2b2b2b;
+  --muted-foreground: #919191;
+  --accent: #9dd58c;
+  --accent-foreground: #043903;
+  --destructive: #ffb4ab;
+  --destructive-foreground: #690005;
+  --border: #323232;
+  --input: #323232;
+  --ring: #ffb782;
+  --radius: 0.125rem;
+  
+  /* IDE-specific colors */
+  --surface: #131313;
+  --surface-container: #1f2020;
+  --surface-container-low: #1b1c1c;
+  --surface-container-high: #2a2a2a;
+  --surface-container-highest: #353535;
+  --surface-container-lowest: #0e0e0e;
+  --outline-variant: #544338;
+  --on-surface-variant: #dac2b3;
+  --primary-container: #d17c35;
+  --tertiary: #9dd58c;
+  --syntax-keyword: #ffb782;
+  --syntax-string: #b0d09c;
+  --syntax-comment: #6d6d6d;
+  --syntax-number: #689e5b;
+}
+
+.dark {
+  --background: #131313;
+  --foreground: #e4e2e1;
+  --card: #1f2020;
+  --card-foreground: #e4e2e1;
+  --popover: #1e1f22;
+  --popover-foreground: #e4e2e1;
+  --primary: #ffb782;
+  --primary-foreground: #4f2500;
+  --secondary: #b0d09c;
+  --secondary-foreground: #1d3611;
+  --muted: #2b2b2b;
+  --muted-foreground: #919191;
+  --accent: #9dd58c;
+  --accent-foreground: #043903;
+  --destructive: #ffb4ab;
+  --destructive-foreground: #690005;
+  --border: #323232;
+  --input: #323232;
+  --ring: #ffb782;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+  --font-headline: var(--font-space-grotesk), 'Space Grotesk', system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-outline-variant: var(--outline-variant);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-primary-container: var(--primary-container);
+  --color-tertiary: var(--tertiary);
+  --color-syntax-keyword: var(--syntax-keyword);
+  --color-syntax-string: var(--syntax-string);
+  --color-syntax-comment: var(--syntax-comment);
+  --color-syntax-number: var(--syntax-number);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar for IDE feel */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1f22;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3c3f41;
+  border: 3px solid #1e1f22;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b4d4d;
+}
