@@ -25,9 +25,13 @@ export default function OpenFiles() {
       >
         <p className="mr-2">{file.name}</p>
         <XIcon className={cn(
-          "h-4 w-4 text-muted opacity-0 group-hover:opacity-100",
+          "h-4 w-4 opacity-0 group-hover:opacity-100",
           file.id == activeFile?.id ? "hover:text-primary" : "hover:text-foreground"
-        )} onClick={() => closeFile(file.id)} />
+        )} onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          closeFile(file.id)
+        }} />
       </button>
     ))}
   </div>
