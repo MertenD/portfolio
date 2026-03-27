@@ -8,7 +8,7 @@ export default function OpenFiles() {
   const {openFiles, activeFile, selectFile, closeFile} = useFileSystem()
 
   return <div className={cn(
-    "fixed top-10 left-12 md:left-76 right-0 z-30 flex h-10 w-full font-headline font-medium text-sm tracking-tight",
+    "fixed top-10 left-12 md:left-76 right-0 z-30 flex h-10 flex overflow-x-auto font-headline font-medium text-sm tracking-tight",
     openFiles.length > 0 ? "bg-muted" : "bg-transparent"
   )}>
     {openFiles.map((file) => (
