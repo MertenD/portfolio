@@ -1,9 +1,10 @@
 "use client"
 
-import {useFileSystem} from "@/context/FileSystemContext";
+import {useFileSystem} from "@/context/file-system-context";
 export default function PagesMain() {
 
-  const { activeFile } = useFileSystem()
+  const { getActiveFile } = useFileSystem()
+  const activeFile = getActiveFile()
 
   if (!activeFile) {
     return <section className="h-full w-full flex items-center justify-center">

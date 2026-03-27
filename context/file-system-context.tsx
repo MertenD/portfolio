@@ -1,6 +1,9 @@
 "use client"
 
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
+import {useQueryState} from 'nuqs'
+import {fileSystemContent} from "@/content/file-system-content";
+import {findFileById} from "@/context/file-system-context-utils";
 
 export type File = {
   id: string
@@ -20,7 +23,8 @@ interface FileSystemContextType {
   isOpen: (folderId: string) => boolean
   openAllFolders: () => void
   openFiles: File[]
-  activeFile: File | null
+  activeFileId: string | null
+  getActiveFile: () => File | null
   openFile: (file: File) => void
   closeFile: (fileId: string) => void
   selectFile: (fileId: string) => void
@@ -48,7 +52,11 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
   }
 
   const [openFiles, setOpenFiles] = React.useState<File[]>([])
-  const [activeFile, setActiveFile] = React.useState<File | null>(null)
+  const [activeFileId, setActiveFileId] = useQueryState("activeFile")
+
+  const getActiveFile = () => {
+    return openFiles.find((f) => f.id === activeFileId) || null
+  }
 
   const openFile = (file: File) => {
     setOpenFiles((prev) => {
@@ -57,22 +65,32 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
       }
       return prev
     })
-    setActiveFile(file)
+    setActiveFileId(file.id)
   }
 
   const closeFile = (fileId: string) => {
     setOpenFiles((prev) => prev.filter((f) => f.id !== fileId))
-    if (activeFile?.id === fileId) {
-      setActiveFile(null)
+    if (activeFileId === fileId) {
+      setActiveFileId(null)
     }
   }
 
   const selectFile = (fileId: string) => {
     const file = openFiles.find((f) => f.id === fileId)
     if (file) {
-      setActiveFile(file)
+      setActiveFileId(file.id)
     }
   }
+
+  // On initial load, check if there's an active file in the query state and open it
+  useEffect(() => {
+    if (activeFileId) {
+      const file = findFileById(fileSystemContent, activeFileId)
+      if (file) {
+        openFile(file as File)
+      }
+    }
+  }, [])
 
   return (
     <FileSystemContext.Provider value={{
@@ -81,7 +99,8 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
       isOpen,
       openAllFolders,
       openFiles,
-      activeFile,
+      activeFileId,
+      getActiveFile,
       openFile,
       closeFile,
       selectFile

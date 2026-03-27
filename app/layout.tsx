@@ -5,7 +5,9 @@ import {AppHeader} from "@/components/portfolio/app-header";
 import {SideNavBar} from "@/components/portfolio/side-nav-bar";
 import {FileExplorer} from "@/components/portfolio/file-explorer";
 import OpenFiles from "@/components/portfolio/open-files";
-import {FileSystemProvider} from "@/context/FileSystemContext";
+import {FileSystemProvider} from "@/context/file-system-context";
+import {NuqsAdapter} from "nuqs/adapters/next";
+import React from "react";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -35,18 +37,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        <FileSystemProvider>
-          <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 flex">
-            <AppHeader />
-            <SideNavBar />
-            <FileExplorer />
-            <OpenFiles />
+        <NuqsAdapter>
+          <FileSystemProvider>
+            <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 flex">
+              <AppHeader />
+              <SideNavBar />
+              <FileExplorer />
+              <OpenFiles />
 
-            <main className="ml-12 md:ml-76 mt-20 min-h-[calc(100vh-80px)] flex-1 overflow-y-auto">
-              {children}
-            </main>
-          </div>
-        </FileSystemProvider>
+              <main className="ml-12 md:ml-76 mt-20 min-h-[calc(100vh-80px)] flex-1 overflow-y-auto">
+                {children}
+              </main>
+            </div>
+          </FileSystemProvider>
+        </NuqsAdapter>
       </body>
     </html>
   )
