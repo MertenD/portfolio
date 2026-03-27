@@ -1,5 +1,3 @@
-"use client"
-
 import PagesMain from "@/components/pages/pages-main";
 import {ResizableHandle, ResizablePanel, ResizablePanelGroup} from "@/components/ui/resizable";
 import {FileExplorer} from "@/components/portfolio/file-explorer";
@@ -21,9 +19,9 @@ export default function PortfolioPage() {
         </ResizablePanel>
         <ResizableHandle/>
         <ResizablePanel defaultSize={75} className="flex flex-col min-h-0 h-full">
-          <div className="flex-1 min-h-0 overflow-y-auto flex flex-col">
+          <div className="flex-1 min-h-0 flex flex-col">
             <OpenFiles />
-            <main className="flex-1 min-h-0">
+            <main className="flex-1 min-h-0 overflow-y-auto">
               <PagesMain />
             </main>
           </div>
@@ -31,9 +29,9 @@ export default function PortfolioPage() {
       </ResizablePanelGroup>
     </div>
 
-    <div className="md:hidden flex-1 min-h-0 overflow-y-auto flex flex-col">
+    <div className="md:hidden flex-1 min-h-0 flex flex-col">
       <OpenFiles />
-      <main className="flex-1 min-h-0">
+      <main className="flex-1 min-h-0 overflow-y-auto">
         <PagesMain />
       </main>
     </div>
