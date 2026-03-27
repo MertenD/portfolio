@@ -10,7 +10,7 @@ export function FileExplorer() {
   const {openAllFolders} = useFileSystem()
 
   return <aside
-    className="overflow-y-auto hidden fixed left-12 top-10 bottom-0 md:flex flex-col w-64 z-40 bg-[#1e1f22] border-r border-border"
+    className="h-full overflow-y-auto flex w-full flex-col z-40 bg-[#1e1f22] border-r border-border"
   >
     <div
       className="px-4 py-2 text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex justify-between items-center">
@@ -40,7 +40,7 @@ export function FileItem({item, level}: { item: File | Folder, level: number }) 
       )}
       style={{paddingLeft: `${level * 16}px`}}
     >
-      <FileTextIcon className="w-3.5 h-3.5 text-secondary"/>
+      <FileTextIcon className="w-3.5 h-3.5 text-secondary shrink-0"/>
       <span className="select-none">{item.name}</span>
     </button>
   }
@@ -55,11 +55,11 @@ export function FileItem({item, level}: { item: File | Folder, level: number }) 
       onClick={() => toggleFolder(item.id)}
     >
       {isFolderOpen ? <>
-        <ChevronDownIcon className="w-3.5 h-3.5 text-muted-foreground"/>
-        <FolderOpenIcon className="w-3.5 h-3.5 text-primary"/>
+        <ChevronDownIcon className="w-3.5 h-3.5 text-muted-foreground shrink-0"/>
+        <FolderOpenIcon className="w-3.5 h-3.5 text-primary shrink-0"/>
       </> : <>
-        <ChevronDownIcon className="w-3.5 h-3.5 text-muted-foreground -rotate-90"/>
-        <FolderClosedIcon className="w-3.5 h-3.5 text-primary"/>
+        <ChevronDownIcon className="w-3.5 h-3.5 text-muted-foreground -rotate-90 shrink-0"/>
+        <FolderClosedIcon className="w-3.5 h-3.5 text-primary shrink-0"/>
       </>}
       <span className="select-none">{item.name}</span>
     </div>

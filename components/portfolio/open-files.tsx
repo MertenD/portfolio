@@ -8,13 +8,13 @@ export default function OpenFiles() {
   const {openFiles, activeFileId, selectFile, closeFile} = useFileSystem()
 
   return <div className={cn(
-    "fixed top-10 left-12 md:left-76 right-0 z-30 h-10 flex overflow-x-auto font-headline font-medium text-sm tracking-tight",
+    "sticky top-0 z-30 h-10 flex overflow-x-auto font-headline font-medium text-sm tracking-tight",
     openFiles.length > 0 ? "bg-muted" : "bg-transparent"
   )}>
     {openFiles.map((file) => (
       <button
         key={file.name}
-        onClick={(e) => {
+        onClick={() => {
           selectFile(file.id)
         }}
         className={`group px-4 py-2 flex items-center h-full transition-colors cursor-pointer ${

@@ -4,10 +4,10 @@ import { Search, Settings, Terminal } from "lucide-react"
 
 export function AppHeader() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center w-full h-10 px-0 bg-[#131313] border-b border-border">
+    <nav className="sticky top-0 z-50 flex justify-between items-center w-full h-10 px-0 bg-[#131313] border-b border-border">
       <div className="flex items-center h-full">
         <div className="px-4 text-primary font-mono text-sm font-bold opacity-80 flex items-center gap-2">
-          <Terminal className="w-3 h-3" />
+          <Terminal className="w-3 h-3 shrink-0" />
           Mertens Portfolio
         </div>
       </div>
