@@ -132,20 +132,24 @@ export default function OpenFiles() {
       >
         <div
           className={cn(
-            "sticky top-0 z-30 h-10 flex overflow-x-auto font-headline font-medium text-sm tracking-tight",
+            "sticky top-0 z-30 h-10 min-w-0",
             openFiles.length > 0 ? "bg-muted" : "bg-transparent"
           )}
         >
-          {openFiles.map((file) => (
-            <SortableOpenFileTab
-              key={file.id}
-              fileId={file.id}
-              name={file.name}
-              isActive={file.id === activeFileId}
-              onSelect={() => selectFile(file.id)}
-              onClose={() => closeFile(file.id)}
-            />
-          ))}
+          <div className="h-full w-full min-w-0 overflow-x-auto overflow-y-hidden touch-pan-x">
+            <div className="h-full flex font-headline font-medium text-sm tracking-tight">
+              {openFiles.map((file) => (
+                <SortableOpenFileTab
+                  key={file.id}
+                  fileId={file.id}
+                  name={file.name}
+                  isActive={file.id === activeFileId}
+                  onSelect={() => selectFile(file.id)}
+                  onClose={() => closeFile(file.id)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </SortableContext>
     </DndContext>

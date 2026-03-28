@@ -10,7 +10,7 @@ const sideItems = [
 
 export function SideNavBar() {
 	return (
-		<aside className="sticky left-0 top-10 h-[calc(100vh-40px)] flex flex-col items-center py-4 w-12 z-40 bg-popover border-r border-border">
+		<aside className="sticky left-0 top-10 h-[calc(100vh-40px)] shrink-0 flex flex-col items-center py-4 w-12 z-40 bg-popover border-r border-border">
 			<div className="flex flex-col gap-6 items-center w-full">
 				{sideItems.map((item) => (
 					<button
