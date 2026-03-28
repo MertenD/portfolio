@@ -28,6 +28,7 @@ interface FileSystemContextType {
   openFile: (file: File) => void
   closeFile: (fileId: string) => void
   selectFile: (fileId: string) => void
+  reorderOpenFiles: (activeId: string, overId: string) => void
 }
 
 const FileSystemContext = React.createContext<FileSystemContextType | undefined>(undefined)
@@ -82,6 +83,21 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
     }
   }
 
+  const reorderOpenFiles = (activeId: string, overId: string) => {
+    if (activeId === overId) return
+
+    setOpenFiles((prev) => {
+      const oldIndex = prev.findIndex((f) => f.id === activeId)
+      const newIndex = prev.findIndex((f) => f.id === overId)
+      if (oldIndex < 0 || newIndex < 0) return prev
+
+      const next = prev.slice()
+      const [moved] = next.splice(oldIndex, 1)
+      next.splice(newIndex, 0, moved)
+      return next
+    })
+  }
+
   // On initial load, check if there's an active file in the query state and open it
   useEffect(() => {
     if (activeFileId) {
@@ -103,7 +119,8 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
       getActiveFile,
       openFile,
       closeFile,
-      selectFile
+      selectFile,
+      reorderOpenFiles
     }}>
       {children}
     </FileSystemContext.Provider>
