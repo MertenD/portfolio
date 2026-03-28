@@ -13,6 +13,7 @@ import {
 } from "@dnd-kit/sortable";
 import {CSS} from "@dnd-kit/utilities";
 import {restrictToHorizontalAxis, restrictToParentElement} from "@dnd-kit/modifiers";
+import {useIsMobile} from "@/hooks/use-mobile";
 
 interface SortableOpenFileTabProps {
   fileId: string
@@ -23,6 +24,8 @@ interface SortableOpenFileTabProps {
 }
 
 function SortableOpenFileTab({fileId, name, isActive, onSelect, onClose}: SortableOpenFileTabProps) {
+  const isMobile = useIsMobile()
+
   const {
     attributes,
     listeners,
@@ -84,7 +87,8 @@ function SortableOpenFileTab({fileId, name, isActive, onSelect, onClose}: Sortab
         <button
           type="button"
           className={cn(
-            "inline-flex items-center opacity-0 group-hover:opacity-100",
+            "inline-flex items-center",
+            isMobile ? "" : "opacity-0 group-hover:opacity-100",
             isActive ? "hover:text-primary" : "hover:text-foreground"
           )}
           onClick={(e) => {
