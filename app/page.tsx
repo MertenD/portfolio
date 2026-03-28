@@ -8,6 +8,7 @@ import {useSideBar} from "@/context/side-bar-context";
 import { useResizableSidebarPanel } from "@/hooks/use-resizable-sidebar-panel";
 import {cn} from "@/lib/utils";
 import {useEffect} from "react";
+import {SideNav} from "@/components/portfolio/side-nav";
 
 export default function PortfolioPage() {
   const { isOpen, close: closeSidebar, openLastTab, setOnTabClicked } = useSideBar()
@@ -55,8 +56,31 @@ export default function PortfolioPage() {
       </ResizablePanelGroup>
     </div>
 
-    { /* Mobile layout */}
-    <MainContent className="md:hidden" />
+    { /* Mobile layout: same left nav, sidebar overlays content (no resize) */}
+    <div className="md:hidden flex flex-1 h-full min-h-0 w-full">
+      <div className="relative flex-1 flex min-h-0 min-w-0 h-full">
+        <MainContent />
+
+        {isOpen && (
+          <div
+            className="absolute inset-y-0 left-0 right-0 z-40"
+            role="dialog"
+            aria-modal="true"
+          >
+            <button
+              type="button"
+              className="absolute inset-0 bg-background/60"
+              onClick={closeSidebar}
+              aria-label="Close sidebar"
+            />
+
+            <div className="absolute inset-y-0 left-0 w-[min(80vw,320px)]">
+              <SideBar />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   </>
 }
 

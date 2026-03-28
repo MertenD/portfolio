@@ -1,14 +1,18 @@
 "use client"
 
 import React from "react";
-import {BotMessageSquareIcon, FolderOpenIcon, SearchIcon} from "lucide-react";
+import {BotMessageSquareIcon, FolderOpenIcon, SearchIcon, SettingsIcon} from "lucide-react";
 import {FileExplorer} from "@/components/portfolio/sidebar/file-explorer";
 import Search from "@/components/portfolio/sidebar/search";
 
-export const navTabs = [
+export const navTabsTop = [
   {id: "fileSystem", label: "Project Explorer", icon: FolderOpenIcon, sideBarComponent: <FileExplorer />},
   {id: "search", label: "Search", icon: SearchIcon, sideBarComponent: <Search />},
   {id: "chat", label: "Chat", icon: BotMessageSquareIcon, sideBarComponent: <p>Chat</p>},
+]
+
+export const navTabsBottom = [
+  {id: "settings", label: "Settings", icon: SettingsIcon, sideBarComponent: <p>Settings</p>}
 ]
 
 interface SideBarContextType {
@@ -24,12 +28,12 @@ interface SideBarContextType {
 const SideBarContext = React.createContext<SideBarContextType | undefined>(undefined)
 
 export function SideBarProvider({ children }: { children: React.ReactNode }) {
-  const [currentTabId, setCurrentTabId] = React.useState<string | null>(navTabs[0].id)
+  const [currentTabId, setCurrentTabId] = React.useState<string | null>(navTabsTop[0].id)
   const [lastTab, setlastTab] = React.useState<string | null>(null)
   const [onTabClicked, setOnTabClicked] = React.useState<(() => void) | null>(null)
 
   const currentTabComponent = React.useMemo(() => {
-    const currentTab = navTabs.find(tab => tab.id === currentTabId)
+    const currentTab = navTabsTop.find(tab => tab.id === currentTabId)
     return currentTab ? currentTab.sideBarComponent : null
   }, [currentTabId])
 

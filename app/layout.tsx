@@ -2,11 +2,9 @@ import type { Metadata } from 'next'
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import {AppHeader} from "@/components/portfolio/app-header";
-import {SideNav} from "@/components/portfolio/side-nav";
-import {FileSystemProvider} from "@/context/file-system-context";
-import {NuqsAdapter} from "nuqs/adapters/next";
-import React, { Suspense } from "react";
+import React from "react";
 import Providers from "@/components/providers";
+import {SideNav} from "@/components/portfolio/side-nav";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
