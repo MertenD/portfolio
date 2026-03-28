@@ -8,10 +8,9 @@ import {useSideBar} from "@/context/side-bar-context";
 import { useResizableSidebarPanel } from "@/hooks/use-resizable-sidebar-panel";
 import {cn} from "@/lib/utils";
 import {useEffect} from "react";
-import {SideNav} from "@/components/portfolio/side-nav";
 
 export default function PortfolioPage() {
-  const { isOpen, close: closeSidebar, openLastTab, setOnTabClicked } = useSideBar()
+  const { isOpen, closeSidebar, openLastTab, setOnTabClicked } = useSideBar()
   const { sidebarRef, saveLastWidth } = useResizableSidebarPanel(isOpen)
 
   useEffect(() => {

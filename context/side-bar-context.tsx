@@ -9,7 +9,7 @@ interface SideBarContextType {
   currentTabComponent: React.ReactNode | null
   handleTabClick: (id: string) => void
   setOnTabClicked: (cb: (() => void) | null) => void
-  close: () => void
+  closeSidebar: () => void
   openLastTab: () => void
 }
 
@@ -33,7 +33,7 @@ export function SideBarProvider({ children }: { children: React.ReactNode }) {
     setCurrentTabId(prev => prev === id ? null : id)
   }
 
-  const close = () => {
+  const closeSidebar = () => {
     if (currentTabId) {
       setlastTab(currentTabId)
     }
@@ -47,7 +47,7 @@ export function SideBarProvider({ children }: { children: React.ReactNode }) {
   }
 
 
-  return <SideBarContext.Provider value={{ isOpen, currentTabId, handleTabClick, close, openLastTab, setOnTabClicked, currentTabComponent }}>
+  return <SideBarContext.Provider value={{ isOpen, currentTabId, handleTabClick, closeSidebar, openLastTab, setOnTabClicked, currentTabComponent }}>
     {children}
   </SideBarContext.Provider>
 }

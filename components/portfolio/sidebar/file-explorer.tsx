@@ -5,6 +5,8 @@ import React from "react";
 import {File, Folder, useFileSystem} from "@/context/file-system-context";
 import {cn} from "@/lib/utils";
 import {fileSystemContent} from "@/content/file-system-content";
+import {useIsMobile} from "@/hooks/use-mobile";
+import {useSideBar} from "@/context/side-bar-context";
 
 export function FileExplorer() {
   const {openAllFolders} = useFileSystem()
@@ -27,13 +29,18 @@ export function FileExplorer() {
 }
 
 export function FileItem({item, level}: { item: File | Folder, level: number }) {
+  const isMobile = useIsMobile()
   const {isOpen, toggleFolder, openFile, activeFileId} = useFileSystem()
+  const {closeSidebar} = useSideBar()
 
   if ('component' in item) {
     // File
     return <button
       onClick={() => {
         openFile(item)
+        if (isMobile) {
+          closeSidebar()
+        }
       }}
       className={cn(
         "flex items-center gap-1 px-2 py-1 hover:bg-ide-hover cursor-pointer text-foreground",
