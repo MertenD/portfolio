@@ -3,7 +3,7 @@
 import React, {useContext, useEffect} from "react";
 import {useQueryState} from 'nuqs'
 import {fileSystemContent} from "@/content/file-system-content";
-import {findFileById} from "@/context/file-system-context-utils";
+import {findFileById, getInitiallyClosedFolderIds} from "@/context/file-system-context-utils";
 
 export type File = {
   id: string
@@ -15,6 +15,7 @@ export type Folder = {
   id: string
   name: string
   content: Array<File | Folder>
+  isInitiallyClosed?: boolean
 }
 
 interface FileSystemContextType {
@@ -34,7 +35,7 @@ interface FileSystemContextType {
 const FileSystemContext = React.createContext<FileSystemContextType | undefined>(undefined)
 
 export function FileSystemProvider({children}: { children: React.ReactNode }) {
-  const [closedFolders, setClosedFolders] = React.useState<string[]>([])
+  const [closedFolders, setClosedFolders] = React.useState<string[]>(getInitiallyClosedFolderIds(fileSystemContent))
 
   const toggleFolder = (folderId: string) => {
     setClosedFolders((prev) => {

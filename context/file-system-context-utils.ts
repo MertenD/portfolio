@@ -15,3 +15,18 @@ export function findFileById(
   }
   return null
 }
+
+export function getInitiallyClosedFolderIds(
+  items: Array<File | Folder>
+): string[] {
+  let closedIds: string[] = []
+  for (const item of items) {
+    if ("content" in item) {
+      if (item.isInitiallyClosed) {
+        closedIds.push(item.id)
+      }
+      closedIds = closedIds.concat(getInitiallyClosedFolderIds(item.content))
+    }
+  }
+  return closedIds
+}

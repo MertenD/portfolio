@@ -22,6 +22,15 @@ export const fileSystemContent: Array<File | Folder> = [
           {id: "process-flow", name: "ProcessFlow.tsx", component: <ProcessFlowPage />}
         ]
       },
+      {
+        id: "education",
+        name: "education",
+        isInitiallyClosed: true,
+        content: [
+          {id: "master", name: "Master.tex", component: <div>Master</div>},
+          {id: "bachelor", name: "Bachelor.tex", component: <div>Bachelor</div>},
+        ]
+      },
       {id: "readme", name: "README.md", component: <ReadmePage />}
     ]
   }
