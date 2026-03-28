@@ -1,7 +1,17 @@
 "use client"
 
-import React from "react";
-import {navTabsBottom, navTabsTop} from "@/components/portfolio/side-nav";
+import React, {ForwardRefExoticComponent, JSX, RefAttributes} from "react";
+import {LucideProps} from "lucide-react";
+import {navTabsBottom, navTabsTop} from "@/content/side-nav-content";
+
+export type Tab = {
+  id: string
+  label: string
+  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
+  sideBarComponent: JSX.Element
+}
+
+export type TabLink = Omit<Tab, "sideBarComponent"> & { href: string }
 
 interface SideBarContextType {
   isOpen: boolean

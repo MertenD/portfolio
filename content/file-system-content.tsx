@@ -5,6 +5,8 @@ import LuzidesTraeumenPage from "@/components/pages/projects/luzides-traeumen-pa
 import MuscleGroupAPIPage from "@/components/pages/projects/muscle-group-api-page";
 import ProcessFlowPage from "@/components/pages/projects/process-flow-page";
 import ReadmePage from "@/components/pages/readme-page";
+import MasterPage from "@/components/pages/education/master-page";
+import BachelorPage from "@/components/pages/education/bachelor-page";
 
 export const fileSystemContent: Array<File | Folder> = [
   {
@@ -27,8 +29,8 @@ export const fileSystemContent: Array<File | Folder> = [
         name: "education",
         isInitiallyClosed: true,
         content: [
-          {id: "master", name: "Master.tex", component: <div>Master</div>},
-          {id: "bachelor", name: "Bachelor.tex", component: <div>Bachelor</div>},
+          {id: "master", name: "Master.tex", component: <MasterPage />},
+          {id: "bachelor", name: "Bachelor.tex", component: <BachelorPage />},
         ]
       },
       {id: "readme", name: "README.md", component: <ReadmePage />}
