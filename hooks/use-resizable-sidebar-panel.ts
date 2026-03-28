@@ -8,31 +8,33 @@ export function useResizableSidebarPanel(isOpen: boolean) {
   const sidebarRef = usePanelRef()
   const [lastWidth, setLastWidth] = useState<number | undefined>(undefined)
 
-  const expandSidebar = useCallback(() => {
+  const expandSidebarPanel = useCallback(() => {
     const newWidth = Math.max(lastWidth || DEFAULT_SIDEBAR_WIDTH_PX, DEFAULT_SIDEBAR_WIDTH_PX)
     sidebarRef.current?.resize(newWidth)
   }, [sidebarRef, lastWidth])
 
-  const collapseSidebar = useCallback(() => {
+  const collapseSidebarPanel = useCallback(() => {
+    sidebarRef.current?.collapse()
+  }, [sidebarRef])
+
+  const saveLastWidth = useCallback(() => {
     const lastWidthInPixels = sidebarRef.current?.getSize().inPixels
     if (lastWidthInPixels !== 0) {
       setLastWidth(lastWidthInPixels)
     }
-    sidebarRef.current?.collapse()
   }, [sidebarRef])
 
   useEffect(() => {
     if (isOpen) {
-      expandSidebar()
+      expandSidebarPanel()
     } else {
-      collapseSidebar()
+      collapseSidebarPanel()
     }
-  }, [isOpen, expandSidebar, collapseSidebar])
+  }, [isOpen, expandSidebarPanel, collapseSidebarPanel])
 
   return {
     sidebarRef,
-    expandSidebar,
-    collapseSidebar,
+    saveLastWidth
   }
 }
 
