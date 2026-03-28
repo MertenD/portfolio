@@ -8,13 +8,14 @@ import {
 	GithubIcon,
 	LinkedinIcon,
 	LucideProps,
-	Search,
 	SearchIcon,
 	SettingsIcon
 } from "lucide-react";
 import Link from "next/link";
 import React, {ForwardRefExoticComponent, JSX, RefAttributes} from "react";
 import {FileExplorer} from "@/components/portfolio/sidebar/file-explorer";
+import Settings from "@/components/portfolio/sidebar/settings";
+import Search from "@/components/portfolio/sidebar/search";
 
 export const navTabsTop: Tab[] = [
 	{id: "fileSystem", label: "Project Explorer", icon: FolderOpenIcon, sideBarComponent: <FileExplorer />},
@@ -23,7 +24,7 @@ export const navTabsTop: Tab[] = [
 ]
 
 export const navTabsBottom: Tab[] = [
-	{id: "settings", label: "Settings", icon: SettingsIcon, sideBarComponent: <SettingsIcon />}
+	{id: "settings", label: "Settings", icon: SettingsIcon, sideBarComponent: <Settings />}
 ]
 
 export const navTabLinks: TabLink[] = [
