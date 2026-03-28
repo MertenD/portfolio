@@ -10,7 +10,7 @@ export function FileExplorer() {
   const {openAllFolders} = useFileSystem()
 
   return <aside
-    className="h-full overflow-y-auto flex w-full flex-col z-40 bg-[#1e1f22] border-r border-border"
+    className="h-full overflow-y-auto flex w-full flex-col z-40 bg-popover border-r border-border"
   >
     <div
       className="px-4 py-2 text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex justify-between items-center">
@@ -35,8 +35,8 @@ export function FileItem({item, level}: { item: File | Folder, level: number }) 
         openFile(item)
       }}
       className={cn(
-        "flex items-center gap-1 px-2 py-1 hover:bg-[#2b2d30] cursor-pointer text-foreground",
-        activeFileId === item.id ? "bg-[#2b2d30]" : ""
+        "flex items-center gap-1 px-2 py-1 hover:bg-ide-hover cursor-pointer text-foreground",
+        activeFileId === item.id ? "bg-ide-hover" : ""
       )}
       style={{paddingLeft: `${level * 16}px`}}
     >
@@ -50,7 +50,7 @@ export function FileItem({item, level}: { item: File | Folder, level: number }) 
   // Folder
   return <div className="flex flex-col">
     <div
-      className="flex items-center gap-1 px-2 py-1 hover:bg-[#2b2d30] cursor-pointer text-foreground"
+      className="flex items-center gap-1 px-2 py-1 hover:bg-ide-hover cursor-pointer text-foreground"
       style={{paddingLeft: `${level * 16}px`}}
       onClick={() => toggleFolder(item.id)}
     >

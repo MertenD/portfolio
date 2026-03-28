@@ -34,7 +34,7 @@ body > div {
   --input: #323232;
   --ring: #ffb782;
   --radius: 0.125rem;
-  
+
   /* IDE-specific colors */
   --surface: #131313;
   --surface-container: #1f2020;
@@ -50,6 +50,16 @@ body > div {
   --syntax-string: #b0d09c;
   --syntax-comment: #6d6d6d;
   --syntax-number: #689e5b;
+
+  /* UI details (previously hardcoded) */
+  --scrollbar-track: var(--popover);
+  --scrollbar-thumb: #3c3f41;
+  --scrollbar-thumb-hover: #4b4d4d;
+
+  /* IDE interactions */
+  --ide-hover: #2b2d30;
+  --ide-tooltip: #323232;
+  --ide-icon-muted: #6d6d6d;
 }
 
 .dark {
@@ -72,6 +82,14 @@ body > div {
   --border: #323232;
   --input: #323232;
   --ring: #ffb782;
+
+  /* keep UI details consistent in dark */
+  --scrollbar-track: var(--popover);
+  --scrollbar-thumb: #3c3f41;
+  --scrollbar-thumb-hover: #4b4d4d;
+  --ide-hover: #2b2d30;
+  --ide-tooltip: #323232;
+  --ide-icon-muted: #6d6d6d;
 }
 
 @theme inline {
@@ -111,6 +129,15 @@ body > div {
   --color-syntax-string: var(--syntax-string);
   --color-syntax-comment: var(--syntax-comment);
   --color-syntax-number: var(--syntax-number);
+
+  /* added centralized colors */
+  --color-ide-hover: var(--ide-hover);
+  --color-ide-tooltip: var(--ide-tooltip);
+  --color-ide-icon-muted: var(--ide-icon-muted);
+  --color-scrollbar-track: var(--scrollbar-track);
+  --color-scrollbar-thumb: var(--scrollbar-thumb);
+  --color-scrollbar-thumb-hover: var(--scrollbar-thumb-hover);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -133,14 +160,14 @@ body > div {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e1f22;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3c3f41;
-  border: 3px solid #1e1f22;
+  background: var(--scrollbar-thumb);
+  border: 3px solid var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4b4d4d;
+  background: var(--scrollbar-thumb-hover);
 }

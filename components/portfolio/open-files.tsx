@@ -48,8 +48,8 @@ function SortableOpenFileTab({fileId, name, isActive, onSelect, onClose}: Sortab
       className={cn(
         "group h-full shrink-0 transition-colors select-none whitespace-nowrap",
         isActive
-          ? "bg-[#1e1f22] border-t-2 border-primary text-foreground -mb-0.5"
-          : "bg-muted text-muted-foreground hover:bg-[#323232]"
+          ? "bg-popover border-t-2 border-primary text-foreground -mb-0.5"
+          : "bg-muted text-muted-foreground hover:bg-ide-tooltip"
       )}
       {...attributes}
       onClick={(e) => {
