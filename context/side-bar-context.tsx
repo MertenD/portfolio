@@ -1,10 +1,20 @@
 "use client"
 
 import React from "react";
+import {BotMessageSquareIcon, FolderOpenIcon, SearchIcon} from "lucide-react";
+import {FileExplorer} from "@/components/portfolio/sidebar/file-explorer";
+import Search from "@/components/portfolio/sidebar/search";
+
+export const navTabs = [
+  {id: "fileSystem", label: "Project Explorer", icon: FolderOpenIcon, sideBarComponent: <FileExplorer />},
+  {id: "search", label: "Search", icon: SearchIcon, sideBarComponent: <Search />},
+  {id: "chat", label: "Chat", icon: BotMessageSquareIcon, sideBarComponent: <p>Chat</p>},
+]
 
 interface SideBarContextType {
   isOpen: boolean
-  currentTab: string | null
+  currentTabId: string | null
+  currentTabComponent: React.ReactNode | null
   handleTabClick: (id: string) => void
   setOnTabClicked: (cb: (() => void) | null) => void
   close: () => void
@@ -14,31 +24,38 @@ interface SideBarContextType {
 const SideBarContext = React.createContext<SideBarContextType | undefined>(undefined)
 
 export function SideBarProvider({ children }: { children: React.ReactNode }) {
-  const [currentTab, setCurrentTab] = React.useState<string | null>("fileSystem")
+  const [currentTabId, setCurrentTabId] = React.useState<string | null>(navTabs[0].id)
   const [lastTab, setlastTab] = React.useState<string | null>(null)
   const [onTabClicked, setOnTabClicked] = React.useState<(() => void) | null>(null)
-  const isOpen = currentTab !== null
+
+  const currentTabComponent = React.useMemo(() => {
+    const currentTab = navTabs.find(tab => tab.id === currentTabId)
+    return currentTab ? currentTab.sideBarComponent : null
+  }, [currentTabId])
+
+  const isOpen = currentTabId !== null
 
   const handleTabClick = (id: string) => {
     onTabClicked?.()
     setlastTab(id)
-    setCurrentTab(prev => prev === id ? null : id)
+    setCurrentTabId(prev => prev === id ? null : id)
   }
 
   const close = () => {
-    if (currentTab) {
-      setlastTab(currentTab)
+    if (currentTabId) {
+      setlastTab(currentTabId)
     }
-    setCurrentTab(null)
+    setCurrentTabId(null)
   }
 
   const openLastTab = () => {
     if (lastTab) {
-      setCurrentTab(lastTab)
+      setCurrentTabId(lastTab)
     }
   }
 
-  return <SideBarContext.Provider value={{ isOpen, currentTab, handleTabClick, close, openLastTab, setOnTabClicked }}>
+
+  return <SideBarContext.Provider value={{ isOpen, currentTabId, handleTabClick, close, openLastTab, setOnTabClicked, currentTabComponent }}>
     {children}
   </SideBarContext.Provider>
 }

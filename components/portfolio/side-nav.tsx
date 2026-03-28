@@ -1,16 +1,9 @@
 "use client"
 
-import {BotMessageSquareIcon, FolderOpenIcon, SearchIcon} from "lucide-react"
-import {useSideBar} from "@/context/side-bar-context";
-
-const navTabs = [
-	{id: "fileSystem", icon: FolderOpenIcon, label: "Project Explorer"},
-	{id: "search", icon: SearchIcon, label: "Search"},
-	{id: "chat", icon: BotMessageSquareIcon, label: "Chat"},
-]
+import {navTabs, useSideBar} from "@/context/side-bar-context";
 
 export function SideNav() {
-	const { handleTabClick, currentTab } = useSideBar()
+	const { handleTabClick, currentTabId } = useSideBar()
 
 	return (
 		<aside className="sticky left-0 top-10 h-[calc(100vh-40px)] shrink-0 flex flex-col items-center py-4 w-12 z-40 bg-popover border-r border-border">
@@ -19,7 +12,7 @@ export function SideNav() {
 					<button
 						key={tab.label}
 						className={`w-full py-2 flex justify-center group relative transition-all ${
-							tab.id === currentTab
+							tab.id === currentTabId
 								? "text-primary border-l-2 border-primary bg-ide-hover"
 								: "text-ide-icon-muted opacity-70 hover:text-foreground hover:bg-ide-hover"
 						}`}

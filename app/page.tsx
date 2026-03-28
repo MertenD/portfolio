@@ -3,7 +3,7 @@
 import PagesMain from "@/components/pages/pages-main";
 import {ResizablePanel, ResizablePanelGroup} from "@/components/ui/resizable";
 import OpenFiles from "@/components/portfolio/open-files";
-import SideBar from "@/components/portfolio/side-bar";
+import SideBar from "@/components/portfolio/sidebar/side-bar";
 import {useSideBar} from "@/context/side-bar-context";
 import { useResizableSidebarPanel } from "@/hooks/use-resizable-sidebar-panel";
 import {cn} from "@/lib/utils";

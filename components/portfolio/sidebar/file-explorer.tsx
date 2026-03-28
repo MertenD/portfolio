@@ -10,14 +10,15 @@ export function FileExplorer() {
   const {openAllFolders} = useFileSystem()
 
   return <aside
-    className="h-full overflow-y-auto flex w-full flex-col z-40 bg-popover border-r border-border"
+    className="h-full overflow-y-auto flex w-full flex-col z-40 bg-popover"
   >
     <div
-      className="px-4 py-2 text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex justify-between items-center">
+      className="px-2 py-2 text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex justify-between items-center"
+    >
       <span>Project</span>
       <ChevronsUpDownIcon className="w-3.5 h-3.5 cursor-pointer" onClick={openAllFolders}/>
     </div>
-    <div className="px-2 flex flex-col text-xs font-mono">
+    <div className="flex flex-col text-xs font-mono">
       {fileSystemContent.map((item) => (
         <FileItem key={item.name} item={item} level={0}/>
       ))}
