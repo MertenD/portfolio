@@ -1,16 +1,23 @@
 'use client'
 
-import { useCallback, useEffect } from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import { usePanelRef } from 'react-resizable-panels'
 
 export function useResizableSidebarPanel(isOpen: boolean) {
+  const DEFAULT_SIDEBAR_WIDTH_PX = 250
   const sidebarRef = usePanelRef()
+  const [lastWidth, setLastWidth] = useState<number | undefined>(undefined)
 
   const expandSidebar = useCallback(() => {
-    sidebarRef.current?.expand()
-  }, [sidebarRef])
+    const newWidth = Math.max(lastWidth || DEFAULT_SIDEBAR_WIDTH_PX, DEFAULT_SIDEBAR_WIDTH_PX)
+    sidebarRef.current?.resize(newWidth)
+  }, [sidebarRef, lastWidth])
 
   const collapseSidebar = useCallback(() => {
+    const lastWidthInPixels = sidebarRef.current?.getSize().inPixels
+    if (lastWidthInPixels !== 0) {
+      setLastWidth(lastWidthInPixels)
+    }
     sidebarRef.current?.collapse()
   }, [sidebarRef])
 

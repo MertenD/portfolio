@@ -12,6 +12,7 @@ export default function PortfolioPage() {
   const { sidebarRef } = useResizableSidebarPanel(isOpen)
 
   return <>
+    { /* Desktop layout with resizable sidebar */}
     <div className="hidden md:flex min-h-0 h-full self-stretch w-full min-w-0">
       <ResizablePanelGroup
         orientation="horizontal"
@@ -19,14 +20,13 @@ export default function PortfolioPage() {
       >
         <ResizablePanel
           panelRef={sidebarRef}
-          defaultSize={25}
-          minSize={25}
+          defaultSize={1}
           className="min-h-0 h-full min-w-0"
           collapsible
         >
-          <SideBar />
+          {isOpen && <SideBar /> }
         </ResizablePanel>
-        <ResizablePanel defaultSize={75} className="flex flex-col min-h-0 h-full min-w-0">
+        <ResizablePanel className="flex flex-col min-h-0 h-full min-w-0">
           <div className="flex-1 min-h-0 flex flex-col min-w-0">
             <OpenFiles />
             <main className="flex-1 min-h-0 overflow-y-auto min-w-0">
@@ -37,6 +37,7 @@ export default function PortfolioPage() {
       </ResizablePanelGroup>
     </div>
 
+    { /* Mobile layout */}
     <div className="md:hidden flex-1 min-h-0 flex flex-col min-w-0">
       <OpenFiles />
       <main className="flex-1 min-h-0 overflow-y-auto min-w-0">
