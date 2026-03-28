@@ -30,3 +30,14 @@ export function getInitiallyClosedFolderIds(
   }
   return closedIds
 }
+
+export function getAllFolderIds(items: Array<File | Folder>): string[] {
+  let folderIds: string[] = []
+  for (const item of items) {
+    if ("content" in item) {
+      folderIds.push(item.id)
+      folderIds = folderIds.concat(getAllFolderIds(item.content))
+    }
+  }
+  return folderIds
+}

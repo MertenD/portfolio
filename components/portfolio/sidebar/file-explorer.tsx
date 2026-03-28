@@ -1,6 +1,13 @@
 "use client"
 
-import {ChevronDownIcon, ChevronsUpDownIcon, FileTextIcon, FolderClosedIcon, FolderOpenIcon} from "lucide-react"
+import {
+  ChevronDownIcon,
+  ChevronsDownUpIcon,
+  ChevronsUpDownIcon,
+  FileTextIcon,
+  FolderClosedIcon,
+  FolderOpenIcon
+} from "lucide-react"
 import React from "react";
 import {File, Folder, useFileSystem} from "@/context/file-system-context";
 import {cn} from "@/lib/utils";
@@ -9,7 +16,7 @@ import {useIsMobile} from "@/hooks/use-mobile";
 import {useSideBar} from "@/context/side-bar-context";
 
 export function FileExplorer() {
-  const {openAllFolders} = useFileSystem()
+  const {openAllFolders, closeAllFolders} = useFileSystem()
 
   return <aside
     className="h-full overflow-y-auto flex w-full flex-col z-40 bg-popover"
@@ -18,7 +25,10 @@ export function FileExplorer() {
       className="px-2 py-2 text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex justify-between items-center"
     >
       <span>Project</span>
-      <ChevronsUpDownIcon className="w-3.5 h-3.5 cursor-pointer" onClick={openAllFolders}/>
+      <div className="flex flex-row gap-2">
+        <ChevronsUpDownIcon className="w-3.5 h-3.5 cursor-pointer" onClick={openAllFolders}/>
+        <ChevronsDownUpIcon className="w-3.5 h-3.5 cursor-pointer ml-1" onClick={closeAllFolders}/>
+      </div>
     </div>
     <div className="flex flex-col text-xs font-mono">
       {fileSystemContent.map((item) => (

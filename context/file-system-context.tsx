@@ -3,7 +3,7 @@
 import React, {useContext, useEffect} from "react";
 import {useQueryState} from 'nuqs'
 import {fileSystemContent} from "@/content/file-system-content";
-import {findFileById, getInitiallyClosedFolderIds} from "@/context/file-system-context-utils";
+import {findFileById, getAllFolderIds, getInitiallyClosedFolderIds} from "@/context/file-system-context-utils";
 
 export type File = {
   id: string
@@ -23,6 +23,7 @@ interface FileSystemContextType {
   toggleFolder: (folderId: string) => void
   isOpen: (folderId: string) => boolean
   openAllFolders: () => void
+  closeAllFolders: () => void
   openFiles: File[]
   activeFileId: string | null
   getActiveFile: () => File | null
@@ -51,6 +52,10 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
 
   const openAllFolders = () => {
     setClosedFolders([])
+  }
+
+  const closeAllFolders = () => {
+    setClosedFolders(getAllFolderIds(fileSystemContent))
   }
 
   const [openFiles, setOpenFiles] = React.useState<File[]>([])
@@ -124,6 +129,7 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
       toggleFolder,
       isOpen,
       openAllFolders,
+      closeAllFolders,
       openFiles,
       activeFileId,
       getActiveFile,
