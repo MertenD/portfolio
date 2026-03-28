@@ -62,7 +62,7 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
   const openFile = (file: File) => {
     setOpenFiles((prev) => {
       if (!prev.find((f) => f.id === file.id)) {
-        return [...prev, file]
+        return [file, ...prev]
       }
       return prev
     })
