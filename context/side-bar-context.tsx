@@ -4,6 +4,7 @@ import React from "react";
 import {BotMessageSquareIcon, FolderOpenIcon, SearchIcon, SettingsIcon} from "lucide-react";
 import {FileExplorer} from "@/components/portfolio/sidebar/file-explorer";
 import Search from "@/components/portfolio/sidebar/search";
+import {useIsMobile} from "@/hooks/use-mobile";
 
 export const navTabsTop = [
   {id: "fileSystem", label: "Project Explorer", icon: FolderOpenIcon, sideBarComponent: <FileExplorer />},
@@ -29,7 +30,7 @@ const SideBarContext = React.createContext<SideBarContextType | undefined>(undef
 
 export function SideBarProvider({ children }: { children: React.ReactNode }) {
   const [currentTabId, setCurrentTabId] = React.useState<string | null>(navTabsTop[0].id)
-  const [lastTab, setlastTab] = React.useState<string | null>(null)
+  const [lastTab, setlastTab] = React.useState<string | null>(navTabsTop[0].id)
   const [onTabClicked, setOnTabClicked] = React.useState<(() => void) | null>(null)
 
   const currentTabComponent = React.useMemo(() => {

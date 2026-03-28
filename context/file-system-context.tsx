@@ -101,9 +101,18 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
   // On initial load, check if there's an active file in the query state and open it
   useEffect(() => {
     if (activeFileId) {
+      const readmeFile = findFileById(fileSystemContent, "readme") as File
+      if (readmeFile) {
+        openFile(readmeFile)
+      }
       const file = findFileById(fileSystemContent, activeFileId)
       if (file) {
         openFile(file as File)
+      }
+    } else {
+      const readmeFile = findFileById(fileSystemContent, "readme") as File
+      if (readmeFile) {
+        openFile(readmeFile)
       }
     }
   }, [])
