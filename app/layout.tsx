@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import {AppHeader} from "@/components/portfolio/app-header";
-import {SideNavBar} from "@/components/portfolio/side-nav-bar";
+import {SideNav} from "@/components/portfolio/side-nav";
 import {FileSystemProvider} from "@/context/file-system-context";
 import {NuqsAdapter} from "nuqs/adapters/next";
 import React, { Suspense } from "react";
+import Providers from "@/components/providers";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -38,19 +39,15 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
-        <Suspense fallback={null}>
-          <NuqsAdapter>
-            <FileSystemProvider>
-              <div className="h-screen bg-background text-foreground font-sans selection:bg-primary/30 flex flex-col overflow-hidden">
-                <AppHeader />
-                <div className="flex flex-row flex-1 min-h-0">
-                  <SideNavBar />
-                  {children}
-                </div>
-              </div>
-            </FileSystemProvider>
-          </NuqsAdapter>
-        </Suspense>
+        <Providers>
+          <div className="h-screen bg-background text-foreground font-sans selection:bg-primary/30 flex flex-col overflow-hidden">
+            <AppHeader />
+            <div className="flex flex-row flex-1 min-h-0">
+              <SideNav />
+              {children}
+            </div>
+          </div>
+        </Providers>
       </body>
     </html>
   )
