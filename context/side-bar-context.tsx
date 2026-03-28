@@ -1,18 +1,24 @@
 "use client"
 
-import React from "react";
-import {BotMessageSquareIcon, FolderOpenIcon, SearchIcon, SettingsIcon} from "lucide-react";
+import React, {ForwardRefExoticComponent, JSX, RefAttributes} from "react";
+import {BotMessageSquareIcon, FolderOpenIcon, LucideProps, SearchIcon, SettingsIcon} from "lucide-react";
 import {FileExplorer} from "@/components/portfolio/sidebar/file-explorer";
 import Search from "@/components/portfolio/sidebar/search";
-import {useIsMobile} from "@/hooks/use-mobile";
 
-export const navTabsTop = [
+export type Tab = {
+  id: string
+  label: string
+  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
+  sideBarComponent: JSX.Element
+}
+
+export const navTabsTop: Tab[] = [
   {id: "fileSystem", label: "Project Explorer", icon: FolderOpenIcon, sideBarComponent: <FileExplorer />},
   {id: "search", label: "Search", icon: SearchIcon, sideBarComponent: <Search />},
   {id: "chat", label: "Chat", icon: BotMessageSquareIcon, sideBarComponent: <p>Chat</p>},
 ]
 
-export const navTabsBottom = [
+export const navTabsBottom: Tab[] = [
   {id: "settings", label: "Settings", icon: SettingsIcon, sideBarComponent: <p>Settings</p>}
 ]
 
@@ -34,7 +40,7 @@ export function SideBarProvider({ children }: { children: React.ReactNode }) {
   const [onTabClicked, setOnTabClicked] = React.useState<(() => void) | null>(null)
 
   const currentTabComponent = React.useMemo(() => {
-    const currentTab = navTabsTop.find(tab => tab.id === currentTabId)
+    const currentTab = navTabsTop.find(tab => tab.id === currentTabId) || navTabsBottom.find(tab => tab.id === currentTabId)
     return currentTab ? currentTab.sideBarComponent : null
   }, [currentTabId])
 

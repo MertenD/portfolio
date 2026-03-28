@@ -11,9 +11,6 @@ export function AppHeader() {
           Mertens Portfolio
         </div>
       </div>
-      <div className="flex items-center px-4 gap-4">
-        <Settings className="w-4 h-4 text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
-      </div>
     </nav>
   )
 }
