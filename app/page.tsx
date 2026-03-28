@@ -5,33 +5,11 @@ import {ResizablePanel, ResizablePanelGroup} from "@/components/ui/resizable";
 import OpenFiles from "@/components/portfolio/open-files";
 import SideBar from "@/components/portfolio/side-bar";
 import {useSideBar} from "@/context/side-bar-context";
-import {useCallback, useEffect} from "react";
-import {usePanelRef} from "react-resizable-panels";
+import { useResizableSidebarPanel } from "@/hooks/use-resizable-sidebar-panel";
 
 export default function PortfolioPage() {
   const { isOpen } = useSideBar()
-
-  const sidebarRef = usePanelRef()
-
-  const expandSidebar = useCallback(() => {
-    if (sidebarRef.current) {
-      sidebarRef.current.expand()
-    }
-  }, [sidebarRef])
-
-  const collapseSidebar = useCallback(() => {
-    if (sidebarRef.current) {
-      sidebarRef.current.collapse()
-    }
-  }, [sidebarRef])
-
-  useEffect(() => {
-    if (isOpen) {
-      expandSidebar()
-    } else {
-      collapseSidebar()
-    }
-  }, [isOpen, expandSidebar, collapseSidebar])
+  const { sidebarRef } = useResizableSidebarPanel(isOpen)
 
   return <>
     <div className="hidden md:flex min-h-0 h-full self-stretch w-full min-w-0">
