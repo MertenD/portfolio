@@ -1,0 +1,51 @@
+name: PR Version Guard (dev -> main)
+
+on:
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  version-guard:
+    name: Block PR if version isn't bumped vs latest tag
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.head.ref == 'dev' }}
+
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch tags
+        run: git fetch --tags --force
+
+      - name: Compare package.json version with latest tag
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          VERSION="$(node -p "require('./package.json').version")"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "package.json version must be X.Y.Z. Found: $VERSION" >&2
+            exit 1
+          fi
+
+          LATEST_TAG="$(git tag -l 'v*' --sort=-v:refname | head -n 1 || true)"
+          if [[ -z "$LATEST_TAG" ]]; then
+            echo "No existing v* tags found -> allowing PR."
+            exit 0
+          fi
+
+          LATEST_VER="${LATEST_TAG#v}"
+
+          # Quick check: is VERSION greater than the latest released version?
+          HIGHEST="$(printf '%s\n%s\n' "$LATEST_VER" "$VERSION" | sort -V | tail -n 1)"
+          if [[ "$HIGHEST" != "$VERSION" || "$VERSION" == "$LATEST_VER" ]]; then
+            echo "Version must be bumped. package.json=$VERSION latestTag=$LATEST_TAG" >&2
+            exit 1
+          fi
+
+          echo "OK: package.json=$VERSION > latestTag=$LATEST_TAG"
