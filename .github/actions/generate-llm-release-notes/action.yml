@@ -91,10 +91,31 @@ runs:
           temperature: 0.2
         }')
 
-        NOTES=$(curl -sS -X POST "$BASE_URL/chat/completions" \
+        echo "::group::LLM request (sanitized)"
+        echo "Base URL: $BASE_URL"
+        echo "Model: $MODEL"
+        echo "Language: $LANGUAGE"
+        echo "Request JSON (truncated to 12000 chars):"
+        echo "$BODY" | head -c 12000
+        echo
+        echo "::endgroup::"
+
+        RAW_RESPONSE=$(curl -sS -X POST "$BASE_URL/chat/completions" \
           -H "Authorization: Bearer $OPENAI_API_KEY" \
           -H "Content-Type: application/json" \
-          -d "$BODY" | jq -r '.choices[0].message.content // empty')
+          -d "$BODY")
+
+        echo "::group::LLM raw response (truncated)"
+        echo "$RAW_RESPONSE" | head -c 12000
+        echo
+        echo "::endgroup::"
+
+        NOTES=$(echo "$RAW_RESPONSE" | jq -r '.choices[0].message.content // empty')
+
+        echo "::group::LLM extracted notes (truncated)"
+        echo "$NOTES" | head -c 12000
+        echo
+        echo "::endgroup::"
 
         if [[ -z "$NOTES" ]]; then
           echo "LLM did not return any content." >&2
