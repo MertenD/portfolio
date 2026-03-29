@@ -58,20 +58,27 @@ runs:
         # Always English.
         SYS="You write release notes for a software release."
 
-        USER=$(jq -n --arg input "$INPUT" '
-          "You are a release-notes writer. Create professional release notes in English based on the JSON data below.\n\n" +
-          "IMPORTANT: Only describe WHAT changed. Do not invent anything.\n" +
-          "Omit empty categories entirely. Never output placeholders like \"No new features in this release\".\n" +
-          "Requirements:\n" +
-          "- Output: Markdown\n" +
-          "- Use only these headings (only when non-empty): ## Features, ## Fixes, ## Documentation, ## Maintenance\n" +
-          "- Under each heading use '- ' bullets (short, user-facing; avoid internal implementation details like file names/refactors/formatting)\n" +
-          "- If PR data exists: end each bullet with ' (#<number>) <link>'\n" +
-          "- No intro text, no closing text, no empty sections\n\n" +
-          "Data (JSON):\n" + $input
-        ')
+        # Build the user prompt safely (avoid quoting issues with apostrophes/parentheses).
+        USER_PROMPT=$(cat <<'PROMPT'
+        You are a release-notes writer. Create professional release notes in English based on the JSON data below.
 
-        BODY=$(jq -n --arg model "$MODEL" --arg sys "$SYS" --arg user "$USER" '{
+        IMPORTANT: Only describe WHAT changed. Do not invent anything.
+        Omit empty categories entirely. Never output placeholders like "No new features in this release".
+        Requirements:
+        - Output: Markdown
+        - Use only these headings (only when non-empty): ## Features, ## Fixes, ## Documentation, ## Maintenance
+        - Under each heading use '- ' bullets (short, user-facing; avoid internal implementation details like file names/refactors/formatting)
+        - If PR data exists: end each bullet with ' (#<number>) <link>'
+        - No intro text, no closing text, no empty sections
+
+        Data (JSON):
+        PROMPT
+        )
+
+        # Append JSON payload.
+        USER_PROMPT+="$INPUT"
+
+        BODY=$(jq -n --arg model "$MODEL" --arg sys "$SYS" --arg user "$USER_PROMPT" '{
           model: $model,
           messages: [
             {role:"system", content:$sys},
