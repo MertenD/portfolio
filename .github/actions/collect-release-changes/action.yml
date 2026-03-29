@@ -1,0 +1,84 @@
+name: "Collect Release Changes"
+description: "Collect PRs (preferred) or commit subjects since the latest v* tag and write a JSON file for downstream summarization."
+
+inputs:
+  github-token:
+    description: "GitHub token (GITHUB_TOKEN) used by gh api"
+    required: true
+  base-branch:
+    description: "Base branch used to list recent merged PRs when no previous tag exists"
+    required: false
+    default: "main"
+  max-prs:
+    description: "Max PRs to fetch when no previous tag exists"
+    required: false
+    default: "50"
+
+outputs:
+  path:
+    description: "Path to the JSON file containing changes"
+    value: ${{ steps.collect.outputs.path }}
+  latest_tag:
+    description: "Latest v* tag (empty if none)"
+    value: ${{ steps.collect.outputs.latest_tag }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Collect changes
+      id: collect
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        REPO: ${{ github.repository }}
+        BASE_BRANCH: ${{ inputs.base-branch }}
+        MAX_PRS: ${{ inputs.max-prs }}
+      run: |
+        set -euo pipefail
+
+        git fetch --tags --force
+        LATEST_TAG="$(git tag -l 'v*' --sort=-v:refname | head -n 1 || true)"
+        echo "latest_tag=$LATEST_TAG" >> "$GITHUB_OUTPUT"
+
+        if [[ -z "$LATEST_TAG" ]]; then
+          RANGE=""
+          echo "No previous tag found. Using last $MAX_PRS merged PRs for base '$BASE_BRANCH'." >&2
+        else
+          RANGE="$LATEST_TAG..HEAD"
+          echo "Using range: $RANGE" >&2
+        fi
+
+        # Create a JSON payload.
+        # Prefer gh+API (PR objects). Fall back to commit subjects if gh isn't available.
+        if command -v gh >/dev/null 2>&1; then
+          if [[ -z "$RANGE" ]]; then
+            gh api -H "Accept: application/vnd.github+json" \
+              "/repos/$REPO/pulls?state=closed&base=$BASE_BRANCH&per_page=$MAX_PRS&sort=updated&direction=desc" \
+              --jq '[.[] | select(.merged_at != null) | {number, title, url, author: .user.login, merged_at, labels: [.labels[].name]}]' > changes.json
+          else
+            COMMITS=$(git rev-list "$RANGE")
+            echo "[]" > changes.json
+            for sha in $COMMITS; do
+              gh api -H "Accept: application/vnd.github+json" \
+                "/repos/$REPO/commits/$sha/pulls" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                --jq '[.[] | {number, title, url, author: .user.login, merged_at, labels: [.labels[].name]}]' \
+                > pr_tmp.json || true
+              jq -s 'add | unique_by(.url)' changes.json pr_tmp.json > changes_merged.json
+              mv changes_merged.json changes.json
+            done
+          fi
+
+          COUNT=$(jq 'length' changes.json)
+          echo "Found $COUNT PRs" >&2
+        else
+          echo "gh CLI not found - falling back to commit subjects." >&2
+          if [[ -z "$RANGE" ]]; then
+            git log -n 50 --pretty=format:'%s' | jq -R . | jq -s '{commits: .}' > changes.json
+          else
+            git log "$RANGE" --pretty=format:'%s' | jq -R . | jq -s '{commits: .}' > changes.json
+          fi
+        fi
+
+        echo "path=changes.json" >> "$GITHUB_OUTPUT"
+

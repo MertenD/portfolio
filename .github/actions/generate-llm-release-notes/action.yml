@@ -1,0 +1,101 @@
+name: "Generate LLM Release Notes"
+description: "Generate professional release notes from a JSON changelog payload using an OpenAI-compatible API."
+
+inputs:
+  api-key:
+    description: "OpenAI-compatible API key"
+    required: true
+  input-path:
+    description: "Path to JSON file produced by collect-release-changes"
+    required: true
+  model:
+    description: "Model name"
+    required: false
+  base-url:
+    description: "OpenAI base URL (OpenAI-compatible). Should end with /v1"
+    required: false
+  language:
+    description: "Language for release notes"
+    required: false
+    default: "en"
+
+outputs:
+  notes:
+    description: "Generated release notes (Markdown)"
+    value: ${{ steps.gen.outputs.notes }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate notes
+      id: gen
+      shell: bash
+      env:
+        OPENAI_API_KEY: ${{ inputs.api-key }}
+        OPENAI_MODEL: ${{ inputs.model }}
+        OPENAI_BASE_URL: ${{ inputs.base-url }}
+        INPUT_PATH: ${{ inputs.input-path }}
+        LANGUAGE: ${{ inputs.language }}
+      run: |
+        set -euo pipefail
+
+        if [[ ! -f "$INPUT_PATH" ]]; then
+          echo "Input file not found: $INPUT_PATH" >&2
+          exit 1
+        fi
+
+        MODEL="$OPENAI_MODEL"
+        BASE_URL="$OPENAI_BASE_URL"
+        INPUT=$(cat "$INPUT_PATH")
+
+        # English prompt by default.
+        if [[ "$LANGUAGE" == "de" ]]; then
+          SYS="You write release notes for a software release."
+          USER=$(jq -n --argjson input "$INPUT" '
+            "You are a release-notes writer. Create professional release notes in German.\n\n" +
+            "Requirements:\n" +
+            "- Use Markdown\n" +
+            "- Group into: Features, Fixes, Documentation, Maintenance (only include non-empty sections)\n" +
+            "- Bullets must be short, user-facing, no internal noise\n" +
+            "- If PR data exists: end each bullet with (#<number>) and the PR link\n" +
+            "- No intro text, no closing text\n\n" +
+            "Data (JSON):\n" + ($input|tostring)
+          ')
+        else
+          SYS="You write release notes for a software release."
+          USER=$(jq -n --argjson input "$INPUT" '
+            "You are a release-notes writer. Create professional release notes in English.\n\n" +
+            "Requirements:\n" +
+            "- Use Markdown\n" +
+            "- Group into: Features, Fixes, Documentation, Maintenance (only include non-empty sections)\n" +
+            "- Bullets must be short, user-facing, avoid internal implementation details\n" +
+            "- If PR data exists: end each bullet with (#<number>) and the PR link\n" +
+            "- No intro text, no closing text\n\n" +
+            "Data (JSON):\n" + ($input|tostring)
+          ')
+        fi
+
+        BODY=$(jq -n --arg model "$MODEL" --arg sys "$SYS" --arg user "$USER" '{
+          model: $model,
+          messages: [
+            {role:"system", content:$sys},
+            {role:"user", content:$user}
+          ],
+          temperature: 0.2
+        }')
+
+        NOTES=$(curl -sS -X POST "$BASE_URL/chat/completions" \
+          -H "Authorization: Bearer $OPENAI_API_KEY" \
+          -H "Content-Type: application/json" \
+          -d "$BODY" | jq -r '.choices[0].message.content // empty')
+
+        if [[ -z "$NOTES" ]]; then
+          echo "LLM did not return any content." >&2
+          exit 1
+        fi
+
+        {
+          echo "notes<<'EOF'";
+          echo "$NOTES";
+          echo "EOF";
+        } >> "$GITHUB_OUTPUT"

@@ -56,13 +56,34 @@ jobs:
             echo "Created and pushed tag $TAG"
           fi
 
-      - name: Create GitHub Release (if not existing)
+      - name: Collect changes since last tag
+        id: changes
+        if: ${{ steps.tag.outputs.exists == 'false' }}
+        uses: ./.github/actions/collect-release-changes
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base-branch: main
+          max-prs: "50"
+
+      - name: Generate professional release notes (LLM, optional)
+        id: llm_notes
+        if: ${{ steps.tag.outputs.exists == 'false' && secrets.RELEASE_NOTES_OPENAI_API_KEY != '' }}
+        uses: ./.github/actions/generate-llm-release-notes
+        with:
+          api-key: ${{ secrets.RELEASE_NOTES_OPENAI_API_KEY }}
+          input-path: ${{ steps.changes.outputs.path }}
+          base-url: ${{ secrets.RELEASE_NOTES_OPENAI_BASE_URL }}
+          model: ${{ secrets.RELEASE_NOTES_OPENAI_MODEL }}
+          language: en
+
+      - name: Create GitHub Release (LLM notes preferred)
         uses: softprops/action-gh-release@v2
         if: ${{ steps.tag.outputs.exists == 'false' }}
         with:
           tag_name: v${{ needs.meta.outputs.version }}
           name: v${{ needs.meta.outputs.version }}
-          generate_release_notes: true
+          body: ${{ steps.llm_notes.outputs.notes }}
+          generate_release_notes: ${{ steps.llm_notes.outputs.notes == '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
