@@ -1,83 +1,84 @@
 import Image from "next/image"
 import {Badge} from "@/components/ui/badge"
 import {Button} from "@/components/ui/button"
-import {ExternalLink, Star, BookOpen, Code2} from "lucide-react"
+import {ExternalLink, Star, BookOpen, Code2, GithubIcon} from "lucide-react"
 import {Card, CardContent, CardHeader, CardTitle, CardDescription} from "@/components/ui/card"
 import Link from "next/link"
 import {Fragment} from "react";
+import { FileContentContainer } from "@/components/portfolio/file-content-container";
 
 export default function LuzidesTraeumenPage() {
   return (
-    <section className="flex-1 min-h-0 h-full w-full p-4 md:p-8 overflow-y-auto">
-      <div className="w-full max-w-4xl space-y-6">
-        <header className="space-y-2">
-          <p className="font-mono text-xs text-muted-foreground">projects/lucid-dreaming</p>
-          <h1 className="font-headline text-2xl md:text-3xl tracking-tight text-foreground">
-            Lucid Dreaming
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            A project combining two passions: writing a book about lucid dreaming and building its landing page.
-          </p>
-        </header>
+    <FileContentContainer
+      filePath="projects/lucid-dreaming"
+      title="Lucid Dreaming"
+      subtitle="A project combining two passions: writing a book about lucid dreaming and building its landing page."
+      headerRight={
+        <Button asChild size="sm" variant="default">
+          <Link href="https://github.com/MertenD/lucid-dreaming-landing" target="_blank" rel="noreferrer">
+            <GithubIcon />
+            GitHub
+          </Link>
+        </Button>
+      }
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* The Book Section */}
+        <ProjectCard
+          title="The Book"
+          icon={<BookOpen className="w-4 h-4"/>}
+          description="A practical guide to lucid dreaming."
+          imageNode={
+            <div className="flex justify-center bg-muted/30 rounded-lg p-4 h-[266px]">
+              <Image
+                src="/images/lucid-dreaming/lucid-dreaming-book-3d.png"
+                alt="3D Book Cover"
+                width={500}
+                height={266}
+                className="object-contain p-2"
+              />
+            </div>
+          }
+          contentText="This book offers a simple and practical entry into the world of lucid dreaming. With step-by-step instructions and many exercises, it's designed for both beginners and advanced dreamers."
+          badges={[
+            <Badge variant="outline" className="font-mono text-xs">Self-Publishing</Badge>,
+            <Badge variant="outline" className="font-mono text-xs">Amazon KDP</Badge>,
+            <Badge variant="outline" className="font-mono text-xs">Amazon Ads</Badge>,
+            <Badge variant="outline" className="font-mono text-xs">LaTeX</Badge>,
+          ]}
+          buttonLink="https://www.amazon.de/Kontrolliere-Deine-Tr%C3%A4ume-praktischer-Leidfaden/dp/B0D8LHZ2X6"
+          buttonText="View on Amazon"
+          buttonVariant="default"
+        />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* The Book Section */}
-          <ProjectCard
-            title="The Book"
-            icon={<BookOpen className="w-4 h-4"/>}
-            description="A practical guide to lucid dreaming."
-            imageNode={
-              <div className="flex justify-center bg-muted/30 rounded-lg p-4 h-[266px]">
-                <Image
-                  src="/images/lucid-dreaming/lucid-dreaming-book-3d.png"
-                  alt="3D Book Cover"
-                  width={500}
-                  height={266}
-                  className="object-contain p-2"
-                />
-              </div>
-            }
-            contentText="This book offers a simple and practical entry into the world of lucid dreaming. With step-by-step instructions and many exercises, it's designed for both beginners and advanced dreamers."
-            badges={[
-              <Badge variant="outline" className="font-mono text-xs">Self-Publishing</Badge>,
-              <Badge variant="outline" className="font-mono text-xs">Amazon KDP</Badge>,
-              <Badge variant="outline" className="font-mono text-xs">Amazon Ads</Badge>,
-              <Badge variant="outline" className="font-mono text-xs">LaTeX</Badge>,
-            ]}
-            buttonLink="https://www.amazon.de/Kontrolliere-Deine-Tr%C3%A4ume-praktischer-Leidfaden/dp/B0D8LHZ2X6"
-            buttonText="View on Amazon"
-            buttonVariant="default"
-          />
-
-          {/* The Landing Page Section */}
-          <ProjectCard
-            title="The Landing Page"
-            icon={<Code2 className="w-4 h-4"/>}
-            description="Promotional website optimized for conversion."
-            imageNode={
-              <div className="flex justify-center bg-muted/30 rounded-lg p-4 relative h-[266px]">
-                <Image
-                  src="/images/lucid-dreaming/lucid-dreaming-landing-desktop-screenshot.png"
-                  alt="Desktop Screenshot"
-                  fill
-                  className="object-contain p-2"
-                />
-              </div>
-            }
-            contentText="To market the book, I built a modern, responsive landing page focused on performance and conversion."
-            badges={[
-              <Badge variant="outline" className="font-mono text-xs">Next.js 15</Badge>,
-              <Badge variant="outline" className="font-mono text-xs">React</Badge>,
-              <Badge variant="outline" className="font-mono text-xs">TypeScript</Badge>,
-              <Badge variant="outline" className="font-mono text-xs">Docker</Badge>
-            ]}
-            buttonLink="https://luzides-traeumen-buch.de"
-            buttonText="Visit Landing Page"
-            buttonVariant="secondary"
-          />
-        </div>
+        {/* The Landing Page Section */}
+        <ProjectCard
+          title="The Landing Page"
+          icon={<Code2 className="w-4 h-4"/>}
+          description="Promotional website optimized for conversion."
+          imageNode={
+            <div className="flex justify-center bg-muted/30 rounded-lg p-4 relative h-[266px]">
+              <Image
+                src="/images/lucid-dreaming/lucid-dreaming-landing-desktop-screenshot.png"
+                alt="Desktop Screenshot"
+                fill
+                className="object-contain p-2"
+              />
+            </div>
+          }
+          contentText="To market the book, I built a modern, responsive landing page focused on performance and conversion."
+          badges={[
+            <Badge variant="outline" className="font-mono text-xs">Next.js 15</Badge>,
+            <Badge variant="outline" className="font-mono text-xs">React</Badge>,
+            <Badge variant="outline" className="font-mono text-xs">TypeScript</Badge>,
+            <Badge variant="outline" className="font-mono text-xs">Docker</Badge>
+          ]}
+          buttonLink="https://luzides-traeumen-buch.de"
+          buttonText="Visit Landing Page"
+          buttonVariant="secondary"
+        />
       </div>
-    </section>
+    </FileContentContainer>
   )
 }
 
