@@ -4,11 +4,12 @@ import {FileExplorer} from "@/components/portfolio/sidebar/file-explorer";
 import Search from "@/components/portfolio/sidebar/search";
 import {Tab, TabLink} from "@/context/side-bar-context";
 import Settings from "@/components/portfolio/sidebar/settings";
+import Chat from "@/components/portfolio/sidebar/chat";
 
 export const navTabsTop: Tab[] = [
   {id: "fileSystem", label: "Project Explorer", icon: FolderOpenIcon, sideBarComponent: <FileExplorer />},
   {id: "search", label: "Search", icon: SearchIcon, sideBarComponent: <Search />},
-  {id: "chat", label: "Chat", icon: BotMessageSquareIcon, sideBarComponent: <p>Chat</p>},
+  {id: "chat", label: "Chat", icon: BotMessageSquareIcon, sideBarComponent: <Chat />},
 ]
 
 export const navTabsBottom: Tab[] = [
