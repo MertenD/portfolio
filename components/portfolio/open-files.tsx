@@ -49,7 +49,7 @@ function SortableOpenFileTab({fileId, name, isActive, onSelect, onClose}: Sortab
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group h-full shrink-0 transition-colors select-none whitespace-nowrap",
+        "group h-full shrink-0 select-none whitespace-nowrap",
         isActive
           ? "bg-popover border-t-2 border-primary text-foreground -mb-0.5"
           : "bg-muted text-muted-foreground hover:bg-ide-tooltip"
