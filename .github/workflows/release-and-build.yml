@@ -23,7 +23,11 @@ jobs:
 
       - name: Read version from package.json
         id: pkg
-        run: echo "version=$(node -p \"require('./package.json').version\")" >> $GITHUB_OUTPUT
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
   release:
     name: Release (tag + GitHub release)
@@ -42,15 +46,16 @@ jobs:
         id: tag
         env:
           VERSION: ${{ needs.meta.outputs.version }}
+        shell: bash
         run: |
-          set -e
+          set -euo pipefail
           git fetch --tags --force
           TAG="v${VERSION}"
           if git rev-parse "$TAG" >/dev/null 2>&1; then
-            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "exists=true" >> "$GITHUB_OUTPUT"
             echo "Tag $TAG already exists."
           else
-            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "exists=false" >> "$GITHUB_OUTPUT"
             git tag "$TAG"
             git push origin "$TAG"
             echo "Created and pushed tag $TAG"
