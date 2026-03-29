@@ -36,27 +36,41 @@ runs:
       run: |
         set -euo pipefail
 
-        git fetch --tags --force
-        LATEST_TAG="$(git tag -l 'v*' --sort=-v:refname | head -n 1 || true)"
+        # Ensure we have full history + tags and are on the right branch.
+        git fetch --prune --force --tags origin "+refs/heads/*:refs/remotes/origin/*"
+        git checkout -B "${GITHUB_REF_NAME:-$BASE_BRANCH}" "origin/${GITHUB_REF_NAME:-$BASE_BRANCH}" 2>/dev/null || true
+
+        # NOTE: In the release workflow we create and push the NEW tag first.
+        # So the "latest" v* tag at this point is usually the tag we just created.
+        # For collecting changes we want the previous v* tag.
+        TAGS=( $(git tag -l 'v*' --sort=-v:refname) )
+        LATEST_TAG="${TAGS[0]:-}"
+        PREV_TAG="${TAGS[1]:-}"
+
+        # Expose the latest tag (kept for backwards compatibility of the output)
         echo "latest_tag=$LATEST_TAG" >> "$GITHUB_OUTPUT"
 
-        if [[ -z "$LATEST_TAG" ]]; then
-          RANGE=""
-          echo "No previous tag found. Using last $MAX_PRS merged PRs for base '$BASE_BRANCH'." >&2
+        RANGE=""
+        if [[ -n "$PREV_TAG" ]]; then
+          RANGE="$PREV_TAG..HEAD"
+          echo "Using range (previous tag): $RANGE" >&2
+        elif [[ -n "$LATEST_TAG" ]]; then
+          # Only one tag exists (likely the just-created one). Fall back to finding the tag pointing to HEAD and use commits since its creation.
+          # This scenario typically means first release; we'll use recent merged PRs as before.
+          echo "Only one v* tag found ($LATEST_TAG). Falling back to recent merged PRs on base '$BASE_BRANCH'." >&2
         else
-          RANGE="$LATEST_TAG..HEAD"
-          echo "Using range: $RANGE" >&2
+          echo "No previous tag found. Using last $MAX_PRS merged PRs for base '$BASE_BRANCH'." >&2
         fi
 
         # Create a JSON payload.
-        # Prefer gh+API (PR objects). Fall back to commit subjects if gh isn't available.
+        # Prefer gh+API (PR objects). Fall back to commit subjects if gh isn't available OR if we found 0 PRs.
         if command -v gh >/dev/null 2>&1; then
           if [[ -z "$RANGE" ]]; then
             gh api -H "Accept: application/vnd.github+json" \
               "/repos/$REPO/pulls?state=closed&base=$BASE_BRANCH&per_page=$MAX_PRS&sort=updated&direction=desc" \
               --jq '[.[] | select(.merged_at != null) | {number, title, url, author: .user.login, merged_at, labels: [.labels[].name]}]' > changes.json
           else
-            COMMITS=$(git rev-list "$RANGE")
+            COMMITS=$(git rev-list "$RANGE" || true)
             echo "[]" > changes.json
             for sha in $COMMITS; do
               gh api -H "Accept: application/vnd.github+json" \
@@ -71,6 +85,12 @@ runs:
 
           COUNT=$(jq 'length' changes.json)
           echo "Found $COUNT PRs" >&2
+
+          # If we have a range but got 0 PRs (common for direct commits / API limitations), fall back to commits in the range.
+          if [[ -n "$RANGE" && "$COUNT" -eq 0 ]]; then
+            echo "0 PRs found in range; falling back to commit subjects for $RANGE." >&2
+            git log "$RANGE" --pretty=format:'%s' | jq -R . | jq -s '{commits: .}' > changes.json
+          fi
         else
           echo "gh CLI not found - falling back to commit subjects." >&2
           if [[ -z "$RANGE" ]]; then
@@ -81,4 +101,3 @@ runs:
         fi
 
         echo "path=changes.json" >> "$GITHUB_OUTPUT"
-

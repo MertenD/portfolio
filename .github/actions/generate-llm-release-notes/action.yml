@@ -55,32 +55,20 @@ runs:
         BASE_URL="$OPENAI_BASE_URL"
         INPUT=$(cat "$INPUT_PATH")
 
-        # English prompt by default.
-        if [[ "$LANGUAGE" == "de" ]]; then
-          SYS="You write release notes for a software release."
-          USER=$(jq -n --argjson input "$INPUT" '
-            "You are a release-notes writer. Create professional release notes in German.\n\n" +
-            "Requirements:\n" +
-            "- Use Markdown\n" +
-            "- Group into: Features, Fixes, Documentation, Maintenance (only include non-empty sections)\n" +
-            "- Bullets must be short, user-facing, no internal noise\n" +
-            "- If PR data exists: end each bullet with (#<number>) and the PR link\n" +
-            "- No intro text, no closing text\n\n" +
-            "Data (JSON):\n" + ($input|tostring)
-          ')
-        else
-          SYS="You write release notes for a software release."
-          USER=$(jq -n --argjson input "$INPUT" '
-            "You are a release-notes writer. Create professional release notes in English.\n\n" +
-            "Requirements:\n" +
-            "- Use Markdown\n" +
-            "- Group into: Features, Fixes, Documentation, Maintenance (only include non-empty sections)\n" +
-            "- Bullets must be short, user-facing, avoid internal implementation details\n" +
-            "- If PR data exists: end each bullet with (#<number>) and the PR link\n" +
-            "- No intro text, no closing text\n\n" +
-            "Data (JSON):\n" + ($input|tostring)
-          ')
-        fi
+        # Always English.
+        SYS="You write release notes for a software release."
+        USER=$(jq -n --argjson input "$INPUT" '
+          "You are a release-notes writer. Create professional release notes in English based on the JSON data below.\n\n" +
+          "IMPORTANT: Only describe WHAT changed. Do not invent anything.\n" +
+          "Omit empty categories entirely. Never output placeholders like \"No new features in this release\".\n" +
+          "Requirements:\n" +
+          "- Output: Markdown\n" +
+          "- Use only these headings (only when non-empty): ## Features, ## Fixes, ## Documentation, ## Maintenance\n" +
+          "- Under each heading use '- ' bullets (short, user-facing; avoid internal implementation details like file names/refactors/formatting)\n" +
+          "- If PR data exists: end each bullet with ' (#<number>) <link>'\n" +
+          "- No intro text, no closing text, no empty sections\n\n" +
+          "Data (JSON):\n" + ($input|tostring)
+        ')
 
         BODY=$(jq -n --arg model "$MODEL" --arg sys "$SYS" --arg user "$USER" '{
           model: $model,
@@ -112,10 +100,27 @@ runs:
 
         NOTES=$(echo "$RAW_RESPONSE" | jq -r '.choices[0].message.content // empty')
 
-        echo "::group::LLM extracted notes (truncated)"
-        echo "$NOTES" | head -c 12000
+        # Post-process to avoid placeholder sections like "No ... in this release".
+        # 1) Drop any lines containing these placeholders
+        # 2) Drop empty headings
+        # 3) If nothing meaningful remains, set a single fallback bullet.
+        CLEANED_NOTES=$(printf '%s\n' "$NOTES" |
+          sed -E 's/\r$//' |
+          sed -E '/\bNo (new features|features|fixes|documentation updates|maintenance updates) in this release\.?\b/Id' |
+          sed -E '/^## (Features|Fixes|Documentation|Maintenance)\s*$/N; s/^## (Features|Fixes|Documentation|Maintenance)\s*\n(\s*)$/\2/;' |
+          sed -E '/^\s*$/d'
+        )
+
+        if [[ -z "${CLEANED_NOTES//[[:space:]]/}" ]]; then
+          CLEANED_NOTES="- Internal maintenance and CI updates"
+        fi
+
+        echo "::group::LLM extracted notes (cleaned, truncated)"
+        echo "$CLEANED_NOTES" | head -c 12000
         echo
         echo "::endgroup::"
+
+        NOTES="$CLEANED_NOTES"
 
         if [[ -z "$NOTES" ]]; then
           echo "LLM did not return any content." >&2
