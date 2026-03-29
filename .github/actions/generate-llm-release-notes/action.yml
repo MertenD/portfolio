@@ -4,16 +4,18 @@ description: "Generate professional release notes from a JSON changelog payload 
 inputs:
   api-key:
     description: "OpenAI-compatible API key"
-    required: true
+    required: false
   input-path:
     description: "Path to JSON file produced by collect-release-changes"
     required: true
   model:
     description: "Model name"
     required: false
+    default: "gpt-4o-mini"
   base-url:
     description: "OpenAI base URL (OpenAI-compatible). Should end with /v1"
     required: false
+    default: "https://api.openai.com/v1"
   language:
     description: "Language for release notes"
     required: false
@@ -38,6 +40,11 @@ runs:
         LANGUAGE: ${{ inputs.language }}
       run: |
         set -euo pipefail
+
+        if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+          echo "OPENAI_API_KEY not set - skipping LLM release notes." >&2
+          exit 0
+        fi
 
         if [[ ! -f "$INPUT_PATH" ]]; then
           echo "Input file not found: $INPUT_PATH" >&2

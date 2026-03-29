@@ -67,7 +67,7 @@ jobs:
 
       - name: Generate professional release notes (LLM, optional)
         id: llm_notes
-        if: ${{ steps.tag.outputs.exists == 'false' && secrets.RELEASE_NOTES_OPENAI_API_KEY != '' }}
+        if: ${{ steps.tag.outputs.exists == 'false' }}
         uses: ./.github/actions/generate-llm-release-notes
         with:
           api-key: ${{ secrets.RELEASE_NOTES_OPENAI_API_KEY }}
