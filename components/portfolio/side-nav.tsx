@@ -41,7 +41,7 @@ function NavTab({ tab }: { tab: Tab }) {
 			onClick={() => handleTabClick(tab.id)}
 		>
 			<tab.icon className="w-5 h-5"/>
-			<span className="absolute left-14 bg-ide-tooltip text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-50">
+			<span className="absolute left-14 bg-ide-tooltip text-foreground text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-50">
 				{tab.label}
 			</span>
 		</button>
@@ -60,7 +60,7 @@ function NavTabLink({ tab }: { tab: TabLink }) {
 			rel="noopener noreferrer"
 		>
 			<tab.icon className="w-5 h-5"/>
-			<span className="absolute left-14 bg-ide-tooltip text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-50">
+			<span className="absolute left-14 bg-ide-tooltip text-foreground text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-50">
 				{tab.label}
 			</span>
 		</Link>
