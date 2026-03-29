@@ -57,7 +57,8 @@ runs:
 
         # Always English.
         SYS="You write release notes for a software release."
-        USER=$(jq -n --argjson input "$INPUT" '
+
+        USER=$(jq -n --arg input "$INPUT" '
           "You are a release-notes writer. Create professional release notes in English based on the JSON data below.\n\n" +
           "IMPORTANT: Only describe WHAT changed. Do not invent anything.\n" +
           "Omit empty categories entirely. Never output placeholders like \"No new features in this release\".\n" +
@@ -67,7 +68,7 @@ runs:
           "- Under each heading use '- ' bullets (short, user-facing; avoid internal implementation details like file names/refactors/formatting)\n" +
           "- If PR data exists: end each bullet with ' (#<number>) <link>'\n" +
           "- No intro text, no closing text, no empty sections\n\n" +
-          "Data (JSON):\n" + ($input|tostring)
+          "Data (JSON):\n" + $input
         ')
 
         BODY=$(jq -n --arg model "$MODEL" --arg sys "$SYS" --arg user "$USER" '{
