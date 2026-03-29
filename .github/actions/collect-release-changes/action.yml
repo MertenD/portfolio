@@ -86,18 +86,41 @@ runs:
           COUNT=$(jq 'length' changes.json)
           echo "Found $COUNT PRs" >&2
 
+          if [[ "$COUNT" -gt 0 ]]; then
+            echo "Fetching changed files for PRs..." >&2
+            jq -c '.[]' changes.json | while read -r pr; do
+              num=$(echo "$pr" | jq -r '.number')
+              files=$(gh api -H "Accept: application/vnd.github+json" "/repos/$REPO/pulls/$num/files" --jq '[.[] | .filename]' 2>/dev/null || echo "[]")
+              echo "$pr" | jq --argjson f "$files" '. + {files: $f}'
+            done | jq -s '.' > changes_with_files.json
+            mv changes_with_files.json changes.json
+          fi
+
           # If we have a range but got 0 PRs (common for direct commits / API limitations), fall back to commits in the range.
           if [[ -n "$RANGE" && "$COUNT" -eq 0 ]]; then
             echo "0 PRs found in range; falling back to commit subjects for $RANGE." >&2
-            git log "$RANGE" --pretty=format:'%s' | jq -R . | jq -s '{commits: .}' > changes.json
+            git log "$RANGE" --pretty=format:'%H%x09%s' | while IFS=$'\t' read -r hash subj; do
+              files=$(git show --name-only --format="" "$hash" | awk NF | jq -R . | jq -s .)
+              jq -n --arg s "$subj" --argjson f "${files:-[]}" '{commit: $s, files: $f}'
+            done | jq -s '{commits: .}' > changes.json
           fi
         else
           echo "gh CLI not found - falling back to commit subjects." >&2
           if [[ -z "$RANGE" ]]; then
-            git log -n 50 --pretty=format:'%s' | jq -R . | jq -s '{commits: .}' > changes.json
+            git log -n 50 --pretty=format:'%H%x09%s' | while IFS=$'\t' read -r hash subj; do
+              files=$(git show --name-only --format="" "$hash" | awk NF | jq -R . | jq -s .)
+              jq -n --arg s "$subj" --argjson f "${files:-[]}" '{commit: $s, files: $f}'
+            done | jq -s '{commits: .}' > changes.json
           else
-            git log "$RANGE" --pretty=format:'%s' | jq -R . | jq -s '{commits: .}' > changes.json
+            git log "$RANGE" --pretty=format:'%H%x09%s' | while IFS=$'\t' read -r hash subj; do
+              files=$(git show --name-only --format="" "$hash" | awk NF | jq -R . | jq -s .)
+              jq -n --arg s "$subj" --argjson f "${files:-[]}" '{commit: $s, files: $f}'
+            done | jq -s '{commits: .}' > changes.json
           fi
         fi
+
+        echo "::group::Collected changes (changes.json)"
+        cat changes.json
+        echo "::endgroup::"
 
         echo "path=changes.json" >> "$GITHUB_OUTPUT"
