@@ -2,7 +2,7 @@
 
 import React, {useContext, useEffect} from "react";
 import {useQueryState} from 'nuqs'
-import {fileSystemContent} from "@/content/file-system-content";
+import {FileId, fileSystemContent} from "@/content/file-system-content";
 import {findFileById, getAllFolderIds, getInitiallyClosedFolderIds} from "@/context/file-system-context-utils";
 
 export type File = {
@@ -28,6 +28,7 @@ interface FileSystemContextType {
   activeFileId: string | null
   getActiveFile: () => File | null
   openFile: (file: File) => void
+  openFileById: (fileId: string) => void
   closeFile: (fileId: string) => void
   selectFile: (fileId: string) => void
   reorderOpenFiles: (activeId: string, overId: string) => void
@@ -75,6 +76,13 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
     })
   }
 
+  const openFileById = (fileId: string) => {
+    const file = findFileById(fileSystemContent, fileId) as File
+    if (file) {
+      openFile(file)
+    }
+  }
+
   const closeFile = (fileId: string) => {
     setOpenFiles((prev) => prev.filter((f) => f.id !== fileId))
     if (activeFileId === fileId) {
@@ -107,7 +115,7 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
   // On initial load, check if there's an active file in the query state and open it
   useEffect(() => {
     if (activeFileId) {
-      const readmeFile = findFileById(fileSystemContent, "readme") as File
+      const readmeFile = findFileById(fileSystemContent, FileId.Readme) as File
       if (readmeFile) {
         openFile(readmeFile)
       }
@@ -116,7 +124,7 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
         openFile(file as File)
       }
     } else {
-      const readmeFile = findFileById(fileSystemContent, "readme") as File
+      const readmeFile = findFileById(fileSystemContent, FileId.Readme) as File
       if (readmeFile) {
         openFile(readmeFile)
       }
@@ -134,6 +142,7 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
       activeFileId,
       getActiveFile,
       openFile,
+      openFileById,
       closeFile,
       selectFile,
       reorderOpenFiles

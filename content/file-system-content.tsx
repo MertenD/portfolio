@@ -9,6 +9,18 @@ import MasterPage from "@/components/pages/education/master-page";
 import BachelorPage from "@/components/pages/education/bachelor-page";
 import FindmePage from "@/components/pages/projects/findme-page";
 
+export enum FileId {
+  Bierturnier = "biertunrier",
+  LanguageLearning = "language-learning",
+  LuzidesTraeumen = "luzides-traeumen",
+  MuscleGroupAPI = "muscle-group-api",
+  ProcessFlow = "process-flow",
+  Findme = "findme",
+  Master = "master",
+  Bachelor = "bachelor",
+  Readme = "readme"
+}
+
 export const fileSystemContent: Array<File | Folder> = [
   {
     id: "portfolio",
@@ -18,12 +30,12 @@ export const fileSystemContent: Array<File | Folder> = [
         id: "projects",
         name: "projects",
         content: [
-          {id: "biertunrier", name: "Bierturnier.rb", component: <BierturnierPage />},
-          {id: "language-learning", name: "LanguageLearning.tsx", component: <LanguageLearningPage />},
-          {id: "luzides-traeumen", name: "LuzidesTraeumen.tex", component: <LuzidesTraeumenPage />},
-          {id: "muscle-group-api", name: "MuscleGroupAPI.php", component: <MuscleGroupAPIPage />},
-          {id: "process-flow", name: "ProcessFlow.tsx", component: <ProcessFlowPage />},
-          {id: "findme", name: "findme.tsx", component: <FindmePage />}
+          {id: FileId.Bierturnier, name: "Bierturnier.rb", component: <BierturnierPage />},
+          {id: FileId.LanguageLearning, name: "LanguageLearning.tsx", component: <LanguageLearningPage />},
+          {id: FileId.LuzidesTraeumen, name: "LuzidesTraeumen.tex", component: <LuzidesTraeumenPage />},
+          {id: FileId.MuscleGroupAPI, name: "MuscleGroupAPI.php", component: <MuscleGroupAPIPage />},
+          {id: FileId.ProcessFlow, name: "ProcessFlow.tsx", component: <ProcessFlowPage />},
+          {id: FileId.Findme, name: "findme.tsx", component: <FindmePage />}
         ]
       },
       {
@@ -31,11 +43,11 @@ export const fileSystemContent: Array<File | Folder> = [
         name: "education",
         isInitiallyClosed: true,
         content: [
-          {id: "master", name: "Master.tex", component: <MasterPage />},
-          {id: "bachelor", name: "Bachelor.tex", component: <BachelorPage />},
+          {id: FileId.Master, name: "Master.tex", component: <MasterPage />},
+          {id: FileId.Bachelor, name: "Bachelor.tex", component: <BachelorPage />},
         ]
       },
-      {id: "readme", name: "README.md", component: <ReadmePage />}
+      {id: FileId.Readme, name: "README.md", component: <ReadmePage />}
     ]
   }
 ]
