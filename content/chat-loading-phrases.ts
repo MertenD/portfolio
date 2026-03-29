@@ -21,5 +21,13 @@ export const chatLoadingPhrases = [
   "Sprinkling fairy dust",
   "Entering the flow state",
   "Leveling up",
-  "Buffering brilliance"
+  "Buffering brilliance",
+  "Watering my fish",
+  "Consulting the magic 8 ball",
+  "Looking for my glasses",
+  "Counting digital sheep",
+  "Untangling the web",
+  "Polishing the pixels",
+  "Searching for snacks",
+  "Warming up the servers"
 ]
