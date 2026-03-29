@@ -49,7 +49,7 @@ export default function ReadmePage() {
       <div className="w-full max-w-4xl space-y-6">
         <header className="space-y-2">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div>
+            <div className="space-y-2">
               <p className="font-mono text-xs text-muted-foreground">README.md</p>
               <h1 className="font-headline text-2xl md:text-3xl tracking-tight text-foreground">
                 Hey there! I&apos;m <span className="text-primary">Merten</span>
