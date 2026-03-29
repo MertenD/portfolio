@@ -8,6 +8,7 @@ import ReadmePage from "@/components/pages/readme-page";
 import MasterPage from "@/components/pages/education/master-page";
 import BachelorPage from "@/components/pages/education/bachelor-page";
 import FindmePage from "@/components/pages/projects/findme-page";
+import ImpressumPage from "@/components/pages/impressum-page";
 
 export enum FileId {
   Bierturnier = "biertunrier",
@@ -18,7 +19,8 @@ export enum FileId {
   Findme = "findme",
   Master = "master",
   Bachelor = "bachelor",
-  Readme = "readme"
+  Readme = "readme",
+  Imprint = "imprint"
 }
 
 export const fileSystemContent: Array<File | Folder> = [
@@ -47,7 +49,8 @@ export const fileSystemContent: Array<File | Folder> = [
           {id: FileId.Bachelor, name: "Bachelor.tex", component: <BachelorPage />},
         ]
       },
-      {id: FileId.Readme, name: "README.md", component: <ReadmePage />}
+      {id: FileId.Readme, name: "README.md", component: <ReadmePage />},
+      {id: FileId.Imprint, name: "Imprint.md", component: <ImpressumPage />}
     ]
   }
 ]
