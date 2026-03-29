@@ -8,7 +8,7 @@ export function AppHeader() {
       <div className="flex items-center h-full">
         <div className="px-4 text-primary font-mono text-sm font-bold opacity-80 flex items-center gap-2">
           <Terminal className="w-4 h-4 shrink-0" />
-          Mertens Portfolio
+          Merten.tech
         </div>
       </div>
     </nav>

@@ -22,8 +22,8 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Engineer Portfolio | Full Stack Developer',
-  description: 'Full Stack Engineer Portfolio - Architecting Scalable Solutions',
+  title: 'Merten.tech - Full Stack Engineer Portfolio',
+  description: 'Portfolio of Merten, a full stack engineer specializing in React, Node.js, and cloud technologies. Explore projects, skills, and experience in web development.',
 }
 
 export default function RootLayout({
