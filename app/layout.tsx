@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type {Metadata, Viewport} from 'next'
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import {AppHeader} from "@/components/portfolio/app-header";
@@ -24,6 +24,13 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'Merten Dieckmann | Portfolio',
   description: 'Portfolio of Merten Dieckmann, a full stack engineer specializing in React, Node.js, and cloud technologies. Explore projects, skills, and experience in web development.',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 }
 
 export default function RootLayout({
