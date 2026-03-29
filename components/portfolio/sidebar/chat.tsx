@@ -5,6 +5,7 @@ import {BotIcon, PlusIcon, SendIcon, Terminal, UserIcon} from "lucide-react"
 import {Button} from "@/components/ui/button"
 import {Textarea} from "@/components/ui/textarea";
 import {chatLoadingPhrases} from "@/content/chat-loading-phrases";
+import {useIsMobile} from "@/hooks/use-mobile";
 
 type Message = {
   id: string
@@ -17,6 +18,8 @@ const initialMessages: Message[] = [
 ]
 
 export default function Chat() {
+  const isMobile = useIsMobile()
+
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
@@ -53,7 +56,7 @@ export default function Chat() {
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !isMobile) {
       e.preventDefault()
       if (!isTyping) {
         handleSend()
