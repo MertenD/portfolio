@@ -1,0 +1,24 @@
+services:
+  portfolio:
+    container_name: merten-portfolio
+    image: mertend/portfolio:latest
+    networks:
+      - web
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.merten-portfolio.rule=Host(`mertendieckmann.de`) || Host(`merten.tech`)
+      - traefik.http.routers.merten-portfolio.entrypoints=websecure
+      - traefik.http.routers.merten-portfolio.tls=true
+      - traefik.http.routers.merten-portfolio.tls.certresolver=le-merten
+      - traefik.docker.network=web
+      - com.centurylinklabs.watchtower.enable=true
+
+      - traefik.http.middlewares.redirect-merten-portfolio.redirectregex.regex=^https?://mertendieckmann.de/(.*)
+      - traefik.http.middlewares.redirect-merten-portfolio.redirectregex.replacement=https://merten.tech/$${1}
+      - traefik.http.middlewares.redirect-merten-portfolio.redirectregex.permanent=true
+      - traefik.http.routers.merten-portfolio.middlewares=redirect-merten
+
+networks:
+  web:
+    external: true
