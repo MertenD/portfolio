@@ -55,7 +55,9 @@ export default function Chat() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      handleSend()
+      if (!isTyping) {
+        handleSend()
+      }
     }
   }
 
@@ -87,7 +89,7 @@ export default function Chat() {
             className="min-h-8 max-h-32 resize-none text-xs py-2"
             rows={Math.min(3, Math.max(1, inputValue.split('\n').length))}
           />
-          <Button size="icon" className="h-8 w-8 shrink-0" onClick={handleSend}>
+          <Button size="icon" className="h-8 w-8 shrink-0" onClick={handleSend} disabled={isTyping}>
             <SendIcon className="w-4 h-4" />
           </Button>
         </div>
