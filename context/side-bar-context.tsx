@@ -3,6 +3,7 @@
 import React, {ForwardRefExoticComponent, JSX, RefAttributes} from "react";
 import {LucideProps} from "lucide-react";
 import {navTabsBottom, navTabsTop} from "@/content/side-nav-content";
+import {MOBILE_BREAKPOINT, useIsMobile} from "@/hooks/use-mobile";
 
 export type Tab = {
   id: string
@@ -26,8 +27,19 @@ interface SideBarContextType {
 const SideBarContext = React.createContext<SideBarContextType | undefined>(undefined)
 
 export function SideBarProvider({ children }: { children: React.ReactNode }) {
-  const [currentTabId, setCurrentTabId] = React.useState<string | null>(navTabsTop[0].id)
-  const [lastTab, setlastTab] = React.useState<string | null>(navTabsTop[0].id)
+  const isMobile = useIsMobile()
+  const defaultDesktopTabId = navTabsTop[0]?.id ?? null
+
+  const [currentTabId, setCurrentTabId] = React.useState<string | null>(defaultDesktopTabId)
+  const [lastTab, setlastTab] = React.useState<string | null>(defaultDesktopTabId)
+
+  React.useEffect(() => {
+    // Close sidebar when switching to mobile or initial load on mobile
+    if (isMobile !== undefined && isMobile) {
+      setCurrentTabId(null)
+    }
+  }, [isMobile])
+
   const [onTabClicked, setOnTabClicked] = React.useState<(() => void) | null>(null)
 
   const currentTabComponent = React.useMemo(() => {
@@ -55,7 +67,6 @@ export function SideBarProvider({ children }: { children: React.ReactNode }) {
       setCurrentTabId(lastTab)
     }
   }
-
 
   return <SideBarContext.Provider value={{ isOpen, currentTabId, handleTabClick, closeSidebar, openLastTab, setOnTabClicked, currentTabComponent }}>
     {children}
