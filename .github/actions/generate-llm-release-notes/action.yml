@@ -66,10 +66,9 @@ runs:
         Omit empty categories entirely. Never output placeholders like "No new features in this release".
         Requirements:
         - Output: Markdown
-        - Use only these headings (only when non-empty): ## Features, ## Fixes, ## Documentation, ## Maintenance
         - Under each heading use '- ' bullets (short, user-facing; avoid internal implementation details like file names/refactors/formatting)
-        - If PR data exists: end each bullet with ' (#<number>) <link>'
-        - No intro text, no closing text, no empty sections
+        - If PR data exists: end each bullet with ' (#<number>)'
+        - A short intro text, no closing text, no empty sections
 
         Data (JSON):
         PROMPT
