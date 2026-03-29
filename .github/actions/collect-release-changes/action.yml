@@ -68,7 +68,7 @@ runs:
           if [[ -z "$RANGE" ]]; then
             gh api -H "Accept: application/vnd.github+json" \
               "/repos/$REPO/pulls?state=closed&base=$BASE_BRANCH&per_page=$MAX_PRS&sort=updated&direction=desc" \
-              --jq '[.[] | select(.merged_at != null) | {number, title, url, author: .user.login, merged_at, labels: [.labels[].name]}]' > changes.json
+              --jq '[.[] | select(.merged_at != null) | {number, title, body, url, author: .user.login, merged_at, labels: [.labels[].name]}]' > changes.json
           else
             COMMITS=$(git rev-list "$RANGE" || true)
             echo "[]" > changes.json
@@ -76,7 +76,7 @@ runs:
               gh api -H "Accept: application/vnd.github+json" \
                 "/repos/$REPO/commits/$sha/pulls" \
                 -H "X-GitHub-Api-Version: 2022-11-28" \
-                --jq '[.[] | {number, title, url, author: .user.login, merged_at, labels: [.labels[].name]}]' \
+                --jq '[.[] | {number, title, body, url, author: .user.login, merged_at, labels: [.labels[].name]}]' \
                 > pr_tmp.json || true
               jq -s 'add | unique_by(.url)' changes.json pr_tmp.json > changes_merged.json
               mv changes_merged.json changes.json
@@ -87,11 +87,12 @@ runs:
           echo "Found $COUNT PRs" >&2
 
           if [[ "$COUNT" -gt 0 ]]; then
-            echo "Fetching changed files for PRs..." >&2
+            echo "Fetching changed files and commits for PRs..." >&2
             jq -c '.[]' changes.json | while read -r pr; do
               num=$(echo "$pr" | jq -r '.number')
-              files=$(gh api -H "Accept: application/vnd.github+json" "/repos/$REPO/pulls/$num/files" --jq '[.[] | .filename]' 2>/dev/null || echo "[]")
-              echo "$pr" | jq --argjson f "$files" '. + {files: $f}'
+              files=$(gh api -H "Accept: application/vnd.github+json" "/repos/$REPO/pulls/$num/files" --jq '[.[].filename]' 2>/dev/null || echo "[]")
+              commits=$(gh api -H "Accept: application/vnd.github+json" "/repos/$REPO/pulls/$num/commits" --jq '[.[].commit.message]' 2>/dev/null || echo "[]")
+              echo "$pr" | jq --argjson f "$files" --argjson c "$commits" '. + {files: $f, commits: $c}'
             done | jq -s '.' > changes_with_files.json
             mv changes_with_files.json changes.json
           fi
