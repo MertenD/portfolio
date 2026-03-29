@@ -136,12 +136,12 @@ export default function OpenFiles() {
       >
         <div
           className={cn(
-            "sticky top-0 z-30 h-10 min-w-0",
+            "sticky top-0 z-30 h-10 min-w-0 max-w-full w-full",
             openFiles.length > 0 ? "bg-muted" : "bg-transparent"
           )}
         >
-          <div className="h-full w-full min-w-0 overflow-x-auto overflow-y-hidden touch-pan-x">
-            <div className="h-full flex font-headline font-medium text-sm tracking-tight">
+          <div className="h-full w-full max-w-full min-w-0 overflow-x-auto overflow-y-hidden touch-pan-x no-scrollbar">
+            <div className="h-full flex font-headline font-medium text-sm tracking-tight w-max px-0.5">
               {openFiles.map((file) => (
                 <SortableOpenFileTab
                   key={file.id}

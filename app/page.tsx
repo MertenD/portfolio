@@ -56,8 +56,8 @@ export default function PortfolioPage() {
     </div>
 
     { /* Mobile layout: same left nav, sidebar overlays content (no resize) */}
-    <div className="md:hidden flex flex-1 h-full min-h-0 w-full">
-      <div className="relative flex-1 flex min-h-0 min-w-0 h-full">
+    <div className="md:hidden flex flex-1 h-full min-h-0 w-full overflow-hidden">
+      <div className="relative flex-1 flex min-h-0 min-w-0 h-full w-full max-w-full">
         <MainContent />
 
         {isOpen && (
@@ -84,9 +84,9 @@ export default function PortfolioPage() {
 }
 
 function MainContent({ className }: { className?: string }) {
-  return <div className={cn("flex-1 min-h-0 flex flex-col min-w-0", className)}>
+  return <div className={cn("flex-1 min-h-0 flex flex-col min-w-0 w-full max-w-full", className)}>
     <OpenFiles />
-    <main className="flex-1 min-h-0 overflow-y-auto min-w-0">
+    <main className="flex-1 min-h-0 overflow-y-auto min-w-0 w-full max-w-full">
       <PagesMain />
     </main>
   </div>

@@ -16,9 +16,9 @@ export function FileContentContainer({
   headerRight,
 }: FileContentContainerProps) {
   return (
-    <section className="flex-1 min-h-0 h-full w-full p-4 md:p-8 overflow-y-auto">
-      <div className="w-full max-w-4xl space-y-6">
-        <header className="space-y-2">
+    <section className="flex-1 min-h-0 h-full w-full max-w-full p-4 md:p-8 overflow-y-auto overflow-x-hidden">
+      <div className="w-full max-w-4xl space-y-6 mx-auto">
+        <header className="space-y-2 w-full max-w-full">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div className="space-y-2">
               <p className="font-mono text-xs text-muted-foreground">{filePath}</p>
@@ -35,4 +35,3 @@ export function FileContentContainer({
     </section>
   );
 }
-
