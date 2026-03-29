@@ -1,6 +1,7 @@
 "use client"
 
-import { Search, Settings, Terminal } from "lucide-react"
+import { Terminal } from "lucide-react"
+import pkg from "@/package.json"
 
 export function AppHeader() {
   return (
@@ -10,6 +11,10 @@ export function AppHeader() {
           <Terminal className="w-4 h-4 shrink-0" />
           Merten.tech
         </div>
+      </div>
+
+      <div className="px-4 h-full flex items-center">
+        <span className="font-mono text-xs text-muted-foreground select-none">v{pkg.version}</span>
       </div>
     </nav>
   )
