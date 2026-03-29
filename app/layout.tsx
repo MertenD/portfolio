@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Merten.tech - Full Stack Engineer Portfolio',
+  title: 'Merten.tech | Portfolio',
   description: 'Portfolio of Merten, a full stack engineer specializing in React, Node.js, and cloud technologies. Explore projects, skills, and experience in web development.',
 }
 
