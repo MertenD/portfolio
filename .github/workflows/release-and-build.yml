@@ -118,3 +118,4 @@ jobs:
           tags: |
             mertend/portfolio:${{ needs.meta.outputs.version }}
             mertend/portfolio:latest
+
