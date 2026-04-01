@@ -118,4 +118,5 @@ jobs:
           tags: |
             mertend/portfolio:${{ needs.meta.outputs.version }}
             mertend/portfolio:latest
-
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
