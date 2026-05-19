@@ -89,45 +89,47 @@ export default function MasterPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-popover">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-headline text-base">Tech Stack</CardTitle>
-          <CardDescription>Backend · Frontend · Infrastructure</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="space-y-1">
-            <p className="text-xs font-mono text-muted-foreground">Backend</p>
-            <div className="flex flex-wrap gap-2">
-              {["Kotlin", "Spring Boot", "WebFlux", "LangChain4j", "PostgreSQL", "Docker"].map((t) => (
-                <Badge key={t} variant="outline" className="font-mono text-xs">{t}</Badge>
-              ))}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="bg-popover">
+          <CardHeader className="pb-3">
+            <CardTitle className="font-headline text-base">Tech Stack</CardTitle>
+            <CardDescription>Backend · Frontend · Infrastructure</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="space-y-1">
+              <p className="text-xs font-mono text-muted-foreground">Backend</p>
+              <div className="flex flex-wrap gap-2">
+                {["Kotlin", "Spring Boot", "WebFlux", "LangChain4j", "PostgreSQL", "Docker"].map((t) => (
+                  <Badge key={t} variant="outline" className="font-mono text-xs">{t}</Badge>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="space-y-1">
-            <p className="text-xs font-mono text-muted-foreground">Frontend</p>
-            <div className="flex flex-wrap gap-2">
-              {["Next.js", "TypeScript", "bpmn-js", "Recharts", "Docker"].map((t) => (
-                <Badge key={t} variant="outline" className="font-mono text-xs">{t}</Badge>
-              ))}
+            <div className="space-y-1">
+              <p className="text-xs font-mono text-muted-foreground">Frontend</p>
+              <div className="flex flex-wrap gap-2">
+                {["Next.js", "TypeScript", "bpmn-js", "Recharts", "Docker"].map((t) => (
+                  <Badge key={t} variant="outline" className="font-mono text-xs">{t}</Badge>
+                ))}
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      <Card className="bg-popover">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-headline text-base">Key Contributions</CardTitle>
-          <CardDescription>Three deliverables developed as part of this thesis</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {contributions.map((c) => (
-            <div key={c.title} className="space-y-1">
-              <p className="text-sm font-headline text-foreground">{c.title}</p>
-              <p className="text-sm text-muted-foreground">{c.description}</p>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
+        <Card className="bg-popover">
+          <CardHeader className="pb-3">
+            <CardTitle className="font-headline text-base">Key Contributions</CardTitle>
+            <CardDescription>Three deliverables developed as part of this thesis</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {contributions.map((c) => (
+              <div key={c.title} className="space-y-1">
+                <p className="text-sm font-headline text-foreground">{c.title}</p>
+                <p className="text-sm text-muted-foreground">{c.description}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
 
       <Card className="bg-popover">
         <CardHeader className="pb-3">
@@ -143,33 +145,113 @@ export default function MasterPage() {
         </CardContent>
       </Card>
 
-      <Card className="bg-popover">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-headline text-base">GRIPL Analysis Tool</CardTitle>
-          <CardDescription>Sandbox view — GDPR-critical activities highlighted in red after LLM analysis</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ZoomableImage
-            src="/images/master-thesis/sandbox-analyzed-model-annotated.png"
-            alt="GRIPL sandbox with GDPR-critical BPMN elements highlighted"
-            height={300}
-          />
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="bg-popover">
+          <CardHeader className="pb-3">
+            <CardTitle className="font-headline text-base">GRIPL Analysis Tool</CardTitle>
+            <CardDescription>Sandbox view — GDPR-critical activities highlighted in red after LLM analysis</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ZoomableImage
+              src="/images/master-thesis/sandbox-analyzed-model-annotated.png"
+              alt="GRIPL sandbox with GDPR-critical BPMN elements highlighted"
+              height={260}
+            />
+          </CardContent>
+        </Card>
+
+        <Card className="bg-popover">
+          <CardHeader className="pb-3">
+            <CardTitle className="font-headline text-base">Labeling Tool</CardTitle>
+            <CardDescription>Custom-built web app for creating and annotating GDPR-labeled BPMN test datasets</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ZoomableImage
+              src="/images/master-thesis/labeling-editor.png"
+              alt="Labeling tool editor with BPMN diagram and label panel"
+              height={260}
+            />
+          </CardContent>
+        </Card>
+      </div>
 
       <Card className="bg-popover">
         <CardHeader className="pb-3">
-          <CardTitle className="font-headline text-base">Labeling Tool</CardTitle>
-          <CardDescription>Custom-built web app for creating and annotating GDPR-labeled BPMN test datasets</CardDescription>
+          <CardTitle className="font-headline text-base">Evaluation Framework</CardTitle>
+          <CardDescription>YAML-configured, reproducible LLM benchmarking pipeline</CardDescription>
         </CardHeader>
-        <CardContent>
-          <ZoomableImage
-            src="/images/master-thesis/labeling-editor.png"
-            alt="Labeling tool editor with BPMN diagram and label panel"
-            height={300}
-          />
+        <CardContent className="text-sm text-muted-foreground space-y-2">
+          <p>
+            Declarative YAML configuration defines models, datasets, repetitions, seed, and HTTP endpoint — swap any
+            LLM or classification algorithm without touching the code.
+          </p>
+          <p>
+            A standardised HTTP interface decouples the framework from the classifier. Each model runs 5 repetitions
+            with a fixed seed; results are aggregated as mean ± std dev across runs. Evaluations can be exported as
+            JSON or Markdown for reproducible reporting.
+          </p>
         </CardContent>
       </Card>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="bg-popover">
+          <CardHeader className="pb-3">
+            <CardTitle className="font-headline text-base">Architecture</CardTitle>
+            <CardDescription>EvaluationController → MultiEvaluationRunner → EvaluationRunner → HttpEvaluator → LLM</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ZoomableImage
+              src="/images/master-thesis/evaluation-architecture.png"
+              alt="Evaluation framework component diagram"
+              height={240}
+            />
+          </CardContent>
+        </Card>
+
+        <Card className="bg-popover">
+          <CardHeader className="pb-3">
+            <CardTitle className="font-headline text-base">Configuration</CardTitle>
+            <CardDescription>Form-based config — define models, pick datasets, set repetitions and concurrency, then launch the run</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ZoomableImage
+              src="/images/master-thesis/evaluation-config.png"
+              alt="Evaluation framework configuration UI"
+              height={240}
+            />
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="bg-popover">
+          <CardHeader className="pb-3">
+            <CardTitle className="font-headline text-base">Results by Model</CardTitle>
+            <CardDescription>Per-model dashboard: radar chart (Accuracy / Precision / Recall / F1), confusion matrix, and run-by-run comparison</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ZoomableImage
+              src="/images/master-thesis/evaluation-result-model.png"
+              alt="Evaluation results per model with radar and bar charts"
+              height={260}
+            />
+          </CardContent>
+        </Card>
+
+        <Card className="bg-popover">
+          <CardHeader className="pb-3">
+            <CardTitle className="font-headline text-base">Results by Test Case</CardTitle>
+            <CardDescription>BPMN diagram with correctly identified (green) and false-positive (red) activities highlighted, plus model reasoning per element</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ZoomableImage
+              src="/images/master-thesis/evaluation-result-testcase.png"
+              alt="Evaluation results per test case with annotated BPMN diagram"
+              height={260}
+            />
+          </CardContent>
+        </Card>
+      </div>
 
       <Card className="bg-popover">
         <CardHeader className="pb-3">
