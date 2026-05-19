@@ -41,3 +41,18 @@ export function getAllFolderIds(items: Array<File | Folder>): string[] {
   }
   return folderIds
 }
+
+export function getAllFiles(
+  items: Array<File | Folder>,
+  folderPath: string[] = []
+): Array<{ file: File; path: string[] }> {
+  const results: Array<{ file: File; path: string[] }> = []
+  for (const item of items) {
+    if ("component" in item) {
+      results.push({ file: item, path: folderPath })
+    } else {
+      results.push(...getAllFiles(item.content, [...folderPath, item.name]))
+    }
+  }
+  return results
+}

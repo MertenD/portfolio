@@ -9,6 +9,8 @@ export type File = {
   id: string
   name: string
   component: React.ReactNode
+  keywords?: string[]
+  searchableText?: string
 }
 
 export type Folder = {
