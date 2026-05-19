@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link";
+import Image from "next/image";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,7 @@ export default function ReadmePage() {
     },
     {
       name: "ProcessFlow",
+      icon: "/images/process-flow/icon.png",
       onOpen: () => openFileById(FileId.ProcessFlow),
       description:
         "Web app for building and executing gamified business processes — drag-and-drop workflow editor, process execution engine, plugin system, and live monitoring.",
@@ -125,7 +127,12 @@ export default function ReadmePage() {
             <div key={p.name} className="space-y-2">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div className="min-w-0">
-                  <p className="font-headline text-sm text-foreground truncate">{p.name}</p>
+                  <div className="flex items-center gap-2">
+                    {"icon" in p && p.icon && (
+                      <Image src={p.icon} alt={`${p.name} icon`} width={18} height={18} className="rounded shrink-0" />
+                    )}
+                    <p className="font-headline text-sm text-foreground truncate">{p.name}</p>
+                  </div>
                   <p className="text-sm text-muted-foreground">{p.description}</p>
                 </div>
                 <Button size="sm" variant="link-secondary" className="shrink-0" onClick={p.onOpen}>
