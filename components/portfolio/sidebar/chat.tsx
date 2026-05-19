@@ -11,9 +11,8 @@ import { Chat, useChat } from "@ai-sdk/react"
 import { generateId, TextStreamChatTransport } from "ai"
 import { useFileSystem } from "@/context/file-system-context"
 import type { UIMessage } from "ai"
-import Link from "next/link";
 
-const WELCOME_TEXT = "Hello! How can I help you today?\n\n> I have context about the whole portfolio and the currently opened file."
+const WELCOME_TEXT = "Hi! I'm Merten's portfolio assistant.\n\nAsk me anything about him. For example about his **projects**, **tech stack**, **CV**, or **thesis** work. I also know which file you currently have open."
 
 function createChat(activeFileRef: React.RefObject<string | null>) {
   return new Chat({
@@ -73,9 +72,7 @@ export default function ChatPanel() {
       </div>
 
       <div className="flex-1 overflow-y-auto p-2" ref={scrollRef}>
-        {messages.length === 0 && (
-          <WelcomeBubble />
-        )}
+        <AssistantBubble text={WELCOME_TEXT} onOpenFile={openFileById} />
         {messages
           .filter((msg, i) => !(isLoading && i === messages.length - 1 && msg.role === "assistant"))
           .map((msg) => (
@@ -167,14 +164,14 @@ function MessageContent({ text, onOpenFile }: { text: string; onOpenFile: (id: s
   )
 }
 
-function WelcomeBubble() {
+function AssistantBubble({ text, onOpenFile }: { text: string; onOpenFile: (id: string) => void }) {
   return (
     <div className="flex w-full mb-4 gap-2 justify-start">
       <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
         <BotIcon className="w-4 h-4 text-primary" />
       </div>
-      <div className="px-3 py-2 rounded-lg text-sm max-w-[80%] break-words bg-muted text-foreground rounded-bl-none whitespace-pre-wrap">
-        {WELCOME_TEXT}
+      <div className="px-3 py-2 rounded-lg text-sm max-w-[80%] break-words bg-muted text-foreground rounded-bl-none">
+        <MessageContent text={text} onOpenFile={onOpenFile} />
       </div>
     </div>
   )
@@ -184,33 +181,16 @@ function ChatBubble({ message, onOpenFile }: { message: UIMessage; onOpenFile: (
   const isUser = message.role === "user"
   const text = getMessageText(message)
 
-  console.log(text)
+  if (!isUser) return <AssistantBubble text={text} onOpenFile={onOpenFile} />
 
   return (
-    <div className={`flex w-full mb-4 gap-2 ${isUser ? "justify-end" : "justify-start"}`}>
-      {!isUser && (
-        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-          <BotIcon className="w-4 h-4 text-primary" />
-        </div>
-      )}
-      <div
-        className={`px-3 py-2 rounded-lg text-sm max-w-[80%] break-words ${
-          isUser
-            ? "bg-primary text-primary-foreground rounded-br-none"
-            : "bg-muted text-foreground rounded-bl-none"
-        }`}
-      >
-        {isUser ? (
-          <span className="whitespace-pre-wrap">{text}</span>
-        ) : (
-          <MessageContent text={text} onOpenFile={onOpenFile} />
-        )}
+    <div className="flex w-full mb-4 gap-2 justify-end">
+      <div className="px-3 py-2 rounded-lg text-sm max-w-[80%] break-words bg-primary text-primary-foreground rounded-br-none">
+        <span className="whitespace-pre-wrap">{text}</span>
       </div>
-      {isUser && (
-        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
-          <UserIcon className="w-4 h-4 text-primary" />
-        </div>
-      )}
+      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
+        <UserIcon className="w-4 h-4 text-primary" />
+      </div>
     </div>
   )
 }

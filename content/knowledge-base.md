@@ -4,7 +4,7 @@ Software Engineer at Mercedes-Benz Tech Innovation, with 4+ years of professiona
 
 Core skills: Java, Kotlin, TypeScript, Python, PHP · Angular, Spring Boot, React/Next.js, LangChain, tRPC, Akka HTTP · Kubernetes, Docker, Git, CI/CD, PostgreSQL, Redis, SAFe, Traefik.
 
-Contact: merten.dieckmann@web.de · +49 177 1969628 · merten.tech · GitHub: github.com/MertenD · LinkedIn: linkedin.com/in/merten-dieckmann · Address: Memminger Straße 35/2110, 89231 Neu-Ulm
+Contact: merten.dieckmann@web.de · +49 177 1969628 · https://merten.tech · GitHub: https://github.com/MertenD · LinkedIn: https://www.linkedin.com/in/merten-dieckmann/ · Address: Memminger Straße 35/2110, 89231 Neu-Ulm
 
 He originally was born in 2001 in Hanover and grew up there in Bemerode until he completed his Abitur in 1029 with 18 years old and moved to Ulm for his studies. He was intrigued by the name of the study program "Software Engineering". He never been to Ulm before and when he drove there for the first time with all his belongings in a car to get the keys for his first student dorm apartment, it was the very first time he ever saw ulm or the university.
 
@@ -17,6 +17,15 @@ Joined streets.ev (https://www.streets-ev.de/) in summer of 2025 in Ulm where he
 ### Badminton
 
 He likes to play badminton for fun. He played in a club for several years when he was younger, but now mostly plays casually with friends. He enjoys the fast-paced nature of the game and the combination of physical activity and strategy. He often goes playing badminton at the local "Sportsohn Sporttreff" in Neu-Ulm (https://www.sportsohn.de/sporttreff/)
+
+### Wandern
+
+He enjoys hiking on weekends, especially in his home region in the Harz (https://de.wikipedia.org/wiki/Harz_(Mittelgebirge)). At least once a year he goes on a hike with his dad to climb the "Brocken" (https://www.harzinfo.de/naturlandschaft-harz/der-brocken-im-harz) — the highest peak in the Harz mountains.
+
+### Board Games
+
+His favorite board games is by far Catan with the Seafaring extension.
+A new upcoming favorite is "Dune: Imperium". 
 
 ---
 
@@ -86,16 +95,16 @@ Written and self-published a practical guide to lucid dreaming (Kontrolliere Dei
 # Projects
 
 ## EasyLingu (portfolio file: language-learning)
-AI-powered language learning SaaS. Vocabulary in nested categories with grammatical forms (conjugations, gender, plural) and example sentences. Words progress through 5 spaced-repetition levels. 11 mini-game modes: Flashcards, Multiple Choice, Reverse Choice, Typing, Scramble, Matching, Memory, Hangman, True/False, Speed Match, Mixed. AI features: LLM-generated vocabulary sets for any topic, streaming chat tutor personalised to the user's CEFR level and known words with inline mistake corrections, RAG-powered conversation scenarios derived from actual vocabulary and grammar notes. Monetised via Polar subscriptions. Stack: Next.js, TypeScript, tRPC, Prisma, PostgreSQL, Vercel AI SDK, OpenRouter, Inngest, Polar, PWA. Url: https://easylingu.com · GitHub: 
+AI-powered language learning SaaS. Vocabulary in nested categories with grammatical forms (conjugations, gender, plural) and example sentences. Words progress through 5 spaced-repetition levels. 11 mini-game modes: Flashcards, Multiple Choice, Reverse Choice, Typing, Scramble, Matching, Memory, Hangman, True/False, Speed Match, Mixed. AI features: LLM-generated vocabulary sets for any topic, streaming chat tutor personalised to the user's CEFR level and known words with inline mistake corrections, RAG-powered conversation scenarios derived from actual vocabulary and grammar notes. Monetised via Polar subscriptions. Stack: Next.js, TypeScript, tRPC, Prisma, PostgreSQL, Vercel AI SDK, OpenRouter, Inngest, Polar, PWA. Live: https://easylingu.com · GitHub: https://github.com/MertenD/language-learning
 
 ## ProcessFlow (portfolio file: process-flow)
-Web app for building and executing gamified business processes. Drag-and-drop node-based workflow editor, process execution engine, plugin system (external activity servers rendered in iframes), live monitoring dashboard with real-time instance tracking. Role-based access control. Gamification rewards (XP, coins, badges) are configurable per activity node in the editor. Stack: Next.js, TypeScript, PostgreSQL, Supabase, Docker.
+Web app for building and executing gamified business processes. Drag-and-drop node-based workflow editor, process execution engine, plugin system (external activity servers rendered in iframes), live monitoring dashboard with real-time instance tracking. Role-based access control. Gamification rewards (XP, coins, badges) are configurable per activity node in the editor. Stack: Next.js, TypeScript, PostgreSQL, Supabase, Docker. Live: https://processflow.merten.tech · GitHub: https://github.com/MertenD/process-flow
 
 ## MuscleGroup Image Generator API (portfolio file: muscle-group-api)
 Self-hosted REST API generating anatomical images with muscle groups highlighted in custom colours. 500,000+ total requests, ~30,000/month. Listed on RapidAPI. Stack: PHP, Docker, Linux VPS. GitHub: https://github.com/MertenD/muscle-group-image-generator · RapidAPI: https://rapidapi.com/mertronlp/api/muscle-group-image-generator
 
 ## BierTurnier (portfolio file: biertunrier)
-Tournament management web app for beerpong events, built collaboratively with two friends (Emilija Kastratović, Markus Thielker) — hands-on experience in team planning, implementation, and production deployment. QR code join links, live leaderboard, multilingual (i18n). Live at bierturnier.de. GitHub: https://github.com/MarkusThielker/bier-turnier. Stack: Next.js, TypeScript, Supabase, Docker, PWA.
+Tournament management web app for beerpong events, built collaboratively with two friends (Emilija Kastratović, Markus Thielker) — hands-on experience in team planning, implementation, and production deployment. QR code join links, live leaderboard, multilingual (i18n). Live at bierturnier.de. GitHub: https://github.com/MarkusThielker/bier-turnier. Live: https://bierturnier.de Stack: Next.js, TypeScript, Supabase, Docker, PWA.
 
 ## Lucid Dreaming Book (portfolio file: luzides-traeumen)
 Self-published practical guide to lucid dreaming ("Kontrolliere Deine Träume") via Amazon KDP. Comes with a matching Next.js landing page at luzides-traeumen-buch.de. Written in LaTeX. Available on Amazon: https://www.amazon.de/Kontrolliere-Deine-Tr%C3%A4ume-praktischer-Leidfaden/dp/B0D8LHZ2X6 and landing page: https://luzides-traeumen-buch.de
@@ -200,3 +209,45 @@ Fehleranalysen zeigen vor allem False Positives bei fehlendem Kontext und False 
 Diese Arbeit untersuchte, inwieweit moderne LLMs DSGVO-kritische Aktivitäten in BPMN-Prozessmodellen zuverlässig identifizieren können. In einer systematischen Evaluation mit 13 Modellen, 25 Testfällen und jeweils fünf Wiederholungen erreichten neun Modelle die Zielwerte (F1 ≥ 0,80). Offene Modelle wie Qwen3-235B und GPT-OSS-20B kombinierten hohen Recall mit solider Precision. Kleinere Modelle (≤ 25B) hielten mit größeren mit und sind für On-Premises-Szenarien attraktiv. Europäische Modelle (Mistral Medium 3.1, Mistral-Large-Instruct-2411) erwiesen sich als wettbewerbsfähig.
 
 Die entwickelte Infrastruktur — Klassifizierungspipeline, Labeling-Tool und Evaluationsframework — schafft eine belastbare Basis für zukünftige Arbeiten und erlaubt neue Modelle, Prompting-Strategien und Testdaten nahtlos zu integrieren. Fazit: LLMs bilden in Kombination mit einer robusten Pipeline ein wirksames Screening-Werkzeug. Internationale Spitzenmodelle lieferten die besten Ergebnisse; europäische und kleinere Modelle sind unter Datenschutz- und On-Premises-Anforderungen konkurrenzfähig.
+
+---
+
+# Background & Early Career (for completeness)
+
+## Student Jobs (before Mercedes-Benz)
+
+**Allrounder im Biergarten — Knusperhaus Bischofshol** (Part-time) · Sept. 2017 – Aug. 2020 · Hannover
+Customer service (serving, preparing food & drinks), resource management, warehouse work, maintenance and minor repairs.
+
+**Schützenfest Kundenbetreuung — Privatbrauerei Herrenhausen GmbH** (Fixed-term) · June–July 2019 · Hannover
+Customer service and bar work at the Herrenhäuser tent at the world's largest Schützenfest.
+
+**Getränkefachhandel Lagerorganisation — Carl Schlüter** (Part-time) · Jan. 2016 – July 2017 · Hannover
+Customer service at the bottle return counter and in-store, warehouse organisation, restocking.
+
+## Awards & Certificates
+
+- **World Robot Olympiade 2016** — 2nd place German national final (Ludwigshafen), qualified for World Final in New Delhi (issued by Technik begeistert e.V.)
+- **MINT-EC Zertifikat mit Auszeichnung** — June 2019 (Gymnasium Schillerschule)
+- **Bundeswettbewerb Informatik 2018/2019** — 1st prize in round 1, qualified for round 2 (Bundesministerium für Bildung und Forschung)
+- **Jugendwettbewerb Informatik 2018** — 1st prize (Bundesministerium für Bildung und Forschung)
+- **Bundeswettbewerb Informatik 2017/2018** — 1st prize in round 1, qualified for round 2
+- **First Lego League 2015/2016** — 5th place in semi-final in Eberswalde
+
+## Early Projects (University, before portfolio projects)
+
+**My Barkeeper** (Apr. 2022 – Aug. 2022) — University of Ulm
+Amazon Alexa skill built with the Alexa Skills Kit and Node.js. Suggests cocktails with instructions and finds matching recipes by ingredients. Components: web crawler for cocktail recipes, MySQL database, REST API, Alexa Skill interface.
+
+**Marvelous Mashup** (Oct. 2020 – Aug. 2021) — University of Ulm
+Round-based online multiplayer game based on a specification from the university. Components: server in Java, Level Editor in Unity/C#, Client in Unity/C#, AI client.
+
+## School-era Events & Programs (completeness)
+
+- **HPI Code-Night** (Nov. 2018, Potsdam) — team software development, Git, Java
+- **Design Thinking Workshop HPI Schul Cloud** (Dec. 2018, Potsdam) — design thinking methodology at Hasso Plattner Institut
+- **HPI Sommercamp 2018** (Aug. 2018, Potsdam) — web technologies, APIs, Go programming, Telegram bot
+- **Fit-for-BwInf-Camp HPI** (Jan. 2018, Potsdam) — algorithms, dynamic programming, Java, OOP
+- **Niedersächsische Talente-Akademie 2016** (July 2016, Hannover) — electronics, Eagle, C programming, built a mini game console
+- **Niedersächsische Talente-Akademie 2015** (July 2015, Hannover) — Java, libGDX, Android game development
+- **Betriebspraktikum** (Sept. 2016) — Leibniz Universität Hannover, Institut für Fertigungstechnik: production simulation (Tecnomatix), Industry 4.0, electron microscopy
