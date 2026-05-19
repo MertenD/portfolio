@@ -7,7 +7,6 @@ import ProcessFlowPage from "@/components/pages/projects/process-flow-page";
 import ReadmePage from "@/components/pages/readme-page";
 import MasterPage from "@/components/pages/education/master-page";
 import BachelorPage from "@/components/pages/education/bachelor-page";
-import FindmePage from "@/components/pages/projects/findme-page";
 import ImpressumPage from "@/components/pages/impressum-page";
 import CvPage from "@/components/pages/cv-page";
 
@@ -38,8 +37,7 @@ export const fileSystemContent: Array<File | Folder> = [
           {id: FileId.LanguageLearning, name: "LanguageLearning.tsx", component: <LanguageLearningPage />},
           {id: FileId.LuzidesTraeumen, name: "LuzidesTraeumen.tex", component: <LuzidesTraeumenPage />},
           {id: FileId.MuscleGroupAPI, name: "MuscleGroupAPI.php", component: <MuscleGroupAPIPage />},
-          {id: FileId.ProcessFlow, name: "ProcessFlow.tsx", component: <ProcessFlowPage />},
-          {id: FileId.Findme, name: "findme.tsx", component: <FindmePage />}
+          {id: FileId.ProcessFlow, name: "ProcessFlow.tsx", component: <ProcessFlowPage />}
         ]
       },
       {
