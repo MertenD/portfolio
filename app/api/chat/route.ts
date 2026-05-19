@@ -50,7 +50,7 @@ export async function POST(req: Request) {
 
   const result = streamText({
     // @ts-ignore
-    model: openrouter("google/gemini-3.1-flash-lite"),
+    model: openrouter(process.env.AI_MODEL ?? "google/gemini-3.1-flash-lite"),
     system: systemPrompt,
     messages: convertToModelMessages(messages),
   })
