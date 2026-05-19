@@ -48,6 +48,7 @@ export default function ReadmePage() {
     },
     {
       name: "BierTurnier",
+      icon: "/images/bierturnier/icon.png",
       onOpen: () => openFileById(FileId.Bierturnier),
       description:
         "Web app for creating and tracking party game tournaments with friends — tournament system and account management.",
@@ -81,18 +82,27 @@ export default function ReadmePage() {
       }
     >
       <Card className="bg-popover">
-        <CardHeader className="pb-3">
+        <CardHeader>
           <CardTitle className="font-headline text-base">About</CardTitle>
           <CardDescription>
             Full‑stack development, modern web stacks, and product-focused work.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3 text-sm">
-          <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
-            <li>4+ years of professional experience building fullstack and AI-driven applications.</li>
-            <li>Master&apos;s degree in Software Engineering from Ulm University (Grade: 1.0).</li>
-            <li>Passionate about shipping real products — from enterprise-grade internal tools to self-hosted side projects with 500,000+ real-world API requests.</li>
-          </ul>
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <Image
+              src="/images/merten.jpg"
+              alt="Merten Dieckmann"
+              width={120}
+              height={120}
+              className="rounded-full shrink-0 object-cover"
+            />
+            <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
+              <li>4+ years of professional experience building fullstack and AI-driven applications.</li>
+              <li>Master&apos;s degree in Software Engineering from Ulm University (Grade: 1.0).</li>
+              <li>Passionate about shipping real products — from enterprise-grade internal tools to self-hosted side projects with 500,000+ real-world API requests.</li>
+            </ul>
+          </div>
         </CardContent>
       </Card>
 
@@ -130,7 +140,7 @@ export default function ReadmePage() {
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     {"icon" in p && p.icon && (
-                      <Image src={p.icon} alt={`${p.name} icon`} width={18} height={18} className="rounded shrink-0" />
+                      <Image src={p.icon} alt={`${p.name} icon`} width={18} height={18} className="rounded-none shrink-0" />
                     )}
                     <p className="font-headline text-sm text-foreground truncate">{p.name}</p>
                   </div>
