@@ -34,7 +34,7 @@ export const fileSystemContent: Array<File | Folder> = [
         content: [
           {
             id: FileId.Bierturnier, name: "Bierturnier.rb", component: <BierturnierPage />,
-            keywords: ["tournament", "beerpong", "beer pong", "party", "supabase", "pwa", "qr code", "leaderboard", "friends", "team"],
+            keywords: ["tournament", "beerpong", "beer pong", "party", "supabase", "pwa", "qr code", "leaderboard", "friends", "team", "emilija"],
           },
           {
             id: FileId.LanguageLearning, name: "EasyLingu.tsx", component: <LanguageLearningPage />,

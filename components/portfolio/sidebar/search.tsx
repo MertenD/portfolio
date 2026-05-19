@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { SearchIcon, FileIcon } from "lucide-react"
+import { Input } from "@/components/ui/input"
 import { useFileSystem } from "@/context/file-system-context"
 import { fileSystemContent } from "@/content/file-system-content"
 import { getAllFiles } from "@/context/file-system-context-utils"
@@ -75,15 +76,15 @@ export default function Search() {
     : []
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center bg-popover rounded border border-border text-muted-foreground text-xs px-2 py-1.5 gap-2 focus-within:border-ring">
-        <SearchIcon className="w-3.5 h-3.5 shrink-0" />
-        <input
+    <div className="flex flex-col gap-2 p-2">
+      <div className="relative">
+        <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" />
+        <Input
           ref={inputRef}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search files and content..."
-          className="flex-1 bg-transparent outline-none placeholder:text-muted-foreground/60 text-foreground"
+          className="pl-8 h-8 text-xs"
         />
       </div>
 
