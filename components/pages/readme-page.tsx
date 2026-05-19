@@ -23,25 +23,39 @@ export default function ReadmePage() {
 
   const projects = [
     {
+      name: "Musclegroup Image Generator API",
+      onOpen: () => openFileById(FileId.MuscleGroupAPI),
+      description:
+        "API that generates anatomical muscle group highlight images in custom colors. 500,000+ total requests, ~30,000/month.",
+      tech: ["PHP", "Docker", "Linux", "RapidAPI"],
+    },
+    {
+      name: "EasyLingu",
+      onOpen: () => openFileById(FileId.LanguageLearning),
+      description:
+        "Language learning app with vocabulary, mini-games, and AI features: auto-generated vocabulary sets, LLM chat, and RAG-powered practice scenarios.",
+      tech: ["Next.js", "TypeScript", "tRPC", "PostgreSQL", "LLMs", "RAG", "Docker"],
+    },
+    {
       name: "ProcessFlow",
       onOpen: () => openFileById(FileId.ProcessFlow),
       description:
-        "SaaS platform for building and managing gamified business processes.",
-      tech: ["Next.js", "TypeScript", "Postgres", "Docker"],
-    },
-    {
-      name: "Lucid Dreaming Book",
-      onOpen: () => openFileById(FileId.LuzidesTraeumen),
-      description:
-        'Website for my book “Kontrolliere Deine Träume: Ein praktischer Leitfaden zum Luziden Träumen”.',
-      tech: ["Next.js", "TypeScript"],
+        "Web app for building and executing gamified business processes — drag-and-drop workflow editor, process execution engine, plugin system, and live monitoring.",
+      tech: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Docker"],
     },
     {
       name: "BierTurnier",
       onOpen: () => openFileById(FileId.Bierturnier),
       description:
-        "App for creating and tracking beer pong tournaments together with friends.",
-      tech: ["React", "TypeScript"],
+        "Web app for creating and tracking party game tournaments with friends — tournament system and account management.",
+      tech: ["Next.js", "TypeScript", "Supabase", "Docker"],
+    },
+    {
+      name: "Lucid Dreaming Book",
+      onOpen: () => openFileById(FileId.LuzidesTraeumen),
+      description:
+        'Self-published practical guide to lucid dreaming ("Kontrolliere Deine Träume") via Amazon KDP, with a matching Next.js landing page.',
+      tech: ["Next.js", "TypeScript", "Amazon KDP"],
     },
   ]
 
@@ -72,11 +86,9 @@ export default function ReadmePage() {
         </CardHeader>
         <CardContent className="space-y-3 text-sm">
           <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
-            <li>Experienced in full‑stack development with modern web technologies.</li>
-            <li>Recently completed my Master&apos;s degree in Software Engineering.</li>
-            <li>
-              Building use case-specific, custom generative AI solutions in my day job.
-            </li>
+            <li>4+ years of professional experience building fullstack and AI-driven applications.</li>
+            <li>Master&apos;s degree in Software Engineering from Ulm University (Grade: 1.0).</li>
+            <li>Passionate about shipping real products — from enterprise-grade internal tools to self-hosted side projects with 500,000+ real-world API requests.</li>
           </ul>
         </CardContent>
       </Card>
@@ -91,7 +103,7 @@ export default function ReadmePage() {
         <CardContent>
           <div className="flex flex-col items-center gap-4">
             <p>
-              <img src="https://skillicons.dev/icons?i=ts,nodejs,react,next,postgres,tailwind,docker" />
+              <img src="https://skillicons.dev/icons?i=ts,nodejs,react,next,angular,postgres,tailwind,docker" />
             </p>
 
             <p>
@@ -105,7 +117,7 @@ export default function ReadmePage() {
         <CardHeader className="pb-3">
           <CardTitle className="font-headline text-base">Current projects</CardTitle>
           <CardDescription>
-            A small selection — details live in the “projects/” folder.
+            A small selection — details live in the "projects/" folder.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

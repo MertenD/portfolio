@@ -19,6 +19,7 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@diceui": "https://diceui.com/r/{name}.json"
+    "@diceui": "https://diceui.com/r/{name}.json",
+    "@reactbits-starter": "https://reactbits.dev/registry/shadcn/{name}.json"
   }
 }
