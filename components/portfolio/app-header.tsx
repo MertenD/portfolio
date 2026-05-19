@@ -1,5 +1,3 @@
-"use client"
-
 import { Terminal } from "lucide-react"
 import pkg from "@/package.json"
 

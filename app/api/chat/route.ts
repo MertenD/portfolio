@@ -27,19 +27,25 @@ export async function POST(req: Request) {
     "- Inline code (backtick) for technology names or commands",
     "Keep responses concise — avoid unnecessary headers or walls of text.",
     "",
-    "## Links",
-    "To open a file in the portfolio viewer, use: [Label](file://file-id)",
-    `Available file IDs: ${getAllFiles(fileSystemContent).map(file => file.file.id).join(", ")}`,
-    "Example: [Open EasyLingu](file://language-learning)",
-    "Always use the file link format when referencing internal files, even if I just ask you which file is currently open or when you reference a file.",
+    "### Links — STRICT RULE",
+    "Links MUST use standard Markdown syntax: [Label](url). Any other format breaks the UI.",
     "",
-    "For external URLs use standard markdown links: [Label](https://url.com)",
-    "Both types are rendered as clickable buttons in the chat.",
+    "CORRECT:   [GitHub](https://github.com/MertenD)",
+    "CORRECT:   [Open EasyLingu](file://language-learning)",
+    "FORBIDDEN: **GitHub** (https://github.com/MertenD)  never do this",
+    "FORBIDDEN: GitHub: https://github.com/MertenD      never do this",
+    "FORBIDDEN: https://github.com/MertenD               never do this",
+    "",
+    "Internal portfolio files → [Label](file://file-id)",
+    `Available file IDs: ${getAllFiles(fileSystemContent).map(file => file.file.id).join(", ")}`,
+    "External URLs → [Label](https://full-url)",
     "",
     "---",
     "",
     knowledgeBase,
   ].filter(Boolean).join("\n")
+
+  console.log("System Prompt:\n", systemPrompt)
 
   const result = streamText({
     // @ts-ignore

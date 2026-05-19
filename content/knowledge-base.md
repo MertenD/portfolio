@@ -4,7 +4,7 @@ Software Engineer at Mercedes-Benz Tech Innovation, with 4+ years of professiona
 
 Core skills: Java, Kotlin, TypeScript, Python, PHP · Angular, Spring Boot, React/Next.js, LangChain, tRPC, Akka HTTP · Kubernetes, Docker, Git, CI/CD, PostgreSQL, Redis, SAFe, Traefik.
 
-Contact: merten.dieckmann@web.de · +49 177 1969628 · https://merten.tech · GitHub: https://github.com/MertenD · LinkedIn: https://www.linkedin.com/in/merten-dieckmann/ · Address: Memminger Straße 35/2110, 89231 Neu-Ulm
+Contact: merten.dieckmann@web.de · +49 177 1969628 · [merten.tech](https://merten.tech) · [GitHub](https://github.com/MertenD) · [LinkedIn](https://www.linkedin.com/in/merten-dieckmann/) · Address: Memminger Straße 35/2110, 89231 Neu-Ulm
 
 He originally was born in 2001 in Hanover and grew up there in Bemerode until he completed his Abitur in 1029 with 18 years old and moved to Ulm for his studies. He was intrigued by the name of the study program "Software Engineering". He never been to Ulm before and when he drove there for the first time with all his belongings in a car to get the keys for his first student dorm apartment, it was the very first time he ever saw ulm or the university.
 
@@ -12,15 +12,15 @@ He originally was born in 2001 in Hanover and grew up there in Bemerode until he
 
 ### Calisthenics & Street Workout
 
-Joined streets.ev (https://www.streets-ev.de/) in summer of 2025 in Ulm where he enjoys training calisthenics and street workout with the local community. He appreciates the combination of physical challenge, creativity in bodyweight exercises, and the supportive atmosphere of the group. In contrast to normal gym workouts, he finds calisthenics more engaging and fun, as it encourages learning new skills and movements rather than just lifting weights. Originally he came across the club through "Ulm macht Sport" (https://www.ulm.de/leben-in-ulm/freizeit-und-sport/sport/ulm-macht-sport) where he joined the free weekly outdoor exercises. There are 6 calisthenics parks in Ulm: Neu-Ulm (Jugendhaus), Friedrichsau, Weststadt (Westbad), Böfingen, Söflingen and Wiblingen.
+Joined [streets.ev](https://www.streets-ev.de/) in summer of 2025 in Ulm where he enjoys training calisthenics and street workout with the local community. He appreciates the combination of physical challenge, creativity in bodyweight exercises, and the supportive atmosphere of the group. In contrast to normal gym workouts, he finds calisthenics more engaging and fun, as it encourages learning new skills and movements rather than just lifting weights. Originally he came across the club through [Ulm macht Sport](https://www.ulm.de/leben-in-ulm/freizeit-und-sport/sport/ulm-macht-sport) where he joined the free weekly outdoor exercises. There are 6 calisthenics parks in Ulm: Neu-Ulm (Jugendhaus), Friedrichsau, Weststadt (Westbad), Böfingen, Söflingen and Wiblingen.
 
 ### Badminton
 
-He likes to play badminton for fun. He played in a club for several years when he was younger, but now mostly plays casually with friends. He enjoys the fast-paced nature of the game and the combination of physical activity and strategy. He often goes playing badminton at the local "Sportsohn Sporttreff" in Neu-Ulm (https://www.sportsohn.de/sporttreff/)
+He likes to play badminton for fun. He played in a club for several years when he was younger, but now mostly plays casually with friends. He enjoys the fast-paced nature of the game and the combination of physical activity and strategy. He often goes playing badminton at the local [Sportsohn Sporttreff](https://www.sportsohn.de/sporttreff/) in Neu-Ulm
 
 ### Wandern
 
-He enjoys hiking on weekends, especially in his home region in the Harz (https://de.wikipedia.org/wiki/Harz_(Mittelgebirge)). At least once a year he goes on a hike with his dad to climb the "Brocken" (https://www.harzinfo.de/naturlandschaft-harz/der-brocken-im-harz) — the highest peak in the Harz mountains.
+He enjoys hiking on weekends, especially in his home region in the [Harz](https://de.wikipedia.org/wiki/Harz_\(Mittelgebirge\)). At least once a year he goes on a hike with his dad to climb the [Brocken](https://www.harzinfo.de/naturlandschaft-harz/der-brocken-im-harz) — the highest peak in the Harz mountains.
 
 ### Board Games
 
@@ -95,19 +95,19 @@ Written and self-published a practical guide to lucid dreaming (Kontrolliere Dei
 # Projects
 
 ## EasyLingu (portfolio file: language-learning)
-AI-powered language learning SaaS. Vocabulary in nested categories with grammatical forms (conjugations, gender, plural) and example sentences. Words progress through 5 spaced-repetition levels. 11 mini-game modes: Flashcards, Multiple Choice, Reverse Choice, Typing, Scramble, Matching, Memory, Hangman, True/False, Speed Match, Mixed. AI features: LLM-generated vocabulary sets for any topic, streaming chat tutor personalised to the user's CEFR level and known words with inline mistake corrections, RAG-powered conversation scenarios derived from actual vocabulary and grammar notes. Monetised via Polar subscriptions. Stack: Next.js, TypeScript, tRPC, Prisma, PostgreSQL, Vercel AI SDK, OpenRouter, Inngest, Polar, PWA. Live: https://easylingu.com · GitHub: https://github.com/MertenD/language-learning
+AI-powered language learning SaaS. Vocabulary in nested categories with grammatical forms (conjugations, gender, plural) and example sentences. Words progress through 5 spaced-repetition levels. 11 mini-game modes: Flashcards, Multiple Choice, Reverse Choice, Typing, Scramble, Matching, Memory, Hangman, True/False, Speed Match, Mixed. AI features: LLM-generated vocabulary sets for any topic, streaming chat tutor personalised to the user's CEFR level and known words with inline mistake corrections, RAG-powered conversation scenarios derived from actual vocabulary and grammar notes. Monetised via Polar subscriptions. Stack: Next.js, TypeScript, tRPC, Prisma, PostgreSQL, Vercel AI SDK, OpenRouter, Inngest, Polar, PWA. [Live](https://easylingu.com) · [GitHub](https://github.com/MertenD/language-learning)
 
 ## ProcessFlow (portfolio file: process-flow)
-Web app for building and executing gamified business processes. Drag-and-drop node-based workflow editor, process execution engine, plugin system (external activity servers rendered in iframes), live monitoring dashboard with real-time instance tracking. Role-based access control. Gamification rewards (XP, coins, badges) are configurable per activity node in the editor. Stack: Next.js, TypeScript, PostgreSQL, Supabase, Docker. Live: https://processflow.merten.tech · GitHub: https://github.com/MertenD/process-flow
+Web app for building and executing gamified business processes. Drag-and-drop node-based workflow editor, process execution engine, plugin system (external activity servers rendered in iframes), live monitoring dashboard with real-time instance tracking. Role-based access control. Gamification rewards (XP, coins, badges) are configurable per activity node in the editor. Stack: Next.js, TypeScript, PostgreSQL, Supabase, Docker. [Live](https://processflow.merten.tech) · [GitHub](https://github.com/MertenD/process-flow)
 
 ## MuscleGroup Image Generator API (portfolio file: muscle-group-api)
-Self-hosted REST API generating anatomical images with muscle groups highlighted in custom colours. 500,000+ total requests, ~30,000/month. Listed on RapidAPI. Stack: PHP, Docker, Linux VPS. GitHub: https://github.com/MertenD/muscle-group-image-generator · RapidAPI: https://rapidapi.com/mertronlp/api/muscle-group-image-generator
+Self-hosted REST API generating anatomical images with muscle groups highlighted in custom colours. 500,000+ total requests, ~30,000/month. Listed on RapidAPI. Stack: PHP, Docker, Linux VPS. [GitHub](https://github.com/MertenD/muscle-group-image-generator) · [RapidAPI](https://rapidapi.com/mertronlp/api/muscle-group-image-generator)
 
 ## BierTurnier (portfolio file: biertunrier)
-Tournament management web app for beerpong events, built collaboratively with two friends (Emilija Kastratović, Markus Thielker) — hands-on experience in team planning, implementation, and production deployment. QR code join links, live leaderboard, multilingual (i18n). Live at bierturnier.de. GitHub: https://github.com/MarkusThielker/bier-turnier. Live: https://bierturnier.de Stack: Next.js, TypeScript, Supabase, Docker, PWA.
+Tournament management web app for beerpong events, built collaboratively with two friends (Emilija Kastratović, Markus Thielker) — hands-on experience in team planning, implementation, and production deployment. QR code join links, live leaderboard, multilingual (i18n). [Live](https://bierturnier.de) · [GitHub](https://github.com/MarkusThielker/bier-turnier) · Stack: Next.js, TypeScript, Supabase, Docker, PWA.
 
 ## Lucid Dreaming Book (portfolio file: luzides-traeumen)
-Self-published practical guide to lucid dreaming ("Kontrolliere Deine Träume") via Amazon KDP. Comes with a matching Next.js landing page at luzides-traeumen-buch.de. Written in LaTeX. Available on Amazon: https://www.amazon.de/Kontrolliere-Deine-Tr%C3%A4ume-praktischer-Leidfaden/dp/B0D8LHZ2X6 and landing page: https://luzides-traeumen-buch.de
+Self-published practical guide to lucid dreaming ("Kontrolliere Deine Träume") via Amazon KDP. Comes with a matching Next.js landing page. Written in LaTeX. [Amazon](https://www.amazon.de/Kontrolliere-Deine-Tr%C3%A4ume-praktischer-Leidfaden/dp/B0D8LHZ2X6) · [Landing Page](https://luzides-traeumen-buch.de)
 
 I have written and published this book during my Bachelor's thesis as a side project. It is a practical guide to lucid dreaming, covering techniques for inducing lucid dreams, tips for dream recall, and advice on how to use lucid dreaming for personal growth and problem-solving. The book has received positive reviews for its clear explanations and actionable advice.
 
@@ -148,7 +148,7 @@ Node-based drag-and-drop web editor built on React Flow. Supports standard BPMN 
 - **Gateway** — routes the process based on variable conditions (e.g., user's previous answer).
 
 Export: to BPMN 2.0 XML (compatible with other BPMN tools) and to internal React Flow JSON. Loading back: only internal JSON format (BPMN→JSON transformation for challenges was not completed due to time constraints — the one unmet requirement).
-Live demo: gbpmneditor.mertendieckmann.de · GitHub: https://github.com/MertenD/gamificated-bpmn-editor
+[Live Demo](https://gbpmneditor.mertendieckmann.de) · [GitHub](https://github.com/MertenD/gamificated-bpmn-editor)
 
 ## BPMN Engine (portfolio file: bachelor)
 Browser-based runtime that imports and executes the gamified BPMN JSON models. Supports all 7 node types: Start, End, Activity, Gateway, Challenge, GamificationEvent, Info.
@@ -157,7 +157,7 @@ Execution loop: load process → start at Start node → render current node's U
 
 Variable management: user inputs stored in named variables; XP, coins, and badges tracked at all times; after each activity the engine checks whether any gamification reward conditions are met.
 
-State management via Zustand. Live demo: gbpmnengine.mertendieckmann.de · GitHub: https://github.com/MertenD/gamificated-bpmn-engine
+State management via Zustand. [Live Demo](https://gbpmnengine.mertendieckmann.de) · [GitHub](https://github.com/MertenD/gamificated-bpmn-engine)
 
 ## 4 Gamification Elements
 
