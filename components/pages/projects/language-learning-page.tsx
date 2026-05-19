@@ -5,6 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator"
 import { FileContentContainer } from "@/components/portfolio/file-content-container"
 import { ZoomableImage } from "@/components/ui/zoomable-image"
+import {Button} from "@/components/ui/button";
+import Link from "next/link";
+import {ExternalLinkIcon, GithubIcon} from "lucide-react";
 
 const tech = ["Next.js", "TypeScript", "tRPC", "Prisma", "PostgreSQL", "Vercel AI SDK", "OpenRouter", "Inngest", "Polar", "PWA"]
 
@@ -27,6 +30,22 @@ export default function LanguageLearningPage() {
         </span>
       }
       subtitle="AI-powered language learning — vocabulary, mini-games, and LLM conversation practice"
+      headerRight={
+        <div className="flex gap-2">
+          <Button asChild size="sm" variant="outline">
+            <Link href="https://easylingu.com" target="_blank" rel="noreferrer">
+              <ExternalLinkIcon />
+              Website
+            </Link>
+          </Button>
+          <Button asChild size="sm" variant="default">
+            <Link href="https://github.com/MertenD/language-learning" target="_blank" rel="noreferrer">
+              <GithubIcon />
+              GitHub
+            </Link>
+          </Button>
+        </div>
+      }
     >
       <Card className="bg-popover">
         <CardHeader className="pb-3">

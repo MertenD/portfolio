@@ -135,12 +135,12 @@ export default function ReadmePage() {
             A small selection — details live in the "projects/" folder.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
           {projects.map((p, idx) => (
             <div key={p.name} className="space-y-2">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 pb-2">
                     {"icon" in p && p.icon && (
                       <Image src={p.icon} alt={`${p.name} icon`} width={18} height={18} className="rounded-none shrink-0" />
                     )}

@@ -72,7 +72,7 @@ export default function BierturnierPage() {
           <Button asChild size="sm" variant="outline">
             <Link href="https://bierturnier.de" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
-              Live Demo
+              Website
             </Link>
           </Button>
           <Button asChild size="sm" variant="default">
