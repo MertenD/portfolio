@@ -35,7 +35,7 @@ export default function MuscleGroupAPIDemo() {
   }
 
   return (
-    <Card className="">
+    <Card className="bg-popover">
       <CardHeader>
         <CardTitle className="font-headline text-2xl">Demo</CardTitle>
         <CardDescription>Go ahead and test out the basic endpoint of the API. Select your muscle groups and customize the color.</CardDescription>

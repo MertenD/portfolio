@@ -25,6 +25,7 @@ export default function ReadmePage() {
   const projects = [
     {
       name: "Musclegroup Image Generator API",
+      icon: "/images/musclegroup/icon.png",
       onOpen: () => openFileById(FileId.MuscleGroupAPI),
       description:
         "API that generates anatomical muscle group highlight images in custom colors. 500,000+ total requests, ~30,000/month.",
