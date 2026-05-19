@@ -22,7 +22,7 @@ export function ZoomableImage({ src, alt, height = 280 }: ZoomableImageProps) {
         style={{ height }}
         onClick={() => setOpen(true)}
       >
-        <Image src={src} alt={alt} fill className="object-contain p-2" />
+        <Image src={src} alt={alt} fill className="object-contain p-2" loading="eager" />
         <div className="absolute inset-0 flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
           <ZoomInIcon className="w-8 h-8 text-white drop-shadow" />
         </div>
