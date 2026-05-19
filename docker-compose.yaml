@@ -5,6 +5,8 @@ services:
     networks:
       - web
     restart: unless-stopped
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
     labels:
       - traefik.enable=true
       - traefik.http.routers.merten-portfolio.rule=Host(`mertendieckmann.de`) || Host(`merten.tech`)
@@ -17,7 +19,7 @@ services:
       - traefik.http.middlewares.redirect-merten-portfolio.redirectregex.regex=^https?://mertendieckmann.de/(.*)
       - traefik.http.middlewares.redirect-merten-portfolio.redirectregex.replacement=https://merten.tech/$${1}
       - traefik.http.middlewares.redirect-merten-portfolio.redirectregex.permanent=true
-      - traefik.http.routers.merten-portfolio.middlewares=redirect-merten
+      - traefik.http.routers.merten-portfolio.middlewares=redirect-merten-portfolio
 
 networks:
   web:

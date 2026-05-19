@@ -46,7 +46,7 @@ export default function MuscleGroupAPIDemo() {
             <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <MuscleGroupAPIDemoForm
               muscleGroupApiInputSchema={muscleGroupApiInputSchema}
               availableMuscleGroups={availableMuscleGroups}

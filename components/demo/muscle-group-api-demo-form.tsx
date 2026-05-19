@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import {Controller, useForm} from "react-hook-form"
 import {z} from "zod";
-import {MultiSelect} from "@/components/ui/multi-select";
 import {getMuscleGroupApiInputSchema} from "@/components/demo/muscle-group-api-demo";
 import {Checkbox} from "@/components/ui/checkbox";
 import {Button} from "@/components/ui/button";
 import {ImageIcon} from "lucide-react";
 import {Label} from "@/components/ui/label";
+import {ScrollArea} from "@/components/ui/scroll-area";
 import { ThemedTwitterPicker } from "@/components/ui/themed-twitter-picker";
 
 interface MuscleGroupApiDemoForm {
@@ -36,15 +36,26 @@ function MuscleGroupAPIDemoForm({muscleGroupApiInputSchema, availableMuscleGroup
         control={control}
         name="muscleGroups"
         render={({field}) => (
-          <MultiSelect
-            variant="inverted"
-            options={availableMuscleGroups.map(group => {
-              return {value: group, label: group}
-            })}
-            onValueChange={(value) => {
-              field.onChange(value)
-            }}
-          />
+          <ScrollArea className="h-36 rounded-md border border-input p-3">
+            <div className="grid grid-cols-2 gap-2">
+              {availableMuscleGroups.map(group => (
+                <div key={group} className="flex items-center gap-2">
+                  <Checkbox
+                    id={`mg-${group}`}
+                    checked={field.value.includes(group)}
+                    onCheckedChange={(checked) => {
+                      field.onChange(
+                        checked
+                          ? [...field.value, group]
+                          : field.value.filter((g: string) => g !== group)
+                      )
+                    }}
+                  />
+                  <Label htmlFor={`mg-${group}`} className="text-xs font-normal cursor-pointer">{group}</Label>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
         )}
       />
       {errors.muscleGroups && <span className="text-destructive text-sm">{errors.muscleGroups.message}</span>}
