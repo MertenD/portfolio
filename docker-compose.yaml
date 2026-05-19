@@ -5,8 +5,8 @@ services:
     networks:
       - web
     restart: unless-stopped
-    environment:
-      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    env_file:
+      - .env
     labels:
       - traefik.enable=true
       - traefik.http.routers.merten-portfolio.rule=Host(`mertendieckmann.de`) || Host(`merten.tech`)
