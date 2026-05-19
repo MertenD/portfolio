@@ -4,7 +4,7 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {z} from "zod"
 import {useQuery} from "@tanstack/react-query"
 import {fetchAvailableMuscleGroups} from "@/actions/muscleGroupApiActions"
-import {HeartPulseIcon, Loader, Loader2} from "lucide-react"
+import {ImageIcon, Loader2} from "lucide-react"
 import {useMemo, useState} from "react"
 import MuscleGroupAPIDemoForm from "@/components/demo/muscle-group-api-demo-form";
 import Image from "next/image";
@@ -37,42 +37,47 @@ export default function MuscleGroupAPIDemo() {
   return (
     <Card className="">
       <CardHeader>
-        <CardTitle className="font-headline text-base">Demo</CardTitle>
-        <CardDescription>Go ahead and test out the basic endpoint of the API.</CardDescription>
+        <CardTitle className="font-headline text-2xl">Demo</CardTitle>
+        <CardDescription>Go ahead and test out the basic endpoint of the API. Select your muscle groups and customize the color.</CardDescription>
       </CardHeader>
       <CardContent>
         {isPending || !availableMuscleGroups ? (
-          <Loader/>
+          <div className="flex h-[300px] w-full items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
         ) : (
-          <div className="flex flex-row gap-16 justify-between items-end flex-wrap md:flex-nowrap">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             <MuscleGroupAPIDemoForm
               muscleGroupApiInputSchema={muscleGroupApiInputSchema}
               availableMuscleGroups={availableMuscleGroups}
               onSubmit={onSubmit}
             />
 
-            <div className="relative h-[300px] w-[300px] bg-muted shrink-0 overflow-hidden rounded-md">
-              {imageUrl === "" ? (
-                <div className="flex items-center justify-center h-full w-full text-muted-foreground text-xs text-center p-4">
-                  Select muscle groups and a color to generate a preview
-                </div>
-              ) : (
-                <>
-                  {isImageLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-muted z-10">
-                      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                    </div>
-                  )}
-                  <Image
-                    src={imageUrl}
-                    width={300}
-                    height={300}
-                    alt="Muscle groups"
-                    className={`transition-opacity duration-300 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
-                    onLoad={() => setIsImageLoading(false)} // Versteckt Loader, wenn fertig
-                  />
-                </>
-              )}
+            <div className="flex flex-col items-center justify-center gap-4">
+              <div className="relative h-[300px] w-[300px] bg-muted/50 border border-border shadow-sm shrink-0 overflow-hidden rounded-xl flex items-center justify-center">
+                {imageUrl === "" ? (
+                  <div className="flex flex-col items-center justify-center h-full w-full text-muted-foreground text-sm text-center p-6 gap-2">
+                    <ImageIcon className="h-8 w-8 text-muted-foreground/50" />
+                    <span>Select muscle groups and a color to generate a preview</span>
+                  </div>
+                ) : (
+                  <>
+                    {isImageLoading && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm z-10">
+                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                      </div>
+                    )}
+                    <Image
+                      src={imageUrl}
+                      width={300}
+                      height={300}
+                      alt="Selected muscle groups"
+                      className={`transition-opacity duration-300 object-contain ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
+                      onLoad={() => setIsImageLoading(false)}
+                    />
+                  </>
+                )}
+              </div>
             </div>
           </div>
         )}

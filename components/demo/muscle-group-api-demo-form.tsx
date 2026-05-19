@@ -2,17 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {Controller, useForm} from "react-hook-form"
 import {z} from "zod";
 import {MultiSelect} from "@/components/ui/multi-select";
-import {
-  ColorPicker, ColorPickerAlphaSlider,
-  ColorPickerArea,
-  ColorPickerContent, ColorPickerEyeDropper, ColorPickerFormatSelect, ColorPickerHueSlider, ColorPickerInput,
-  ColorPickerSwatch,
-  ColorPickerTrigger
-} from "@/components/ui/color-picker";
 import {getMuscleGroupApiInputSchema} from "@/components/demo/muscle-group-api-demo";
 import {Checkbox} from "@/components/ui/checkbox";
 import {Button} from "@/components/ui/button";
 import {ImageIcon} from "lucide-react";
+import {Label} from "@/components/ui/label";
+import { ThemedTwitterPicker } from "@/components/ui/themed-twitter-picker";
 
 interface MuscleGroupApiDemoForm {
   muscleGroupApiInputSchema: ReturnType<typeof getMuscleGroupApiInputSchema>,
@@ -35,7 +30,8 @@ function MuscleGroupAPIDemoForm({muscleGroupApiInputSchema, availableMuscleGroup
   return <form onSubmit={handleSubmit(onSubmit)} className={`flex w-full flex-col gap-6 ${className}`}>
     {/* Muscle Groups */}
     <div className="flex flex-col gap-2">
-      <label>MuscleGroups</label>
+
+      <Label>Muscle Groups</Label>
       <Controller
         control={control}
         name="muscleGroups"
@@ -51,59 +47,37 @@ function MuscleGroupAPIDemoForm({muscleGroupApiInputSchema, availableMuscleGroup
           />
         )}
       />
-      {errors.muscleGroups && <span className="text-red-400">{errors.muscleGroups.message}</span>}
+      {errors.muscleGroups && <span className="text-destructive text-sm">{errors.muscleGroups.message}</span>}
     </div>
 
     {/* Color */}
     <div className="flex flex-col gap-2">
-      <label>Color</label>
+      <Label>Color</Label>
       <Controller
         control={control}
         name="color"
         render={({field}) => (
-          <ColorPicker
-            defaultFormat="hex"
-            defaultValue={field.value}
-            onValueChange={(value) => field.onChange(value)}
-          >
-            <ColorPickerTrigger asChild>
-              <ColorPickerSwatch className="w-full h-[60px]"/>
-            </ColorPickerTrigger>
-            <ColorPickerContent className="w-full">
-              <ColorPickerArea/>
-              <div className="flex items-center gap-2">
-                <ColorPickerEyeDropper/>
-                <div className="flex flex-1 flex-col gap-2">
-                  <ColorPickerHueSlider/>
-                  <ColorPickerAlphaSlider/>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <ColorPickerFormatSelect/>
-                <ColorPickerInput/>
-              </div>
-            </ColorPickerContent>
-          </ColorPicker>
+          <ThemedTwitterPicker value={field.value} onChangeAction={(hex) => field.onChange(hex)} />
         )}
       />
-      {errors.color && <span className="text-red-400">{errors.color.message}</span>}
+      {errors.color && <span className="text-destructive text-sm">{errors.color.message}</span>}
     </div>
 
     {/* Transparent Background */}
-    <div className="flex flex-col gap-2">
-      <label>TransparentBackground</label>
+    <div className="flex items-center gap-2">
       <Controller
         control={control}
         name="transparentBackground"
         render={({field}) => (
-          <Checkbox checked={field.value} onCheckedChange={(checked) => field.onChange(checked)}/>
+          <Checkbox id="transparentBackground" checked={field.value} onCheckedChange={(checked) => field.onChange(checked)}/>
         )}
       />
-      {errors.transparentBackground && <span className="text-red-400">{errors.transparentBackground.message}</span>}
+      <Label htmlFor="transparentBackground">Transparent Background</Label>
+      {errors.transparentBackground && <span className="text-destructive text-sm">{errors.transparentBackground.message}</span>}
     </div>
 
-    <Button type="submit" className="max-w-xs self-end">
-      <ImageIcon />
+    <Button type="submit" className="max-w-xs self-end mt-2">
+      <ImageIcon className="mr-2 h-4 w-4" />
       Generate Image
     </Button>
   </form>
