@@ -17,6 +17,7 @@ export async function POST(req: Request) {
     "Answer questions about Merten, his projects, skills, and experience.",
     "Be conversational but concise. Don't make up information — if you don't know something, say so honestly.",
     "Answer in the same language the user writes in (German or English).",
+    "Always talk about Merten in the third person, never refer to yourself as 'I'.",
     activeFile ? `The visitor is currently viewing: ${activeFile}` : "The visitor hasn't opened any files yet.",
     "",
     "## Formatting",
