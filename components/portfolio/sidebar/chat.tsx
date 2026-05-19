@@ -1,40 +1,36 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, {useEffect, useRef} from "react"
 import ReactMarkdown from "react-markdown"
-import { BotIcon, ExternalLinkIcon, FileIcon, GithubIcon, LinkedinIcon, PlusIcon, SendIcon, Terminal, UserIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { chatLoadingPhrases } from "@/content/chat-loading-phrases"
-import { useIsMobile } from "@/hooks/use-mobile"
-import { Chat, useChat } from "@ai-sdk/react"
-import { generateId, TextStreamChatTransport } from "ai"
-import { useFileSystem } from "@/context/file-system-context"
-import type { UIMessage } from "ai"
+import {
+  BotIcon,
+  ExternalLinkIcon,
+  FileIcon,
+  GithubIcon,
+  LinkedinIcon,
+  PlusIcon,
+  SendIcon,
+  Terminal,
+  UserIcon
+} from "lucide-react"
+import {Button} from "@/components/ui/button"
+import {Textarea} from "@/components/ui/textarea"
+import {chatLoadingPhrases} from "@/content/chat-loading-phrases"
+import {useIsMobile} from "@/hooks/use-mobile"
+import {useChat} from "@ai-sdk/react"
+import {useFileSystem} from "@/context/file-system-context"
+import {useChatContext} from "@/context/chat-context"
+import type {UIMessage} from "ai"
 
 const WELCOME_TEXT = "Hi! I'm Merten's portfolio assistant.\n\nAsk me anything about him. For example about his **projects**, **tech stack**, **CV**, or **thesis** work. I also know which file you currently have open."
-
-function createChat(activeFileRef: React.RefObject<string | null>) {
-  return new Chat({
-    id: generateId(),
-    // @ts-ignore
-    transport: new TextStreamChatTransport({
-      api: "/api/chat",
-      body: () => ({ activeFile: activeFileRef.current }),
-    }),
-  })
-}
 
 export default function ChatPanel() {
   const isMobile = useIsMobile()
   const { getActiveFile, openFileById } = useFileSystem()
+  const { chat, resetChat, input, setInput, activeFileRef } = useChatContext()
   const scrollRef = useRef<HTMLDivElement>(null)
-  const [input, setInput] = useState("")
 
-  const activeFileRef = useRef<string | null>(null)
   activeFileRef.current = getActiveFile()?.name ?? null
-
-  const [chat, setChat] = useState(() => createChat(activeFileRef))
 
   const { messages, sendMessage, status } = useChat({ chat })
   const isLoading = status === "streaming" || status === "submitted"
@@ -60,8 +56,7 @@ export default function ChatPanel() {
   }
 
   const handleNewChat = () => {
-    setChat(createChat(activeFileRef))
-    setInput("")
+    resetChat()
   }
 
   return (

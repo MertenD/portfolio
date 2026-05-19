@@ -1,8 +1,8 @@
-import { convertToModelMessages, streamText } from "ai"
-import { createOpenRouter } from "@openrouter/ai-sdk-provider"
-import { readFileSync } from "fs"
-import { join } from "path"
-import {getAllFiles, getAllFolderIds} from "@/context/file-system-context-utils";
+import {convertToModelMessages, streamText} from "ai"
+import {createOpenRouter} from "@openrouter/ai-sdk-provider"
+import {readFileSync} from "fs"
+import {join} from "path"
+import {getAllFiles} from "@/context/file-system-context-utils";
 import {fileSystemContent} from "@/content/file-system-content";
 
 const knowledgeBase = readFileSync(join(process.cwd(), "content/knowledge-base.md"), "utf-8")
@@ -11,8 +11,6 @@ const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY })
 
 export async function POST(req: Request) {
   const { messages, activeFile } = await req.json()
-
-  console.log(getAllFiles(fileSystemContent).map(file => file.file.id))
 
   const systemPrompt = [
     "You are a helpful assistant on Merten Dieckmann's portfolio website.",
@@ -42,8 +40,6 @@ export async function POST(req: Request) {
     "",
     knowledgeBase,
   ].filter(Boolean).join("\n")
-
-  console.log("System Prompt:", systemPrompt)
 
   const result = streamText({
     // @ts-ignore
