@@ -33,6 +33,7 @@ export default function ReadmePage() {
     },
     {
       name: "EasyLingu",
+      icon: "/images/easylingu/icon.svg",
       onOpen: () => openFileById(FileId.LanguageLearning),
       description:
         "Language learning app with vocabulary, mini-games, and AI features: auto-generated vocabulary sets, LLM chat, and RAG-powered practice scenarios.",
@@ -56,6 +57,7 @@ export default function ReadmePage() {
     },
     {
       name: "Lucid Dreaming Book",
+      icon: "/images/lucid-dreaming/icon.png",
       onOpen: () => openFileById(FileId.LuzidesTraeumen),
       description:
         'Self-published practical guide to lucid dreaming ("Kontrolliere Deine Träume") via Amazon KDP, with a matching Next.js landing page.',

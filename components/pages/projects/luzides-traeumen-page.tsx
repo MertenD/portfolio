@@ -11,7 +11,18 @@ export default function LuzidesTraeumenPage() {
   return (
     <FileContentContainer
       filePath="projects/lucid-dreaming"
-      title="Lucid Dreaming"
+      title={
+        <span className="flex items-center gap-3">
+          <Image
+            src="/images/lucid-dreaming/icon.png"
+            alt="Lucid Dreaming icon"
+            width={36}
+            height={36}
+            className="rounded-lg"
+          />
+          <span>Lucid Dreaming</span>
+        </span>
+      }
       subtitle="A project combining two passions: writing a book about lucid dreaming and building its landing page."
       headerRight={
         <Button asChild size="sm" variant="default">

@@ -16,7 +16,6 @@ export enum FileId {
   LuzidesTraeumen = "luzides-traeumen",
   MuscleGroupAPI = "muscle-group-api",
   ProcessFlow = "process-flow",
-  Findme = "findme",
   Master = "master",
   Bachelor = "bachelor",
   Readme = "readme",
@@ -34,7 +33,7 @@ export const fileSystemContent: Array<File | Folder> = [
         name: "projects",
         content: [
           {id: FileId.Bierturnier, name: "Bierturnier.rb", component: <BierturnierPage />},
-          {id: FileId.LanguageLearning, name: "LanguageLearning.tsx", component: <LanguageLearningPage />},
+          {id: FileId.LanguageLearning, name: "EasyLingu.tsx", component: <LanguageLearningPage />},
           {id: FileId.LuzidesTraeumen, name: "LuzidesTraeumen.tex", component: <LuzidesTraeumenPage />},
           {id: FileId.MuscleGroupAPI, name: "MuscleGroupAPI.php", component: <MuscleGroupAPIPage />},
           {id: FileId.ProcessFlow, name: "ProcessFlow.tsx", component: <ProcessFlowPage />}
