@@ -4,21 +4,12 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { FileContentContainer } from "@/components/portfolio/file-content-container"
+import { ZoomableImage } from "@/components/ui/zoomable-image"
 
 const tech = ["Next.js", "TypeScript", "tRPC", "Prisma", "PostgreSQL", "Vercel AI SDK", "OpenRouter", "Inngest", "Polar", "PWA"]
 
 const games = ["Flashcards", "Multiple Choice", "Reverse Choice", "Typing", "Scramble", "Matching", "Memory", "Hangman", "True / False", "Speed Match", "Mixed"]
 
-function Placeholder({ label, height = 260 }: { label: string; height?: number }) {
-  return (
-    <div
-      className="flex items-center justify-center bg-muted/30 rounded-lg border-2 border-dashed border-border text-muted-foreground text-xs font-mono text-center p-4"
-      style={{ height }}
-    >
-      {label}
-    </div>
-  )
-}
 
 export default function LanguageLearningPage() {
   return (
@@ -71,7 +62,7 @@ export default function LanguageLearningPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Placeholder label="Screenshot: Vocabulary List" height={260} />
+            <ZoomableImage src="/images/easylingu/vocabulary.png" alt="EasyLingu vocabulary list" />
           </CardContent>
         </Card>
 
@@ -83,7 +74,7 @@ export default function LanguageLearningPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Placeholder label="Screenshot: Practice Session" height={260} />
+            <ZoomableImage src="/images/easylingu/practice.png" alt="EasyLingu practice session" />
           </CardContent>
         </Card>
       </div>
@@ -112,7 +103,7 @@ export default function LanguageLearningPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Placeholder label="Screenshot: AI Chat" height={280} />
+            <ZoomableImage src="/images/easylingu/chat.png" alt="EasyLingu AI chat tutor" />
           </CardContent>
         </Card>
 
@@ -125,7 +116,7 @@ export default function LanguageLearningPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Placeholder label="Screenshot: AI Word Generation" height={280} />
+            <ZoomableImage src="/images/easylingu/ai-word-generation.png" alt="EasyLingu AI word generation" />
           </CardContent>
         </Card>
       </div>
@@ -140,7 +131,7 @@ export default function LanguageLearningPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Placeholder label="Screenshot: Scenarios" height={260} />
+            <ZoomableImage src="/images/easylingu/ai-scenario.png" alt="EasyLingu RAG scenarios" />
           </CardContent>
         </Card>
 
@@ -153,7 +144,7 @@ export default function LanguageLearningPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Placeholder label="Screenshot: Dashboard" height={260} />
+            <ZoomableImage src="/images/easylingu/dashboard.png" alt="EasyLingu dashboard" />
           </CardContent>
         </Card>
       </div>
