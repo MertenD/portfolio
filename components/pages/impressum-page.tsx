@@ -21,7 +21,6 @@ export default function ImpressumPage() {
             <p>
               Merten Dieckmann<br />
               Memmingerstrasse 35<br />
-              Apt. 2.110<br />
               89231 Neu-Ulm
             </p>
           </CardContent>
@@ -33,7 +32,6 @@ export default function ImpressumPage() {
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>
-              Phone: +49 177 1969628<br />
               Email: merten.dieckmann@web.de
             </p>
           </CardContent>
@@ -47,7 +45,6 @@ export default function ImpressumPage() {
             <p>
               Merten Dieckmann<br />
               Memmingerstrasse 35<br />
-              Apt. 2.110<br />
               89231 Neu-Ulm
             </p>
           </CardContent>
