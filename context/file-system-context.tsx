@@ -69,7 +69,6 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
   }
 
   const openFile = (file: File) => {
-    trackEvent(EventType.FILE_OPEN, file.id)
     setActiveFileId(file.id)
     setOpenFiles((prev) => {
       if (!prev.find((f) => f.id === file.id)) {
@@ -77,6 +76,10 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
       }
       return prev
     })
+    // Log only if the file is not active to avoid duplicate events when re-opening the same file
+    if (activeFileId !== file.id) {
+      trackEvent(EventType.FILE_OPEN, file.id)
+    }
   }
 
   const openFileById = (fileId: string) => {
