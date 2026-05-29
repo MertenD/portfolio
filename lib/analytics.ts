@@ -2,18 +2,6 @@
 
 import { EventType } from "@/lib/generated/prisma"
 
-const SESSION_KEY = "portfolio-session-id"
-
-function getSessionId(): string {
-  if (typeof window === "undefined") return "ssr"
-  let id = localStorage.getItem(SESSION_KEY)
-  if (!id) {
-    id = crypto.randomUUID()
-    localStorage.setItem(SESSION_KEY, id)
-  }
-  return id
-}
-
 export function trackEvent(
   type: EventType,
   name: string,
@@ -28,7 +16,6 @@ export function trackEvent(
         name,
         url: opts?.url,
         fileId: opts?.fileId,
-        sessionId: getSessionId(),
       }),
     }).catch(() => {})
   } catch {

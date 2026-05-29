@@ -17,7 +17,7 @@ export default async function AdminPage({
     prisma.trackingEvent.findMany({
       where: { createdAt: { gte: since } },
       orderBy: { createdAt: "asc" },
-      select: { createdAt: true, type: true, name: true },
+      select: { id: true, createdAt: true, type: true, name: true, sessionId: true, url: true, fileId: true },
     }),
     prisma.chatSession.findMany({
       where: { createdAt: { gte: since } },
@@ -71,6 +71,66 @@ export default async function AdminPage({
     .map(([name, { total, type }]) => ({ name, total, type }))
     .sort((a, b) => b.total - a.total)
 
+  // Build per-session data (merge tracking events + chat messages by sessionId)
+  type SessionEntry = {
+    sessionId: string
+    events: typeof rawEvents
+    chatMessages: { id: string; role: string; content: string; createdAt: Date }[]
+  }
+  const sessionMap = new Map<string, SessionEntry>()
+
+  const getOrCreate = (sid: string) => {
+    if (!sessionMap.has(sid)) sessionMap.set(sid, { sessionId: sid, events: [], chatMessages: [] })
+    return sessionMap.get(sid)!
+  }
+
+  for (const e of rawEvents) getOrCreate(e.sessionId).events.push(e)
+  for (const cs of chatSessions) {
+    const entry = getOrCreate(cs.sessionId)
+    for (const m of cs.messages) {
+      entry.chatMessages.push({ id: m.id, role: m.role, content: m.content, createdAt: m.createdAt })
+    }
+  }
+
+  const sessionData = [...sessionMap.values()].map((s) => {
+    const allTimes = [
+      ...s.events.map((e) => e.createdAt.getTime()),
+      ...s.chatMessages.map((m) => m.createdAt.getTime()),
+    ]
+    const firstSeen = new Date(Math.min(...allTimes)).toISOString()
+    const lastSeen = new Date(Math.max(...allTimes)).toISOString()
+
+    const timeline = [
+      ...s.events.map((e) => ({
+        kind: "event" as const,
+        id: e.id,
+        type: e.type as string,
+        name: e.name,
+        ...(e.url ? { url: e.url } : {}),
+        ...(e.fileId ? { fileId: e.fileId } : {}),
+        createdAt: e.createdAt.toISOString(),
+      })),
+      ...s.chatMessages.map((m) => ({
+        kind: "chat" as const,
+        id: m.id,
+        role: m.role as string,
+        content: m.content,
+        createdAt: m.createdAt.toISOString(),
+      })),
+    ].sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+
+    return {
+      summary: {
+        sessionId: s.sessionId,
+        firstSeen,
+        lastSeen,
+        eventCount: s.events.length,
+        chatMessageCount: s.chatMessages.length,
+      },
+      timeline,
+    }
+  }).sort((a, b) => b.summary.lastSeen.localeCompare(a.summary.lastSeen))
+
   // Serialize dates for client
   const serializedSessions = chatSessions.map((s) => ({
     id: s.id,
@@ -90,6 +150,7 @@ export default async function AdminPage({
       chartData={chartData}
       series={series}
       chatSessions={serializedSessions}
+      sessionData={sessionData}
     />
   )
 }

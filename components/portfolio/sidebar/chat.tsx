@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect, useRef} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import ReactMarkdown from "react-markdown"
 import {
   BotIcon,
@@ -22,13 +22,21 @@ import {useFileSystem} from "@/context/file-system-context"
 import {useChatContext} from "@/context/chat-context"
 import type {UIMessage} from "ai"
 
-const WELCOME_TEXT = "Hi! I'm Merten's portfolio assistant.\n\nAsk me anything about him. For example about his **projects**, **tech stack**, **CV**, or **thesis** work. I also know which file you currently have open."
+const CONSENT_KEY = "portfolio-chat-consent"
+
+const WELCOME_TEXT = "Hi! I'm Merten's portfolio assistant — an AI system.\n\nAsk me anything about him. For example about his **projects**, **tech stack**, **CV**, or **thesis** work. I also know which file you currently have open."
 
 export default function ChatPanel() {
   const isMobile = useIsMobile()
   const { getActiveFile, openFileById } = useFileSystem()
   const { chat, resetChat, input, setInput, activeFileRef } = useChatContext()
   const scrollRef = useRef<HTMLDivElement>(null)
+
+  const [hasConsented, setHasConsented] = useState(false)
+
+  useEffect(() => {
+    setHasConsented(sessionStorage.getItem(CONSENT_KEY) === "true")
+  }, [])
 
   activeFileRef.current = getActiveFile()?.name ?? null
 
@@ -40,6 +48,17 @@ export default function ChatPanel() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
   }, [messages.length, isLoading])
+
+  const handleConsent = () => {
+    sessionStorage.setItem(CONSENT_KEY, "true")
+    setHasConsented(true)
+  }
+
+  const handleWithdrawConsent = () => {
+    sessionStorage.removeItem(CONSENT_KEY)
+    setHasConsented(false)
+    resetChat()
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -63,35 +82,89 @@ export default function ChatPanel() {
     <aside className="h-full flex flex-col w-full z-40 bg-popover">
       <div className="px-2 py-2 text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex justify-between items-center shrink-0">
         <span>Chat</span>
-        <PlusIcon className="w-3.5 h-3.5 cursor-pointer" onClick={handleNewChat} />
+        {hasConsented && <PlusIcon className="w-3.5 h-3.5 cursor-pointer" onClick={handleNewChat} />}
       </div>
 
-      <div className="flex-1 overflow-y-auto p-2" ref={scrollRef}>
-        <AssistantBubble text={WELCOME_TEXT} onOpenFile={openFileById} />
-        {messages
-          .filter((msg, i) => !(isLoading && i === messages.length - 1 && msg.role === "assistant"))
-          .map((msg) => (
-            <ChatBubble key={msg.id} message={msg} onOpenFile={openFileById} />
-          ))}
-        {isLoading && <MessageLoadingAnimation />}
-      </div>
+      {!hasConsented ? (
+        <ConsentGate onConsent={handleConsent} onOpenPrivacyPolicy={() => openFileById("privacy")} />
+      ) : (
+        <>
+          <div className="flex-1 overflow-y-auto p-2" ref={scrollRef}>
+            <AssistantBubble text={WELCOME_TEXT} onOpenFile={openFileById} />
+            {messages
+              .filter((msg, i) => !(isLoading && i === messages.length - 1 && msg.role === "assistant"))
+              .map((msg) => (
+                <ChatBubble key={msg.id} message={msg} onOpenFile={openFileById} />
+              ))}
+            {isLoading && <MessageLoadingAnimation />}
+          </div>
 
-      <form onSubmit={handleSubmit} className="p-2 border-t border-border shrink-0">
-        <div className="flex gap-2 items-end">
-          <Textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Type a message..."
-            className="min-h-8 max-h-32 resize-none text-xs py-2"
-            rows={Math.min(3, Math.max(1, input.split("\n").length))}
-          />
-          <Button type="submit" size="icon" className="h-8 w-8 shrink-0" disabled={isLoading || !input.trim()}>
-            <SendIcon className="w-4 h-4" />
-          </Button>
-        </div>
-      </form>
+          <form onSubmit={handleSubmit} className="p-2 border-t border-border shrink-0">
+            <div className="flex gap-2 items-end">
+              <Textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Type a message..."
+                className="min-h-8 max-h-32 resize-none text-xs py-2"
+                rows={Math.min(3, Math.max(1, input.split("\n").length))}
+              />
+              <Button type="submit" size="icon" className="h-8 w-8 shrink-0" disabled={isLoading || !input.trim()}>
+                <SendIcon className="w-4 h-4" />
+              </Button>
+            </div>
+            <p className="text-[10px] text-muted-foreground mt-1">
+              Messages forwarded to external AI providers.{" "}
+              <button
+                type="button"
+                onClick={handleWithdrawConsent}
+                className="underline hover:text-foreground transition-colors"
+              >
+                Withdraw consent
+              </button>
+            </p>
+          </form>
+        </>
+      )}
     </aside>
+  )
+}
+
+function ConsentGate({
+  onConsent,
+  onOpenPrivacyPolicy,
+}: {
+  onConsent: () => void
+  onOpenPrivacyPolicy: () => void
+}) {
+  return (
+    <div className="flex-1 flex flex-col justify-center p-4 gap-4">
+      <div className="space-y-3 text-sm text-muted-foreground">
+        <p className="font-semibold text-foreground text-sm">Before using the chat</p>
+        <p>
+          This chat is powered by external AI services. Your messages will be sent to:
+        </p>
+        <ul className="list-disc list-inside space-y-1 text-xs">
+          <li><strong>OpenRouter Inc.</strong> (USA) — API routing (SCC)</li>
+          <li><strong>Google LLC</strong> (USA) — AI model (DPF adequacy)</li>
+        </ul>
+        <p className="text-xs">
+          You are interacting with an AI system. Do not share personal data.
+          See our{" "}
+          <button
+            type="button"
+            onClick={onOpenPrivacyPolicy}
+            className="text-primary underline hover:no-underline"
+          >
+            Privacy Policy
+          </button>
+          {" "}for details.
+        </p>
+      </div>
+      <Button onClick={onConsent} className="w-full text-sm">
+        I understand — Start chatting
+      </Button>
+    </div>
   )
 }
 
@@ -191,7 +264,7 @@ function ChatBubble({ message, onOpenFile }: { message: UIMessage; onOpenFile: (
 }
 
 function MessageLoadingAnimation() {
-  const [phraseIndex, setPhraseIndex] = React.useState(() =>
+  const [phraseIndex, setPhraseIndex] = useState(() =>
     Math.floor(Math.random() * chatLoadingPhrases.length)
   )
 

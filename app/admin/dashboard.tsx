@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation"
 import { EventType } from "@/lib/generated/prisma"
 import { MetricsTab } from "./metrics-tab"
 import { ChatTab } from "./chat-tab"
+import { SessionsTab } from "./sessions-tab"
+import type { SessionData } from "./sessions-tab"
 import { cn } from "@/lib/utils"
-import { BarChart2Icon, MessageSquareIcon } from "lucide-react"
+import { BarChart2Icon, MessageSquareIcon, UsersIcon } from "lucide-react"
 
 export type SeriesMeta = { name: string; total: number; type: EventType }
 
@@ -24,21 +26,22 @@ export type ChatSession = {
   messages: ChatMessage[]
 }
 
-type Tab = "metrics" | "chat"
+type Tab = "metrics" | "chat" | "sessions"
 
 interface Props {
   days: number
   chartData: Record<string, string | number>[]
   series: SeriesMeta[]
   chatSessions: ChatSession[]
+  sessionData: SessionData[]
 }
 
-export function AdminDashboard({ days, chartData, series, chatSessions }: Props) {
+export function AdminDashboard({ days, chartData, series, chatSessions, sessionData }: Props) {
   const [tab, setTab] = useState<Tab>("metrics")
   const router = useRouter()
 
   function setDays(d: number) {
-    router.push(`/admin?key=${new URLSearchParams(window.location.search).get("key") ?? ""}&days=${d}`)
+    router.push(`/admin?days=${d}`)
   }
 
   return (
@@ -81,12 +84,21 @@ export function AdminDashboard({ days, chartData, series, chatSessions }: Props)
             </span>
           )}
         </TabButton>
+        <TabButton active={tab === "sessions"} onClick={() => setTab("sessions")} icon={<UsersIcon className="w-3.5 h-3.5" />}>
+          Sessions
+          {sessionData.length > 0 && (
+            <span className="ml-1.5 text-[10px] bg-muted text-muted-foreground rounded-full px-1.5 py-0.5">
+              {sessionData.length}
+            </span>
+          )}
+        </TabButton>
       </div>
 
       {/* Content */}
       <div className="flex-1 min-h-0 overflow-hidden">
         {tab === "metrics" && <MetricsTab chartData={chartData} series={series} days={days} />}
         {tab === "chat" && <ChatTab sessions={chatSessions} />}
+        {tab === "sessions" && <SessionsTab sessions={sessionData} />}
       </div>
     </div>
   )

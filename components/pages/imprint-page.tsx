@@ -1,7 +1,7 @@
 import { FileContentContainer } from "@/components/portfolio/file-content-container";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function ImpressumPage() {
+export default function ImprintPage() {
   return (
     <FileContentContainer
       filePath="Impressum.md"

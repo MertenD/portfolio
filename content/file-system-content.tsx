@@ -7,7 +7,8 @@ import ProcessFlowPage from "@/components/pages/projects/process-flow-page";
 import ReadmePage from "@/components/pages/readme-page";
 import MasterPage from "@/components/pages/education/master-page";
 import BachelorPage from "@/components/pages/education/bachelor-page";
-import ImpressumPage from "@/components/pages/impressum-page";
+import ImprintPage from "@/components/pages/imprint-page";
+import PrivacyPolicyPage from "@/components/pages/privacy-policy-page";
 import CvPage from "@/components/pages/cv-page";
 
 export enum FileId {
@@ -20,7 +21,8 @@ export enum FileId {
   Bachelor = "bachelor",
   Readme = "readme",
   Imprint = "imprint",
-  Cv = "cv"
+  Cv = "cv",
+  Privacy = "privacy"
 }
 
 export const fileSystemContent: Array<File | Folder> = [
@@ -78,8 +80,12 @@ export const fileSystemContent: Array<File | Folder> = [
         keywords: ["resume", "curriculum vitae", "lebenslauf", "experience", "career"],
       },
       {
-        id: FileId.Imprint, name: "Imprint.md", component: <ImpressumPage />,
+        id: FileId.Imprint, name: "Imprint.md", component: <ImprintPage />,
         keywords: ["imprint", "impressum", "legal", "contact"],
+      },
+      {
+        id: FileId.Privacy, name: "Privacy.md", component: <PrivacyPolicyPage />,
+        keywords: ["datenschutz", "privacy", "dsgvo", "gdpr", "cookies", "tracking", "analytics", "legal"],
       },
     ]
   }

@@ -15,7 +15,7 @@ const fileMap = {
   "luzides-traeumen":  "components/pages/projects/luzides-traeumen-page.tsx",
   "muscle-group-api":  "components/pages/projects/muscle-group-api-page.tsx",
   "process-flow":      "components/pages/projects/process-flow-page.tsx",
-  "imprint":           "components/pages/impressum-page.tsx",
+  "imprint":           "components/pages/imprint-page.tsx",
 }
 
 const HTML_ENTITIES = { "&apos;": "'", "&amp;": "&", "&quot;": '"', "&lt;": "<", "&gt;": ">" }
