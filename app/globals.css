@@ -6,6 +6,7 @@
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 
 /* Next.js Root-Container soll ebenfalls volle Höhe haben */

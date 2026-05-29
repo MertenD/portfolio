@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link"
 import { GithubIcon, ExternalLinkIcon, DownloadIcon } from "lucide-react"
+import { TrackedLink } from "@/components/tracked-link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -51,28 +51,28 @@ export default function BachelorPage() {
       headerRight={
         <div className="flex flex-wrap gap-2 justify-end">
           <Button asChild size="sm" variant="outline">
-            <Link href="/Bachelorarbeit-Merten-Dieckmann.pdf" target="_blank" download>
+            <TrackedLink href="/Bachelorarbeit-Merten-Dieckmann.pdf" trackingName="Bachelor - Download Thesis" target="_blank" download>
               <DownloadIcon />
               Thesis
-            </Link>
+            </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="outline">
-            <Link href="http://gbpmneditor.mertendieckmann.de" target="_blank" rel="noreferrer">
+            <TrackedLink href="http://gbpmneditor.mertendieckmann.de" trackingName="Bachelor - Editor Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Editor Demo
-            </Link>
+            </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="outline">
-            <Link href="http://gbpmnengine.mertendieckmann.de" target="_blank" rel="noreferrer">
+            <TrackedLink href="http://gbpmnengine.mertendieckmann.de" trackingName="Bachelor - Engine Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Engine Demo
-            </Link>
+            </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="default">
-            <Link href="https://github.com/MertenD/gamificated-bpmn-editor" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://github.com/MertenD/gamificated-bpmn-editor" trackingName="Bachelor - GitHub" target="_blank" rel="noreferrer">
               <GithubIcon />
               GitHub
-            </Link>
+            </TrackedLink>
           </Button>
         </div>
       }
@@ -120,14 +120,14 @@ export default function BachelorPage() {
             <ZoomableImage src="/images/bachelor-thesis/editor.png" alt="Gamificated BPMN Editor interface" height={280} />
             <div className="flex gap-2">
               <Button asChild size="sm" variant="outline" className="flex-1">
-                <Link href="http://gbpmneditor.mertendieckmann.de" target="_blank" rel="noreferrer">
+                <TrackedLink href="http://gbpmneditor.mertendieckmann.de" trackingName="Bachelor - Editor Demo (card)" target="_blank" rel="noreferrer">
                   <ExternalLinkIcon /> Live Demo
-                </Link>
+                </TrackedLink>
               </Button>
               <Button asChild size="sm" variant="outline" className="flex-1">
-                <Link href="https://github.com/MertenD/gamificated-bpmn-editor" target="_blank" rel="noreferrer">
+                <TrackedLink href="https://github.com/MertenD/gamificated-bpmn-editor" trackingName="Bachelor - Editor GitHub (card)" target="_blank" rel="noreferrer">
                   <GithubIcon /> GitHub
-                </Link>
+                </TrackedLink>
               </Button>
             </div>
           </CardContent>
@@ -146,14 +146,14 @@ export default function BachelorPage() {
             <ZoomableImage src="/images/bachelor-thesis/engine-overview.png" alt="Gamificated BPMN Engine runtime UI" height={280} />
             <div className="flex gap-2">
               <Button asChild size="sm" variant="outline" className="flex-1">
-                <Link href="http://gbpmnengine.mertendieckmann.de" target="_blank" rel="noreferrer">
+                <TrackedLink href="http://gbpmnengine.mertendieckmann.de" trackingName="Bachelor - Engine Demo (card)" target="_blank" rel="noreferrer">
                   <ExternalLinkIcon /> Live Demo
-                </Link>
+                </TrackedLink>
               </Button>
               <Button asChild size="sm" variant="outline" className="flex-1">
-                <Link href="https://github.com/MertenD/gamificated-bpmn-engine" target="_blank" rel="noreferrer">
+                <TrackedLink href="https://github.com/MertenD/gamificated-bpmn-engine" trackingName="Bachelor - Engine GitHub (card)" target="_blank" rel="noreferrer">
                   <GithubIcon /> GitHub
-                </Link>
+                </TrackedLink>
               </Button>
             </div>
           </CardContent>

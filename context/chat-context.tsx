@@ -5,12 +5,16 @@ import { Chat } from "@ai-sdk/react"
 import { generateId, TextStreamChatTransport } from "ai"
 
 function createChatInstance(activeFileRef: React.RefObject<string | null>) {
+  const sessionId = crypto.randomUUID()
   return new Chat({
     id: generateId(),
     // @ts-ignore
     transport: new TextStreamChatTransport({
       api: "/api/chat",
-      body: () => ({ activeFile: activeFileRef.current }),
+      body: () => ({
+        activeFile: activeFileRef.current,
+        sessionId,
+      }),
     }),
   })
 }

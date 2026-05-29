@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 import { GithubIcon, ExternalLinkIcon, UsersIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -9,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator"
 import { FileContentContainer } from "@/components/portfolio/file-content-container"
 import { ZoomableImage } from "@/components/ui/zoomable-image"
+import { TrackedLink } from "@/components/tracked-link"
 
 const tech = ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Docker", "PWA", "i18n"]
 
@@ -70,16 +70,16 @@ export default function BierturnierPage() {
       headerRight={
         <div className="flex gap-2">
           <Button asChild size="sm" variant="outline">
-            <Link href="https://bierturnier.de" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://bierturnier.de" trackingName="BierTurnier - Website" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Website
-            </Link>
+            </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="default">
-            <Link href="https://github.com/MarkusThielker/bier-turnier" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://github.com/MarkusThielker/bier-turnier" trackingName="BierTurnier - GitHub" target="_blank" rel="noreferrer">
               <GithubIcon />
               GitHub
-            </Link>
+            </TrackedLink>
           </Button>
         </div>
       }

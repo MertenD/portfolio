@@ -2,9 +2,9 @@
 
 import {Tab, TabLink, useSideBar} from "@/context/side-bar-context";
 import {cn} from "@/lib/utils";
-import Link from "next/link";
 import React from "react";
 import {navTabLinks, navTabsBottom, navTabsTop} from "@/content/side-nav-content";
+import { trackEvent, EventType } from "@/lib/analytics";
 
 export function SideNav() {
 
@@ -38,7 +38,10 @@ function NavTab({ tab }: { tab: Tab }) {
 					? "text-primary border-l-2 border-primary bg-ide-hover"
 					: "text-ide-icon-muted opacity-70 hover:text-foreground hover:bg-ide-hover"
 			)}
-			onClick={() => handleTabClick(tab.id)}
+			onClick={() => {
+				trackEvent(EventType.SIDEBAR_TAB, `SideNav - ${tab.label}`)
+				handleTabClick(tab.id)
+			}}
 		>
 			<tab.icon className="w-5 h-5"/>
 			<span className="absolute left-14 bg-ide-tooltip text-foreground text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-50">
@@ -50,19 +53,19 @@ function NavTab({ tab }: { tab: Tab }) {
 
 function NavTabLink({ tab }: { tab: TabLink }) {
 	return (
-		<Link
+		<a
 			className={cn("w-full py-2 flex justify-center group relative transition-all",
 				"text-ide-icon-muted opacity-70 hover:text-foreground hover:bg-ide-hover"
 			)}
-			href={tab.href
-			}
+			href={tab.href}
 			target="_blank"
 			rel="noopener noreferrer"
+			onClick={() => trackEvent(EventType.EXTERNAL_LINK, `SideNav - ${tab.label}`, { url: tab.href })}
 		>
 			<tab.icon className="w-5 h-5"/>
 			<span className="absolute left-14 bg-ide-tooltip text-foreground text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-50">
 				{tab.label}
 			</span>
-		</Link>
+		</a>
 	)
 }

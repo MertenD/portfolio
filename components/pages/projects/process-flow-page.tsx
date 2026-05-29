@@ -1,8 +1,8 @@
 "use client"
 
-import Link from "next/link"
 import Image from "next/image"
 import { GithubIcon, ExternalLinkIcon } from "lucide-react"
+import { TrackedLink } from "@/components/tracked-link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -77,16 +77,16 @@ export default function ProcessFlowPage() {
       headerRight={
         <div className="flex gap-2">
           <Button asChild size="sm" variant="outline">
-            <Link href="https://processflow.mertendieckmann.de" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://processflow.mertendieckmann.de" trackingName="ProcessFlow - Live Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Live Demo
-            </Link>
+            </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="default">
-            <Link href="https://github.com/MertenD/process-flow" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://github.com/MertenD/process-flow" trackingName="ProcessFlow - GitHub" target="_blank" rel="noreferrer">
               <GithubIcon />
               GitHub
-            </Link>
+            </TrackedLink>
           </Button>
         </div>
       }

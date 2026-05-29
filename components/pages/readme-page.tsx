@@ -1,10 +1,10 @@
 "use client"
 
-import Link from "next/link";
 import Image from "next/image";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { TrackedLink } from "@/components/tracked-link"
 import {
   Card,
   CardContent,
@@ -76,10 +76,10 @@ export default function ReadmePage() {
       subtitle="Fullstack Software Engineer @ Mercedes-Benz Tech Innovation"
       headerRight={
         <Button asChild size="sm" variant="default">
-          <Link href="https://github.com/MertenD" target="_blank" rel="noreferrer">
+          <TrackedLink href="https://github.com/MertenD" trackingName="README - GitHub" target="_blank" rel="noreferrer">
             <GithubIcon />
             GitHub
-          </Link>
+          </TrackedLink>
         </Button>
       }
     >

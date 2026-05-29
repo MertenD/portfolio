@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link";
 import { DownloadIcon } from "lucide-react";
+import { TrackedLink } from "@/components/tracked-link"
 import { Button } from "@/components/ui/button";
 import { FileContentContainer } from "@/components/portfolio/file-content-container";
 
@@ -13,10 +13,10 @@ export default function CvPage() {
       subtitle="Merten Dieckmann — Software Engineer"
       headerRight={
         <Button asChild size="sm" variant="default">
-          <Link href="/CV-Merten-Dieckmann.pdf" target="_blank" download>
+          <TrackedLink href="/CV-Merten-Dieckmann.pdf" trackingName="CV - Download" target="_blank" download>
             <DownloadIcon />
             Download
-          </Link>
+          </TrackedLink>
         </Button>
       }
     >

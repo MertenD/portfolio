@@ -3,8 +3,8 @@ import {Badge} from "@/components/ui/badge"
 import {Button} from "@/components/ui/button"
 import {ExternalLink, Star, BookOpen, Code2, GithubIcon} from "lucide-react"
 import {Card, CardContent, CardHeader, CardTitle, CardDescription} from "@/components/ui/card"
-import Link from "next/link"
 import {Fragment} from "react";
+import { TrackedLink } from "@/components/tracked-link"
 import { FileContentContainer } from "@/components/portfolio/file-content-container";
 
 export default function LuzidesTraeumenPage() {
@@ -26,10 +26,10 @@ export default function LuzidesTraeumenPage() {
       subtitle="A project combining two passions: writing a book about lucid dreaming and building its landing page."
       headerRight={
         <Button asChild size="sm" variant="default">
-          <Link href="https://github.com/MertenD/lucid-dreaming-landing" target="_blank" rel="noreferrer">
+          <TrackedLink href="https://github.com/MertenD/lucid-dreaming-landing" trackingName="LuzidesTraeumen - GitHub" target="_blank" rel="noreferrer">
             <GithubIcon />
             GitHub
-          </Link>
+          </TrackedLink>
         </Button>
       }
     >
@@ -60,6 +60,7 @@ export default function LuzidesTraeumenPage() {
           buttonLink="https://www.amazon.de/Kontrolliere-Deine-Tr%C3%A4ume-praktischer-Leidfaden/dp/B0D8LHZ2X6"
           buttonText="View on Amazon"
           buttonVariant="default"
+          trackingName="LuzidesTraeumen - Amazon"
         />
 
         {/* The Landing Page Section */}
@@ -87,6 +88,7 @@ export default function LuzidesTraeumenPage() {
           buttonLink="https://luzides-traeumen-buch.de"
           buttonText="Visit Landing Page"
           buttonVariant="secondary"
+          trackingName="LuzidesTraeumen - Landing Page"
         />
       </div>
     </FileContentContainer>
@@ -103,6 +105,7 @@ function ProjectCard({
                        buttonLink,
                        buttonText,
                        buttonVariant = "default",
+                       trackingName,
                      }: {
   title: string
   icon: React.ReactNode
@@ -113,6 +116,7 @@ function ProjectCard({
   buttonLink: string
   buttonText: string
   buttonVariant?: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link"
+  trackingName: string
 }) {
   return (
     <Card className="bg-popover flex flex-col">
@@ -135,9 +139,9 @@ function ProjectCard({
           ))}
           </div>
           <Button asChild className="w-full mt-auto" variant={buttonVariant} size="sm">
-            <Link href={buttonLink} target="_blank">
+            <TrackedLink href={buttonLink} trackingName={trackingName} target="_blank">
               {buttonText} <ExternalLink className="w-4 h-4 ml-2"/>
-            </Link>
+            </TrackedLink>
           </Button>
         </div>
       </CardContent>

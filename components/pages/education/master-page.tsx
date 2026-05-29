@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link";
 import { GithubIcon, ExternalLinkIcon, DownloadIcon } from "lucide-react";
+import { TrackedLink } from "@/components/tracked-link"
 import { ZoomableImage } from "@/components/ui/zoomable-image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -48,22 +48,22 @@ export default function MasterPage() {
       headerRight={
         <div className="flex gap-2">
           <Button asChild size="sm" variant="outline">
-            <Link href="/Masterarbeit-Merten-Dieckmann.pdf" target="_blank" download>
+            <TrackedLink href="/Masterarbeit-Merten-Dieckmann.pdf" trackingName="Master - Download Thesis" target="_blank" download>
               <DownloadIcon />
               Thesis
-            </Link>
+            </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="outline">
-            <Link href="https://gripl.mertendieckmann.de" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://gripl.mertendieckmann.de" trackingName="Master - Live Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Live Demo
-            </Link>
+            </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="default">
-            <Link href="https://github.com/MertenD/gripl-master-thesis" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://github.com/MertenD/gripl-master-thesis" trackingName="Master - GitHub" target="_blank" rel="noreferrer">
               <GithubIcon />
               GitHub
-            </Link>
+            </TrackedLink>
           </Button>
         </div>
       }

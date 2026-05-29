@@ -6,8 +6,8 @@ import { Separator } from "@/components/ui/separator"
 import { FileContentContainer } from "@/components/portfolio/file-content-container"
 import { ZoomableImage } from "@/components/ui/zoomable-image"
 import {Button} from "@/components/ui/button";
-import Link from "next/link";
 import {ExternalLinkIcon, GithubIcon} from "lucide-react";
+import { TrackedLink } from "@/components/tracked-link"
 
 const tech = ["Next.js", "TypeScript", "tRPC", "Prisma", "PostgreSQL", "Vercel AI SDK", "OpenRouter", "Inngest", "Polar", "PWA"]
 
@@ -33,16 +33,16 @@ export default function LanguageLearningPage() {
       headerRight={
         <div className="flex gap-2">
           <Button asChild size="sm" variant="outline">
-            <Link href="https://easylingu.com" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://easylingu.com" trackingName="EasyLingu - Website" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Website
-            </Link>
+            </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="default">
-            <Link href="https://github.com/MertenD/language-learning" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://github.com/MertenD/language-learning" trackingName="EasyLingu - GitHub" target="_blank" rel="noreferrer">
               <GithubIcon />
               GitHub
-            </Link>
+            </TrackedLink>
           </Button>
         </div>
       }

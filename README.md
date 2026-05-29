@@ -39,10 +39,89 @@ To regenerate the search index manually after editing page content:
 node scripts/extract-search-content.mjs
 ```
 
-## Docker
+## Environment variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `OPENROUTER_API_KEY` | Yes | API key for the AI chat ([openrouter.ai](https://openrouter.ai)) |
+| `AI_MODEL` | No | OpenRouter model ID (default: `google/gemini-3.1-flash-lite`) |
+| `DATABASE_URL` | Yes | SQLite connection string — `file:./dev.db` for local dev |
+
+Copy `.env.example` to `.env` and fill in the values before running the app.
+
+## Analytics
+
+Visitor events (file opens, link clicks, sidebar navigation) and chat conversations are stored in a local SQLite database via Prisma.
+
+Run the migration once before the first start:
 
 ```bash
-docker compose up
+npx prisma migrate dev
+```
+
+The admin dashboard is available at `/admin`. In development it is accessible without authentication. In production it is protected by Traefik BasicAuth (see below).
+
+## Docker & Traefik deployment
+
+The `docker-compose.yml` is designed for a server running Traefik as a reverse proxy.
+
+### 1. Create `.env` on the server
+
+```bash
+cp .env.example .env
+```
+
+Set at minimum:
+
+```env
+OPENROUTER_API_KEY=sk-or-v1-...
+
+# Generate with: htpasswd -nB admin | sed 's/\$/\$\$/g'
+# Every $ in the bcrypt hash must be written as $$ for docker-compose interpolation
+ADMIN_BASIC_AUTH=admin:$$2y$$05$$...
+```
+
+`DATABASE_URL` is set inside `docker-compose.yml` to `file:/data/portfolio.db` and does **not** need to be in `.env`.
+
+### 2. Generate the admin password hash
+
+```bash
+# Requires apache2-utils / httpd-tools — or use Docker:
+docker run --rm httpd htpasswd -nB admin
+
+# Escape $ signs for docker-compose (run in bash):
+htpasswd -nB admin | sed 's/\$/\$\$/g'
+```
+
+Paste the result as `ADMIN_BASIC_AUTH` in `.env`.
+
+### 3. Start the container
+
+```bash
+docker compose pull && docker compose up -d
+```
+
+The portfolio is then live at `https://merten.tech`. The admin dashboard at `https://merten.tech/admin` is protected by a browser login prompt — Traefik intercepts the request before it reaches the app.
+
+### How the auth routing works
+
+Two Traefik routers are configured for the same container:
+
+| Router | Rule | Middleware |
+|---|---|---|
+| `merten-portfolio` | `Host(...)` | redirect `mertendieckmann.de → merten.tech` |
+| `merten-portfolio-admin` | `Host(...) && PathPrefix(/admin)` | redirect + BasicAuth |
+
+Traefik automatically assigns higher priority to the more specific `/admin` router (longer rule), so every request to `/admin` is challenged for credentials first.
+
+### Database persistence
+
+Analytics data lives in a Docker named volume (`portfolio-data`) mounted at `/data` inside the container. It survives container restarts and image updates.
+
+```bash
+# Backup
+docker exec merten-portfolio cp /data/portfolio.db /tmp/backup.db
+docker cp merten-portfolio:/tmp/backup.db ./portfolio-backup.db
 ```
 
 ## Adding content

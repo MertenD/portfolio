@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum EventType {
+  BUTTON_CLICK
+  EXTERNAL_LINK
+  SIDEBAR_TAB
+  FILE_OPEN
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+}
+
+model TrackingEvent {
+  id        String    @id @default(cuid())
+  type      EventType
+  name      String
+  url       String?
+  fileId    String?
+  sessionId String
+  createdAt DateTime  @default(now())
+}
+
+model ChatSession {
+  id        String        @id @default(cuid())
+  sessionId String        @unique
+  messages  ChatMessage[]
+  createdAt DateTime      @default(now())
+}
+
+model ChatMessage {
+  id          String      @id @default(cuid())
+  chatSession ChatSession @relation(fields: [sessionId], references: [sessionId])
+  sessionId   String
+  role        MessageRole
+  content     String
+  createdAt   DateTime    @default(now())
+}

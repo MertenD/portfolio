@@ -4,6 +4,7 @@ import React, {useContext, useEffect} from "react";
 import {useQueryState} from 'nuqs'
 import {FileId, fileSystemContent} from "@/content/file-system-content";
 import {findFileById, getAllFolderIds, getInitiallyClosedFolderIds} from "@/context/file-system-context-utils";
+import {trackEvent, EventType} from "@/lib/analytics";
 
 export type File = {
   id: string
@@ -68,6 +69,7 @@ export function FileSystemProvider({children}: { children: React.ReactNode }) {
   }
 
   const openFile = (file: File) => {
+    trackEvent(EventType.FILE_OPEN, file.id)
     setActiveFileId(file.id)
     setOpenFiles((prev) => {
       if (!prev.find((f) => f.id === file.id)) {

@@ -4,13 +4,15 @@ import {readFileSync} from "fs"
 import {join} from "path"
 import {getAllFiles} from "@/context/file-system-context-utils";
 import {fileSystemContent} from "@/content/file-system-content";
+import {prisma} from "@/lib/prisma";
+import {MessageRole} from "@/lib/generated/prisma/enums";
 
 const knowledgeBase = readFileSync(join(process.cwd(), "content/knowledge-base.md"), "utf-8")
 
 const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY })
 
 export async function POST(req: Request) {
-  const { messages, activeFile } = await req.json()
+  const { messages, activeFile, sessionId } = await req.json()
 
   const systemPrompt = [
     "You are a helpful assistant on Merten Dieckmann's portfolio website.",
@@ -46,16 +48,44 @@ export async function POST(req: Request) {
     knowledgeBase,
   ].filter(Boolean).join("\n")
 
-  console.log("System Prompt:\n", systemPrompt)
-
   const result = streamText({
     // @ts-ignore
     model: openrouter(process.env.AI_MODEL ?? "google/gemini-3.1-flash-lite"),
     system: systemPrompt,
     messages: convertToModelMessages(messages),
+    onFinish: async ({ text }) => {
+      await trackChatMessage(sessionId, messages, text)
+    },
   })
 
   return new Response(result.textStream, {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   })
+}
+
+async function trackChatMessage(sessionId: string, messages: any, text: string) {
+
+  if (!sessionId) return
+
+  const lastUserMessage = messages.findLast((m: { role: string }) => m.role === "user")
+
+  try {
+    await prisma.chatSession.upsert({
+      where: { sessionId },
+      create: { sessionId },
+      update: {},
+    })
+    const userText = lastUserMessage?.parts
+      ?.filter((p: { type: string }) => p.type === "text")
+      ?.map((p: { text: string }) => p.text)
+      ?.join("") ?? ""
+    await prisma.chatMessage.createMany({
+      data: [
+        ...(userText ? [{ sessionId, role: MessageRole.USER, content: userText }] : []),
+        { sessionId, role: MessageRole.ASSISTANT, content: text },
+      ],
+    })
+  } catch (e) {
+    console.error("Analytics chat save error:", e)
+  }
 }

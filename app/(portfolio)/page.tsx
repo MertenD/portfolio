@@ -23,7 +23,7 @@ export default function PortfolioPage() {
     <div className="hidden md:flex min-h-0 h-full self-stretch w-full min-w-0">
       <ResizablePanelGroup
         orientation="horizontal"
-        className={cn("min-h-0 h-full self-stretch min-w-0", /*!isOpen && "invisible"*/)}
+        className={cn("min-h-0 h-full self-stretch min-w-0")}
       >
         <ResizablePanel
           panelRef={sidebarRef}

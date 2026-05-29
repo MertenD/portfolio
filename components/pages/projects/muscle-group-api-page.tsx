@@ -5,8 +5,8 @@ import {Button} from "@/components/ui/button";
 import {Badge} from "@/components/ui/badge";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Separator} from "@/components/ui/separator";
-import Link from "next/link";
 import {GithubIcon, ExternalLinkIcon} from "lucide-react";
+import { TrackedLink } from "@/components/tracked-link"
 
 const stats = [
   { label: "Total requests", value: "500,000+" },
@@ -34,16 +34,16 @@ export default function MuscleGroupAPIPage() {
     headerRight={
       <div className="flex gap-2">
         <Button asChild size="sm" variant="outline">
-          <Link href="https://rapidapi.com/mertronlp/api/muscle-group-image-generator" target="_blank" rel="noreferrer">
+          <TrackedLink href="https://rapidapi.com/mertronlp/api/muscle-group-image-generator" trackingName="MuscleGroupAPI - RapidAPI" target="_blank" rel="noreferrer">
             <ExternalLinkIcon />
             RapidAPI
-          </Link>
+          </TrackedLink>
         </Button>
         <Button asChild size="sm" variant="default">
-          <Link href="https://github.com/MertenD/musclegroup-image-generator" target="_blank" rel="noreferrer">
+          <TrackedLink href="https://github.com/MertenD/musclegroup-image-generator" trackingName="MuscleGroupAPI - GitHub" target="_blank" rel="noreferrer">
             <GithubIcon />
             GitHub
-          </Link>
+          </TrackedLink>
         </Button>
       </div>
     }
