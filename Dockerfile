@@ -8,7 +8,7 @@ RUN npm ci
 COPY . .
 
 RUN DATABASE_URL="file:./dev.db" npx prisma generate
-RUN npm run build
+RUN DATABASE_URL="file:./dev.db" npm run build
 
 # ---- runner ----
 FROM node:22-slim AS runner
