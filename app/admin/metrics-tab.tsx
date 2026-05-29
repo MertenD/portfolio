@@ -149,7 +149,7 @@ export function MetricsTab({ chartData, series, days }: Props) {
               {TYPE_LABEL[type as EventType] ?? type}
             </p>
             <div className="flex flex-wrap gap-2">
-              {typeSeries.map((s) => {
+              {[...typeSeries].sort((a, b) => a.name.localeCompare(b.name)).map((s) => {
                 const color = colorMap.get(s.name)!
                 const isHidden = hidden.has(s.name)
                 return (

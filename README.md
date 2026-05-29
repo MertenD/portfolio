@@ -53,6 +53,8 @@ Copy `.env.example` to `.env` and fill in the values before running the app.
 
 Visitor events (file opens, link clicks, sidebar navigation) and chat conversations are stored in a local SQLite database via Prisma.
 
+<img src="./public/images/analytics-overview.png" alt="Portfolio Overview" width="850" />
+
 Run the migration once before the first start:
 
 ```bash
