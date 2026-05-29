@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts"
-import { EventType } from "@/lib/generated/prisma/enums"
+import { EventType } from "@/lib/generated/prisma"
 import { cn } from "@/lib/utils"
 import type { SeriesMeta } from "./dashboard"
 

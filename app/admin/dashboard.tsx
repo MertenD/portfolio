@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { EventType } from "@/lib/generated/prisma/enums"
+import { EventType } from "@/lib/generated/prisma"
 import { MetricsTab } from "./metrics-tab"
 import { ChatTab } from "./chat-tab"
 import { cn } from "@/lib/utils"

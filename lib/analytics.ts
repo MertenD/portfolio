@@ -1,6 +1,6 @@
 "use client"
 
-import { EventType } from "@/lib/generated/prisma/enums"
+import { EventType } from "@/lib/generated/prisma"
 
 const SESSION_KEY = "portfolio-session-id"
 

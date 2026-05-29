@@ -5,7 +5,7 @@ import {join} from "path"
 import {getAllFiles} from "@/context/file-system-context-utils";
 import {fileSystemContent} from "@/content/file-system-content";
 import {prisma} from "@/lib/prisma";
-import {MessageRole} from "@/lib/generated/prisma/enums";
+import {MessageRole} from "@/lib/generated/prisma";
 
 const knowledgeBase = readFileSync(join(process.cwd(), "content/knowledge-base.md"), "utf-8")
 

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
-import { EventType } from "@/lib/generated/prisma/enums"
+import { EventType } from "@/lib/generated/prisma"
 
 export async function POST(req: Request) {
   try {

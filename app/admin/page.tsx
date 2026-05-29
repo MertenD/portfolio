@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma"
-import { EventType } from "@/lib/generated/prisma/enums"
+import { EventType } from "@/lib/generated/prisma"
 import { AdminDashboard } from "./dashboard"
 
 export const dynamic = "force-dynamic"
