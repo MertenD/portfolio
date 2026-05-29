@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN DATABASE_URL="file:./dev.db" npx prisma generate
+
 RUN npm run build
 
 EXPOSE 3000
