@@ -44,3 +44,10 @@ model ChatMessage {
   content     String
   createdAt   DateTime    @default(now())
 }
+
+model ConsentLog {
+  id            String   @id @default(cuid())
+  consentId     String   @unique
+  policyVersion String
+  createdAt     DateTime @default(now())
+}

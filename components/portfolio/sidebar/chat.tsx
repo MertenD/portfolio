@@ -23,6 +23,7 @@ import {useChatContext} from "@/context/chat-context"
 import type {UIMessage} from "ai"
 
 const CONSENT_KEY = "portfolio-chat-consent"
+const POLICY_VERSION = "2026-05"
 
 const WELCOME_TEXT = "Hi! I'm Merten's portfolio assistant — an AI system.\n\nAsk me anything about him. For example about his **projects**, **tech stack**, **CV**, or **thesis** work. I also know which file you currently have open."
 
@@ -50,8 +51,14 @@ export default function ChatPanel() {
   }, [messages.length, isLoading])
 
   const handleConsent = () => {
+    const consentId = crypto.randomUUID()
     sessionStorage.setItem(CONSENT_KEY, "true")
     setHasConsented(true)
+    fetch("/api/consent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ consentId, policyVersion: POLICY_VERSION }),
+    }).catch(() => {})
   }
 
   const handleWithdrawConsent = () => {

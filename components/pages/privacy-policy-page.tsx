@@ -71,13 +71,14 @@ export default function PrivacyPolicyPage() {
             </p>
             <p>
               When you interact with certain elements, your browser sends a pseudonymous
-              request to our server. The server computes a pseudonymous session ID using the
-              following method:
+              request to our server. The server computes a pseudonymous <strong>analytics
+              session ID</strong> (distinct from the chat session identifier described in
+              Section 4) using the following method:
             </p>
             <ul className="list-disc list-inside space-y-1">
               <li>Your IP address is anonymized: for IPv4 the last octet is zeroed (e.g. 192.168.1.0/24); for IPv6 the last two groups are removed.</li>
               <li>The anonymized IP is combined with your browser&apos;s User-Agent string and a daily salt that rotates at midnight UTC.</li>
-              <li>A SHA-256 hash is computed from this combination and used as the session ID.</li>
+              <li>A SHA-256 hash is computed from this combination and used as the analytics session ID.</li>
               <li>The hash changes every day, making cross-day correlation technically difficult — but not provably impossible, in particular for stable IP subnets and User-Agents.</li>
             </ul>
             <p>
@@ -118,15 +119,16 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc list-inside space-y-1">
               <li>
                 <strong>OpenRouter Inc.</strong> (USA) — API gateway that routes requests to
-                the AI model. Zero Data Retention is enabled: OpenRouter does not store
-                requests persistently. Privacy policy:{" "}
+                the AI model. Zero Data Retention is enabled for our account: OpenRouter
+                does not store requests persistently. Privacy policy:{" "}
                 <a href="https://openrouter.ai/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                   openrouter.ai/privacy
                 </a>
               </li>
               <li>
                 <strong>Google LLC</strong> (USA) — AI model: <code>google/gemini-3.1-flash-lite</code>,
-                operated via OpenRouter. Privacy policy:{" "}
+                operated via OpenRouter. Google&apos;s data processing terms for API usage
+                govern retention at this layer. Privacy policy:{" "}
                 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                   policies.google.com/privacy
                 </a>
@@ -134,8 +136,9 @@ export default function PrivacyPolicyPage() {
             </ul>
             <p>
               Chat histories are stored in pseudonymized form in a local SQLite database on
-              our server, linked to a session ID held in your browser&apos;s memory for the
-              duration of the session.
+              our server, linked to a <strong>chat session ID</strong> (a random identifier
+              held in your browser&apos;s memory for the duration of the session, distinct
+              from the analytics session ID described in Section 3).
             </p>
             <p>
               Since OpenRouter and Google are based in the USA, this constitutes a transfer
@@ -166,7 +169,10 @@ export default function PrivacyPolicyPage() {
             </p>
             <p>
               Legal basis: Art. 6(1)(a) GDPR — explicit consent given before first use of
-              the chat feature. You may withdraw your consent at any time by clicking
+              the chat feature. To comply with Art. 7(1) GDPR (burden of proof), a
+              pseudonymous consent record (timestamp, policy version, and a randomly
+              generated consent ID — no IP address) is stored server-side when you click
+              the consent button. You may withdraw your consent at any time by clicking
               &quot;Withdraw consent&quot; in the chat interface; this does not affect the
               lawfulness of processing carried out before withdrawal (Art. 7(3) GDPR).
             </p>
@@ -188,7 +194,10 @@ export default function PrivacyPolicyPage() {
               tab-scoped storage mechanism) exclusively to remember whether you have given
               consent to use the chat during the current browser session. This value is
               never transmitted to any server and is automatically deleted when you close the
-              tab.
+              tab. Writing this value to sessionStorage constitutes access to end-device
+              storage within the meaning of § 25(1) TDDDG; it is permissible without
+              separate consent under § 25(2)(2) TDDDG as it is strictly necessary to
+              provide the service (the chat) you have explicitly requested.
             </p>
           </CardContent>
         </Card>
@@ -201,7 +210,8 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc list-inside space-y-1">
               <li><strong>Analytics events</strong>: stored for 12 months, then deleted.</li>
               <li><strong>Chat sessions and messages</strong>: stored for 90 days, then deleted, or earlier upon request.</li>
-              <li><strong>Chat consent state</strong>: sessionStorage only — never stored server-side, cleared automatically when the tab is closed.</li>
+              <li><strong>Consent records</strong>: stored for 3 years (standard limitation period for civil-law evidence purposes), then deleted.</li>
+              <li><strong>Chat consent state (sessionStorage)</strong>: browser-local only — never stored server-side, cleared automatically when the tab is closed.</li>
             </ul>
           </CardContent>
         </Card>
@@ -217,7 +227,7 @@ export default function PrivacyPolicyPage() {
               <li><strong>Rectification</strong> (Art. 16 GDPR)</li>
               <li><strong>Erasure</strong> (Art. 17 GDPR)</li>
               <li><strong>Restriction of processing</strong> (Art. 18 GDPR)</li>
-              <li><strong>Data portability</strong> (Art. 20 GDPR)</li>
+              <li><strong>Data portability</strong> (Art. 20 GDPR) — applies to chat data (consent basis); not applicable to analytics data (legitimate interest basis)</li>
               <li><strong>Objection</strong> (Art. 21 GDPR) — in particular for processing based on Art. 6(1)(f) (analytics)</li>
               <li><strong>Withdrawal of consent</strong> (Art. 7(3) GDPR) — for processing based on consent (chat)</li>
             </ul>
