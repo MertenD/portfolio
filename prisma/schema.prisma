@@ -30,10 +30,12 @@ model TrackingEvent {
 }
 
 model ChatSession {
-  id        String        @id @default(cuid())
-  sessionId String        @unique
-  messages  ChatMessage[]
-  createdAt DateTime      @default(now())
+  id             String        @id @default(cuid())
+  sessionId      String        @unique
+  policyVersion  String?
+  consentGivenAt DateTime?
+  messages       ChatMessage[]
+  createdAt      DateTime      @default(now())
 }
 
 model ChatMessage {
@@ -43,11 +45,4 @@ model ChatMessage {
   role        MessageRole
   content     String
   createdAt   DateTime    @default(now())
-}
-
-model ConsentLog {
-  id            String   @id @default(cuid())
-  consentId     String   @unique
-  policyVersion String
-  createdAt     DateTime @default(now())
 }

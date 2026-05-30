@@ -6,7 +6,7 @@ import { generateId, TextStreamChatTransport } from "ai"
 
 function createChatInstance(activeFileRef: React.RefObject<string | null>) {
   const sessionId = crypto.randomUUID()
-  return new Chat({
+  const chat = new Chat({
     id: generateId(),
     // @ts-ignore
     transport: new TextStreamChatTransport({
@@ -17,10 +17,12 @@ function createChatInstance(activeFileRef: React.RefObject<string | null>) {
       }),
     }),
   })
+  return { chat, sessionId }
 }
 
 interface ChatContextType {
   chat: Chat<any>
+  sessionId: string
   resetChat: () => void
   input: string
   setInput: (v: string) => void
@@ -31,16 +33,16 @@ const ChatContext = createContext<ChatContextType | undefined>(undefined)
 
 export function ChatProvider({ children }: { children: React.ReactNode }) {
   const activeFileRef = useRef<string | null>(null)
-  const [chat, setChat] = useState(() => createChatInstance(activeFileRef))
+  const [{ chat, sessionId }, setChatState] = useState(() => createChatInstance(activeFileRef))
   const [input, setInput] = useState("")
 
   const resetChat = () => {
-    setChat(createChatInstance(activeFileRef))
+    setChatState(createChatInstance(activeFileRef))
     setInput("")
   }
 
   return (
-    <ChatContext.Provider value={{ chat, resetChat, input, setInput, activeFileRef }}>
+    <ChatContext.Provider value={{ chat, sessionId, resetChat, input, setInput, activeFileRef }}>
       {children}
     </ChatContext.Provider>
   )

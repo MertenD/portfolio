@@ -30,7 +30,7 @@ const WELCOME_TEXT = "Hi! I'm Merten's portfolio assistant — an AI system.\n\n
 export default function ChatPanel() {
   const isMobile = useIsMobile()
   const { getActiveFile, openFileById } = useFileSystem()
-  const { chat, resetChat, input, setInput, activeFileRef } = useChatContext()
+  const { chat, sessionId, resetChat, input, setInput, activeFileRef } = useChatContext()
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const [hasConsented, setHasConsented] = useState(false)
@@ -51,13 +51,12 @@ export default function ChatPanel() {
   }, [messages.length, isLoading])
 
   const handleConsent = () => {
-    const consentId = crypto.randomUUID()
     sessionStorage.setItem(CONSENT_KEY, "true")
     setHasConsented(true)
     fetch("/api/consent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ consentId, policyVersion: POLICY_VERSION }),
+      body: JSON.stringify({ sessionId, policyVersion: POLICY_VERSION }),
     }).catch(() => {})
   }
 

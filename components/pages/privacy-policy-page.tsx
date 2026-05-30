@@ -190,15 +190,25 @@ export default function PrivacyPolicyPage() {
               or external tracking services are deployed.
             </p>
             <p>
-              The chat feature uses <strong>sessionStorage</strong> (a browser-local,
-              tab-scoped storage mechanism) exclusively to remember whether you have given
-              consent to use the chat during the current browser session. This value is
-              never transmitted to any server and is automatically deleted when you close the
-              tab. Writing this value to sessionStorage constitutes access to end-device
-              storage within the meaning of § 25(1) TDDDG; it is permissible without
-              separate consent under § 25(2)(2) TDDDG as it is strictly necessary to
-              provide the service (the chat) you have explicitly requested.
+              The following data is stored in your browser&apos;s local storage:
             </p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>
+                <strong>Theme preference</strong> (<code>portfolio-theme</code>, localStorage):
+                stores your selected colour scheme (dark/light/system). This value never
+                leaves your browser and is solely used to restore your display preference on
+                subsequent visits. Legal basis: § 25(2)(2) TDDDG (strictly necessary for
+                the service you requested).
+              </li>
+              <li>
+                <strong>Chat consent</strong> (<code>portfolio-chat-consent</code>,
+                sessionStorage): remembers whether you consented to use the chat during
+                the current browser session. This value is tab-scoped, never transmitted to
+                any server, and deleted automatically when you close the tab. Legal basis:
+                § 25(2)(2) TDDDG (strictly necessary to operate the consent mechanism for
+                the chat service you explicitly requested).
+              </li>
+            </ul>
           </CardContent>
         </Card>
 
@@ -208,10 +218,10 @@ export default function PrivacyPolicyPage() {
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <ul className="list-disc list-inside space-y-1">
-              <li><strong>Analytics events</strong>: stored for 12 months, then deleted.</li>
-              <li><strong>Chat sessions and messages</strong>: stored for 90 days, then deleted, or earlier upon request.</li>
-              <li><strong>Consent records</strong>: stored for 3 years (standard limitation period for civil-law evidence purposes), then deleted.</li>
-              <li><strong>Chat consent state (sessionStorage)</strong>: browser-local only — never stored server-side, cleared automatically when the tab is closed.</li>
+              <li><strong>Analytics events</strong>: stored for 12 months, then deleted by an automated cleanup process.</li>
+              <li><strong>Chat messages</strong>: deleted after 90 days by an automated cleanup process, or earlier upon request.</li>
+              <li><strong>Chat session records</strong> (which contain the consent evidence — policy version and consent timestamp): retained for 3 years, then deleted by an automated cleanup process. This ensures the consent can be demonstrated for the standard civil-law limitation period even after the messages themselves are gone.</li>
+              <li><strong>Theme preference / chat consent state</strong>: browser-local only — never stored server-side.</li>
             </ul>
           </CardContent>
         </Card>
