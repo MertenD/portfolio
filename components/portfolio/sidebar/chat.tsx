@@ -151,8 +151,8 @@ function ConsentGate({
           This chat is powered by external AI services. Your messages will be sent to:
         </p>
         <ul className="list-disc list-inside space-y-1 text-xs">
-          <li><strong>OpenRouter Inc.</strong> (USA) — API routing (SCC)</li>
-          <li><strong>Google LLC</strong> (USA) — AI model (DPF adequacy)</li>
+          <li><strong>OpenRouter Inc.</strong> (USA) — API routing</li>
+          <li><strong>Google LLC</strong> (USA) — AI model</li>
         </ul>
         <p className="text-xs">
           You are interacting with an AI system. Do not share personal data.
