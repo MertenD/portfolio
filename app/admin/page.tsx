@@ -92,11 +92,12 @@ export default async function AdminPage({
     }
   }
 
-  const sessionData = [...sessionMap.values()].map((s) => {
+  const sessionData = [...sessionMap.values()].flatMap((s) => {
     const allTimes = [
       ...s.events.map((e) => e.createdAt.getTime()),
       ...s.chatMessages.map((m) => m.createdAt.getTime()),
     ]
+    if (!allTimes.length) return []
     const firstSeen = new Date(Math.min(...allTimes)).toISOString()
     const lastSeen = new Date(Math.max(...allTimes)).toISOString()
 
@@ -119,7 +120,7 @@ export default async function AdminPage({
       })),
     ].sort((a, b) => a.createdAt.localeCompare(b.createdAt))
 
-    return {
+    return [{
       summary: {
         sessionId: s.sessionId,
         firstSeen,
@@ -128,7 +129,7 @@ export default async function AdminPage({
         chatMessageCount: s.chatMessages.length,
       },
       timeline,
-    }
+    }]
   }).sort((a, b) => b.summary.lastSeen.localeCompare(a.summary.lastSeen))
 
   // Serialize dates for client
