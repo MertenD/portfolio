@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import { FileContentContainer } from "@/components/portfolio/file-content-container"
 import { ZoomableImage } from "@/components/ui/zoomable-image"
 
-const tech = ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Docker", "Traefik", "Tailwind CSS"]
+const tech = ["Next.js", "TypeScript", "React Flow", "PostgreSQL", "Prisma", "Better-Auth", "Docker", "Traefik", "Tailwind CSS"]
 
 const features = [
   {
@@ -77,7 +77,7 @@ export default function ProcessFlowPage() {
       headerRight={
         <div className="flex gap-2">
           <Button asChild size="sm" variant="outline">
-            <TrackedLink href="https://processflow.mertendieckmann.de" trackingName="ProcessFlow - Live Demo" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://processflow.merten.tech" trackingName="ProcessFlow - Live Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Live Demo
             </TrackedLink>
