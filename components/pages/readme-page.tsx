@@ -45,7 +45,7 @@ export default function ReadmePage() {
       onOpen: () => openFileById(FileId.ProcessFlow),
       description:
         "Web app for building and executing gamified business processes — drag-and-drop workflow editor, process execution engine, plugin system, and live monitoring.",
-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "Docker"],
+      tech: ["Next.js", "TypeScript", "React Flow", "Prisma", "PostgreSQL", "Better-Auth", "Docker"],
     },
     {
       name: "BierTurnier",
