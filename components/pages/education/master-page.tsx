@@ -54,7 +54,7 @@ export default function MasterPage() {
             </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="outline">
-            <TrackedLink href="https://gripl.mertendieckmann.de" trackingName="Master - Live Demo" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://gripl.merten.tech" trackingName="Master - Live Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Live Demo
             </TrackedLink>

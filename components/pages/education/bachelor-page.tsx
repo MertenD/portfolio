@@ -57,13 +57,13 @@ export default function BachelorPage() {
             </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="outline">
-            <TrackedLink href="http://gbpmneditor.mertendieckmann.de" trackingName="Bachelor - Editor Demo" target="_blank" rel="noreferrer">
+            <TrackedLink href="http://gbpmneditor.merten.tech" trackingName="Bachelor - Editor Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Editor Demo
             </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="outline">
-            <TrackedLink href="http://gbpmnengine.mertendieckmann.de" trackingName="Bachelor - Engine Demo" target="_blank" rel="noreferrer">
+            <TrackedLink href="http://gbpmnengine.merten.tech" trackingName="Bachelor - Engine Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Engine Demo
             </TrackedLink>
