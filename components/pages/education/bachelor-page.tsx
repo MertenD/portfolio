@@ -57,13 +57,13 @@ export default function BachelorPage() {
             </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="outline">
-            <TrackedLink href="http://gbpmneditor.merten.tech" trackingName="Bachelor - Editor Demo" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://gbpmneditor.merten.tech" trackingName="Bachelor - Editor Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Editor Demo
             </TrackedLink>
           </Button>
           <Button asChild size="sm" variant="outline">
-            <TrackedLink href="http://gbpmnengine.merten.tech" trackingName="Bachelor - Engine Demo" target="_blank" rel="noreferrer">
+            <TrackedLink href="https://gbpmnengine.merten.tech" trackingName="Bachelor - Engine Demo" target="_blank" rel="noreferrer">
               <ExternalLinkIcon />
               Engine Demo
             </TrackedLink>
@@ -120,7 +120,7 @@ export default function BachelorPage() {
             <ZoomableImage src="/images/bachelor-thesis/editor.png" alt="Gamificated BPMN Editor interface" height={280} />
             <div className="flex gap-2">
               <Button asChild size="sm" variant="outline" className="flex-1">
-                <TrackedLink href="http://gbpmneditor.merten.tech" trackingName="Bachelor - Editor Demo (card)" target="_blank" rel="noreferrer">
+                <TrackedLink href="https://gbpmneditor.merten.tech" trackingName="Bachelor - Editor Demo (card)" target="_blank" rel="noreferrer">
                   <ExternalLinkIcon /> Live Demo
                 </TrackedLink>
               </Button>
@@ -146,7 +146,7 @@ export default function BachelorPage() {
             <ZoomableImage src="/images/bachelor-thesis/engine-overview.png" alt="Gamificated BPMN Engine runtime UI" height={280} />
             <div className="flex gap-2">
               <Button asChild size="sm" variant="outline" className="flex-1">
-                <TrackedLink href="http://gbpmnengine.merten.tech" trackingName="Bachelor - Engine Demo (card)" target="_blank" rel="noreferrer">
+                <TrackedLink href="https://gbpmnengine.merten.tech" trackingName="Bachelor - Engine Demo (card)" target="_blank" rel="noreferrer">
                   <ExternalLinkIcon /> Live Demo
                 </TrackedLink>
               </Button>
