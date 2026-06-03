@@ -148,7 +148,7 @@ Node-based drag-and-drop web editor built on React Flow. Supports standard BPMN 
 - **Gateway** — routes the process based on variable conditions (e.g., user's previous answer).
 
 Export: to BPMN 2.0 XML (compatible with other BPMN tools) and to internal React Flow JSON. Loading back: only internal JSON format (BPMN→JSON transformation for challenges was not completed due to time constraints — the one unmet requirement).
-[Live Demo](https://gbpmneditor.mertendieckmann.de) · [GitHub](https://github.com/MertenD/gamificated-bpmn-editor)
+[Live Demo](https://gbpmneditor.merten.tech) · [GitHub](https://github.com/MertenD/gamificated-bpmn-editor)
 
 ## BPMN Engine (portfolio file: bachelor)
 Browser-based runtime that imports and executes the gamified BPMN JSON models. Supports all 7 node types: Start, End, Activity, Gateway, Challenge, GamificationEvent, Info.
@@ -157,7 +157,7 @@ Execution loop: load process → start at Start node → render current node's U
 
 Variable management: user inputs stored in named variables; XP, coins, and badges tracked at all times; after each activity the engine checks whether any gamification reward conditions are met.
 
-State management via Zustand. [Live Demo](https://gbpmnengine.mertendieckmann.de) · [GitHub](https://github.com/MertenD/gamificated-bpmn-engine)
+State management via Zustand. [Live Demo](https://gbpmnengine.merten.tech) · [GitHub](https://github.com/MertenD/gamificated-bpmn-engine)
 
 ## 4 Gamification Elements
 
